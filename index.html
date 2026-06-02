@@ -1,12 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>FileMover</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<main>
+			<h1>FileMover</h1>
 
+			<nav>
+				<button
+					id="tab-upload"
+					class="tab"
+					onclick="showTab('upload')"
+				>
+					Upload
+				</button>
+				<button
+					id="tab-download"
+					class="tab"
+					onclick="showTab('download')"
+				>
+					Download
+				</button>
+			</nav>
+
+			<section id="section-upload">
+				<form id="upload-form">
+					<input
+						type="file"
+						id="file-input"
+						name="file_upload_field"
+						required
+					/>
+					<button type="submit" id="upload-btn">Upload</button>
+				</form>
+				<progress id="upload-progress" value="0" max="100"></progress>
+				<p id="upload-status"></p>
+				<div id="upload-result">
+					<code id="file-id-text"></code>
+					<button id="copy-btn" onclick="copyFileId()">
+						Copy ID
+					</button>
+				</div>
+			</section>
+
+			<section id="section-download">
+				<form id="download-form">
+					<input
+						type="text"
+						id="download-input"
+						name="file_download_field"
+						placeholder="File ID or download URL"
+						autocomplete="off"
+						spellcheck="false"
+					/>
+					<button type="submit" id="search-btn">Search</button>
+				</form>
+				<p id="download-status"></p>
+				<button id="download-btn">Download</button>
+			</section>
+		</main>
+
+		<script src="scripts.js"></script>
+	</body>
+</html>
