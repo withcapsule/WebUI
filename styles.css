@@ -1,0 +1,166 @@
+:root {
+	--bg: #ffffff;
+	--fg: #111111;
+	--muted: #666666;
+	--border: #cccccc;
+	--input-bg: #ffffff;
+	--btn-bg: #111111;
+	--btn-fg: #ffffff;
+	--btn-disabled-bg: #888888;
+	--progress-bg: #dddddd;
+	--progress-fill: #111111;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #111111;
+		--fg: #eeeeee;
+		--muted: #999999;
+		--border: #333333;
+		--input-bg: #1e1e1e;
+		--btn-bg: #eeeeee;
+		--btn-fg: #111111;
+		--btn-disabled-bg: #555555;
+		--progress-bg: #333333;
+		--progress-fill: #eeeeee;
+	}
+}
+
+*,
+*::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--bg);
+	color: var(--fg);
+	font-family: monospace;
+	font-size: 14px;
+	padding: 2rem;
+}
+
+h1 {
+	font-size: 1.4rem;
+	font-weight: normal;
+	margin-bottom: 1.5rem;
+}
+
+nav {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.tab {
+	background: none;
+	border: 1px solid var(--border);
+	color: var(--muted);
+	cursor: pointer;
+	font-family: monospace;
+	font-size: 14px;
+	padding: 0.3rem 0.8rem;
+}
+
+.tab.active {
+	border-color: var(--fg);
+	color: var(--fg);
+}
+
+section {
+	display: none;
+}
+
+section.visible {
+	display: block;
+}
+
+form {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+input[type="file"],
+input[type="text"] {
+	background: var(--input-bg);
+	border: 1px solid var(--border);
+	color: var(--fg);
+	font-family: monospace;
+	font-size: 14px;
+	padding: 0.3rem 0.5rem;
+	flex: 1;
+	min-width: 0;
+}
+
+input[type="text"]::placeholder {
+	color: var(--muted);
+}
+
+button {
+	background: var(--btn-bg);
+	border: none;
+	color: var(--btn-fg);
+	cursor: pointer;
+	font-family: monospace;
+	font-size: 14px;
+	padding: 0.3rem 0.8rem;
+	white-space: nowrap;
+}
+
+button:disabled {
+	background: var(--btn-disabled-bg);
+	cursor: default;
+}
+
+progress {
+	display: none;
+	width: 100%;
+	height: 4px;
+	border: none;
+	margin-bottom: 0.75rem;
+	accent-color: var(--progress-fill);
+	background: var(--progress-bg);
+}
+
+progress.visible {
+	display: block;
+}
+
+p {
+	color: var(--muted);
+	margin-bottom: 0.75rem;
+	min-height: 1.2em;
+	word-break: break-all;
+}
+
+p.error {
+	color: #cc3333;
+}
+
+#upload-result,
+#download-btn {
+	display: none;
+}
+
+#upload-result.visible {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+#download-btn.visible {
+	display: inline-block;
+}
+
+code {
+	background: var(--progress-bg);
+	padding: 0.2rem 0.4rem;
+	font-family: monospace;
+	font-size: 14px;
+	flex: 1;
+	word-break: break-all;
+}
