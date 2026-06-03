@@ -3,27 +3,62 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Capsule</title>
+		<title>Capsule — Send files. No accounts.</title>
+		<meta name="description" content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically." />
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
-		<main>
-			<h1>FileMover</h1>
 
-			<nav>
-				<button
-					id="tab-upload"
-					class="tab"
-					onclick="showTab('upload')"
-				>
-					Upload
-				</button>
-				<button
-					id="tab-download"
-					class="tab"
-					onclick="showTab('download')"
-				>
-					Download
-				</button>
+		<header>
+			<div class="header-inner">
+				<span class="brand">capsule</span>
+				<a href="#tool" class="header-link">web tool ↓</a>
+			</div>
+		</header>
+
+		<section class="hero">
+			<h1>Send files.<br>No accounts.</h1>
+			<p class="hero-sub">Upload via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically — nothing lingers.</p>
+			<div class="cmd-block">
+				<code id="hero-cmd">curl -F "file=@photo.jpg" https://send.withcapsule.dev</code>
+				<button class="cmd-copy" onclick="copyCmd('hero-cmd', this)">copy</button>
+			</div>
+		</section>
+
+		<section class="how">
+			<div class="how-step">
+				<span class="step-n">01</span>
+				<h3>upload</h3>
+				<p>Drop any file via curl, the CLI, or the web tool below. No login, no setup.</p>
+			</div>
+			<div class="how-step">
+				<span class="step-n">02</span>
+				<h3>share</h3>
+				<p>Get a short link and a QR code rendered right in your terminal. Send it however you want.</p>
+			</div>
+			<div class="how-step">
+				<span class="step-n">03</span>
+				<h3>expires</h3>
+				<p>Files auto-delete after 15–60 min depending on size. No manual cleanup needed.</p>
+			</div>
+		</section>
+
+		<div class="specs">
+			<span>512 MB max</span>
+			<span class="specs-dot">·</span>
+			<span>15–60 min expiry</span>
+			<span class="specs-dot">·</span>
+			<span>2 GB/hr per IP</span>
+			<span class="specs-dot">·</span>
+			<span>no accounts</span>
+		</div>
+
+		<section class="tool-section" id="tool">
+			<p class="tool-heading">— or use the browser tool</p>
+
+			<nav class="tab-nav">
+				<button id="tab-upload" class="tab" onclick="showTab('upload')">Upload</button>
+				<button id="tab-download" class="tab" onclick="showTab('download')">Download</button>
 			</nav>
 
 			<section id="section-upload">
@@ -40,9 +75,7 @@
 				<p id="upload-status"></p>
 				<div id="upload-result">
 					<code id="file-id-text"></code>
-					<button id="copy-btn" onclick="copyFileId()">
-						Copy ID
-					</button>
+					<button id="copy-btn" onclick="copyFileId()">Copy ID</button>
 				</div>
 			</section>
 
@@ -61,7 +94,12 @@
 				<p id="download-status"></p>
 				<button id="download-btn">Download</button>
 			</section>
-		</main>
+		</section>
+
+		<footer>
+			<span>withcapsule.dev</span>
+			<span>files expire · no accounts · no tracking</span>
+		</footer>
 
 		<script src="scripts.js"></script>
 	</body>

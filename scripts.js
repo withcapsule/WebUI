@@ -1,4 +1,4 @@
-const API = "https://filemover.byseansingh.com";
+const API = "https://send.withcapsule.dev";
 
 let currentFileId = "";
 let lastUploadAt = 0;
@@ -20,6 +20,31 @@ function extractId( input ) {
 	}
 
 	return input.trim();
+}
+
+function copyCmd( id, btn ) {
+	const text = document.getElementById( id ).textContent;
+	if( !text ) return;
+	navigator.clipboard.writeText( text ).then( () => {
+		const orig = btn.textContent;
+		btn.textContent = "copied";
+		setTimeout( () => {
+			btn.textContent = orig;
+		}, 1200 );
+	} );
+}
+
+function copyFileId() {
+	const id = document.getElementById( "file-id-text" ).textContent;
+	if( !id ) return;
+	navigator.clipboard.writeText( id ).then( () => {
+		const btn = document.getElementById( "copy-btn" );
+		const orig = btn.textContent;
+		btn.textContent = "Copied";
+		setTimeout( () => {
+			btn.textContent = orig;
+		}, 1200 );
+	} );
 }
 
 
@@ -47,6 +72,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 
 	const form = new FormData( this );
 	const xhr = new XMLHttpRequest();
+	const startTime = Date.now();
 
 	xhr.upload.onprogress = function ( e ) {
 		if( e.lengthComputable ) {
@@ -55,7 +81,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 				e.loaded /
 				( ( Date.now() - startTime ) / 1000 ) /
 				( 1024 * 1024 )
-			 ).toFixed( 1 );
+			).toFixed( 1 );
 			status.textContent = progress.value + "% — " + mbps + " MB/s";
 		}
 	};
@@ -93,7 +119,6 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 		status.textContent = "Network error.";
 	};
 
-	const startTime = Date.now();
 	xhr.open( "POST", API + "/html_upload_processor" );
 	xhr.send( form );
 } );
@@ -154,18 +179,5 @@ document.getElementById( "download-btn" ).addEventListener( "click", function ()
 	window.location.href = API + "/download/" + currentFileId;
 } );
 
-
-function copyFileId() {
-	const id = document.getElementById( "file-id-text" ).textContent;
-	if( !id ) return;
-	navigator.clipboard.writeText( id ).then( () => {
-		const btn = document.getElementById( "copy-btn" );
-		const orig = btn.textContent;
-		btn.textContent = "Copied";
-		setTimeout( () => {
-			btn.textContent = orig;
-		}, 1200 );
-	} );
-}
 
 showTab( "upload" );
