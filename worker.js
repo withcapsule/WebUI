@@ -2,7 +2,7 @@ export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
 
-		if (url.pathname === "/pa-js/plausible.js") {
+		if (url.pathname === "/cdn/sdk.js") {
 			return fetch("https://analytics.byseansingh.com/js/pa-hKo0_jTmBVNnhdPbwQxsT.js");
 		}
 
