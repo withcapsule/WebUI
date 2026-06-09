@@ -13,8 +13,24 @@
 	--pane-info-bg: #f7f7f7;
 }
 
+:root[data-theme="dark"],
+:root[data-theme="system"] {
+	--bg: #111111;
+	--fg: #eeeeee;
+	--muted: #999999;
+	--border: #2a2a2a;
+	--input-bg: #1a1a1a;
+	--btn-bg: #eeeeee;
+	--btn-fg: #111111;
+	--btn-disabled-bg: #555555;
+	--progress-bg: #333333;
+	--progress-fill: #eeeeee;
+	--code-bg: #1a1a1a;
+	--pane-info-bg: #161616;
+}
+
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not([data-theme="light"]):not([data-theme="dark"]) {
 		--bg: #111111;
 		--fg: #eeeeee;
 		--muted: #999999;
@@ -49,6 +65,8 @@ body {
 	font-family: monospace;
 	font-size: 14px;
 	line-height: 1.6;
+
+	transition: background 0.5s;
 }
 
 /* ── Layout ── */
@@ -71,7 +89,7 @@ body {
 
 .pane-tool-inner {
 	width: 100%;
-	max-width: 480px;
+	max-width: 680px;
 }
 
 /* ── Right pane (info) ── */
@@ -91,6 +109,35 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 3rem;
+	transition: background 0.5s;
+}
+
+/* ── Theme toggle ── */
+
+.theme-toggle {
+	display: flex;
+	gap: 0.35rem;
+	align-self: flex-start;
+}
+
+.theme-btn {
+	background: none;
+	border: 1px solid var(--border);
+	color: var(--muted);
+	font-family: monospace;
+	font-size: 11px;
+	padding: 0.2rem 0.5rem;
+	cursor: pointer;
+	transition: border-color 0.5s, color 0.5s;
+}
+
+.theme-btn:hover {
+	color: var(--fg);
+}
+
+.theme-btn.active {
+	border-color: var(--fg);
+	color: var(--fg);
 }
 
 /* ── Brand / tagline / description ── */
@@ -126,7 +173,7 @@ body {
 	border-bottom: 1px solid var(--border);
 	padding-bottom: 1px;
 	align-self: flex-start;
-	transition: border-color 0.1s;
+	transition: border-color 0.5s;
 }
 
 .site-link:hover {
@@ -206,7 +253,9 @@ body {
 	font-family: monospace;
 	font-size: 14px;
 	padding: 0.3rem 0.8rem;
-	transition: border-color 0.1s, color 0.1s;
+	transition:
+		border-color 0.5s,
+		color 0.5s;
 }
 
 .tab.active {
@@ -322,6 +371,18 @@ code {
 	flex: 1;
 }
 
+#qr-canvas {
+	display: none;
+	margin-top: 1.25rem;
+	border: 1px solid var(--border);
+	padding: 0.5rem;
+	background: #fff;
+}
+
+#qr-canvas.visible {
+	display: block;
+}
+
 /* ── Curl block ── */
 
 .curl-block {
@@ -365,7 +426,9 @@ code {
 	font-size: 12px;
 	padding: 0.6rem 0.75rem;
 	white-space: nowrap;
-	transition: color 0.1s, background 0.1s;
+	transition:
+		color 0.5s,
+		background 0.5s;
 	flex-shrink: 0;
 }
 

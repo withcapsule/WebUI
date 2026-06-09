@@ -1,14 +1,35 @@
 const API = "https://send.withcapsule.dev";
 
+function setTheme( val ) {
+	if( val === "system" ) {
+		document.documentElement.removeAttribute( "data-theme" );
+	} else {
+		document.documentElement.setAttribute( "data-theme", val );
+	}
+	localStorage.setItem( "theme", val );
+	document.querySelectorAll( ".theme-btn" ).forEach( btn => {
+		btn.classList.toggle( "active", btn.dataset.themeVal === val );
+	} );
+}
+
+( function () {
+	const saved = localStorage.getItem( "theme" ) || "system";
+	setTheme( saved );
+} )();
+
 let currentFileId = "";
 let lastUploadAt = 0;
 let lastSearchAt = 0;
+
+const CURL_UPLOAD   = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/curlup';
+const CURL_DOWNLOAD = "curl -OJ https://send.withcapsule.dev/download/[file_ID]";
 
 function showTab( name ) {
 	document.getElementById( "section-upload" ).classList.toggle( "visible", name === "upload" );
 	document.getElementById( "section-download" ).classList.toggle( "visible", name === "download" );
 	document.getElementById( "tab-upload" ).classList.toggle( "active", name === "upload" );
 	document.getElementById( "tab-download" ).classList.toggle( "active", name === "download" );
+	document.getElementById( "hero-cmd" ).textContent = name === "upload" ? CURL_UPLOAD : CURL_DOWNLOAD;
 }
 
 function extractId( input ) {
@@ -66,6 +87,8 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 	status.textContent = "";
 	status.className = "";
 	result.classList.remove( "visible" );
+	const qr = document.getElementById( "qr-canvas" );
+	qr.classList.remove( "visible" );
 	progress.value = 0;
 	progress.classList.add( "visible" );
 	btn.disabled = true;
@@ -102,6 +125,11 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 					currentFileId;
 				result.classList.add( "visible" );
 				status.textContent = "Uploaded.";
+				const canvas = document.getElementById( "qr-canvas" );
+				const downloadUrl = API + "/download/" + currentFileId;
+				QRCode.toCanvas( canvas, downloadUrl, { width: 160, margin: 1 }, function() {
+					canvas.classList.add( "visible" );
+				} );
 			} else {
 				status.textContent = text.trim();
 			}

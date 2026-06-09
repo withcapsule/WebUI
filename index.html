@@ -4,26 +4,49 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Capsule — Send files. No accounts.</title>
-		<meta name="description" content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically." />
+		<meta
+			name="description"
+			content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically."
+		/>
 		<link rel="stylesheet" href="styles.css" />
-	<!-- Privacy-friendly analytics by Plausible -->
-	<script async src="https://analytics.byseansingh.com/js/pa-hKo0_jTmBVNnhdPbwQxsT.js"></script>
-	<script>
-		window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-		plausible.init()
-	</script>
+		<!-- Privacy-friendly analytics by Plausible -->
+		<script
+			async
+			src="https://analytics.byseansingh.com/js/pa-hKo0_jTmBVNnhdPbwQxsT.js"
+		></script>
+		<script>
+			((window.plausible =
+				window.plausible ||
+				function () {
+					(plausible.q = plausible.q || []).push(arguments);
+				}),
+				(plausible.init =
+					plausible.init ||
+					function (i) {
+						plausible.o = i || {};
+					}));
+			plausible.init();
+		</script>
 	</head>
 	<body>
-
 		<div class="layout">
-
-			<!-- Left pane: tool -->
 			<div class="pane pane-tool">
 				<div class="pane-tool-inner">
-
 					<nav class="tab-nav">
-						<button id="tab-upload" class="tab" onclick="showTab('upload')">Upload</button>
-						<button id="tab-download" class="tab" onclick="showTab('download')">Download</button>
+						<button
+							id="tab-upload"
+							class="tab"
+							onclick="showTab('upload')"
+						>
+							Send
+						</button>
+						<button
+							id="tab-download"
+							class="tab"
+							onclick="showTab('download')"
+						>
+							Receive
+						</button>
 					</nav>
 
 					<section id="section-upload">
@@ -34,14 +57,23 @@
 								name="file_upload_field"
 								required
 							/>
-							<button type="submit" id="upload-btn">Upload</button>
+							<button type="submit" id="upload-btn">
+								Send
+							</button>
 						</form>
-						<progress id="upload-progress" value="0" max="100"></progress>
+						<progress
+							id="upload-progress"
+							value="0"
+							max="100"
+						></progress>
 						<p id="upload-status"></p>
 						<div id="upload-result">
 							<code id="file-id-text"></code>
-							<button id="copy-btn" onclick="copyFileId()">Copy ID</button>
+							<button id="copy-btn" onclick="copyFileId()">
+								Copy ID
+							</button>
 						</div>
+						<canvas id="qr-canvas"></canvas>
 					</section>
 
 					<section id="section-download">
@@ -54,32 +86,57 @@
 								autocomplete="off"
 								spellcheck="false"
 							/>
-							<button type="submit" id="search-btn">Search</button>
+							<button type="submit" id="search-btn">
+								Search
+							</button>
 						</form>
 						<p id="download-status"></p>
-						<button id="download-btn">Download</button>
+						<button id="download-btn">Receive</button>
 					</section>
 
 					<div class="curl-block">
 						<p class="curl-label">or via curl</p>
 						<div class="cmd-block">
-							<code id="hero-cmd">curl -F "file=@photo.jpg" https://send.withcapsule.dev</code>
-							<button class="cmd-copy" onclick="copyCmd('hero-cmd', this)">copy</button>
+							<code id="hero-cmd"
+								>curl -F "f=@photo.jpg" https://send.withcapsule.dev/curlup</code
+							>
+							<button
+								class="cmd-copy"
+								onclick="copyCmd('hero-cmd', this)"
+							>
+								copy
+							</button>
 						</div>
 					</div>
-
 				</div>
 			</div>
 
-			<!-- Right pane: info -->
 			<div class="pane pane-info">
 				<div class="pane-info-inner">
+					<div class="theme-toggle">
+						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
+						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
+						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+					</div>
 
 					<div class="info-top">
 						<span class="brand">capsule</span>
-						<h1 class="tagline">Send files.<br>No accounts.</h1>
-						<p class="description">Upload any file via curl, the CLI, or this page. Get a short link and QR code back instantly. Files expire automatically — nothing lingers.</p>
-						<a class="site-link" href="https://www.byseansingh.com" target="_blank" rel="noopener">byseansingh.com ↗</a>
+						<h1 class="tagline">Send files.<br />No accounts.</h1>
+						<p class="description">
+							Upload any file via curl, the CLI, or this page. Get
+							a short link and QR code back instantly. Files
+							expire automatically after 1 hour.
+						</p>
+						<p>
+							Made
+							<a
+								class="site-link"
+								href="https://www.byseansingh.com"
+								target="_blank"
+								rel="noopener"
+								>byseansingh.com ↗</a
+							>
+						</p>
 					</div>
 
 					<div class="info-bottom">
@@ -87,42 +144,48 @@
 							<div class="how-step">
 								<span class="step-n">01</span>
 								<div>
-									<h3>upload</h3>
-									<p>Drop any file via curl, the CLI, or the web tool. No login, no setup.</p>
+									<h3>Send</h3>
+									<p>
+										Send any file via curl, the CLI, or this
+										website. No login & no setup.
+									</p>
 								</div>
 							</div>
 							<div class="how-step">
 								<span class="step-n">02</span>
 								<div>
-									<h3>share</h3>
-									<p>Get a short link and a QR code rendered right in your terminal.</p>
+									<h3>Share</h3>
+									<p>
+										Get a link and a QR code immediately.
+									</p>
 								</div>
 							</div>
 							<div class="how-step">
 								<span class="step-n">03</span>
 								<div>
-									<h3>expires</h3>
-									<p>Files auto-delete after 15–60 min depending on size.</p>
+									<h3>Secure</h3>
+									<p>
+										Files auto-delete after 60 min.
+									</p>
 								</div>
 							</div>
 						</div>
 
 						<div class="specs">
-							<span>512 MB max</span>
+							<span>256 MB max file size</span>
 							<span class="specs-dot">·</span>
-							<span>15–60 min expiry</span>
+							<span>60 min expiry</span>
 							<span class="specs-dot">·</span>
-							<span>2 GB/hr per IP</span>
+							<span>2 GB/hr upload limit</span>
 							<span class="specs-dot">·</span>
-							<span>no accounts</span>
+							<span>No accounts</span>
 						</div>
 					</div>
-
 				</div>
 			</div>
-
 		</div>
 
+		<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 		<script src="scripts.js"></script>
 	</body>
 </html>
