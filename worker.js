@@ -7,9 +7,12 @@ export default {
 		}
 
 		if (url.pathname === "/pa-api/event") {
+			const headers = new Headers(request.headers);
+			const visitorIp = request.headers.get("CF-Connecting-IP");
+			if (visitorIp) headers.set("X-Forwarded-For", visitorIp);
 			return fetch("https://analytics.byseansingh.com/api/event", {
 				method: request.method,
-				headers: request.headers,
+				headers,
 				body: request.body,
 			});
 		}
