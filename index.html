@@ -11,9 +11,10 @@
 		<link rel="stylesheet" href="styles.css" />
 		<!-- Privacy-friendly analytics by Plausible -->
 		<script
-			async
-			src="https://analytics.byseansingh.com/js/pa-hKo0_jTmBVNnhdPbwQxsT.js"
-			data-api="https://analytics.byseansingh.com/api/event"
+			defer
+			data-domain="withcapsule.dev"
+			src="/cdn/sdk.js"
+			data-api="/pa-api/event"
 		></script>
 		<script>
 			((window.plausible =
@@ -115,9 +116,9 @@
 			<div class="pane pane-info">
 				<div class="pane-info-inner">
 					<div class="theme-toggle">
-						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
-						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
-						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light', true)">light</button>
+						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark', true)">dark</button>
+						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system', true)">system</button>
 					</div>
 
 					<div class="info-top">

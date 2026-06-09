@@ -1,4 +1,4 @@
-# Web UI for FileMover
+# Web UI for Capsule
 
 should be quite simple to run this
 
