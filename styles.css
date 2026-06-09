@@ -180,6 +180,13 @@ body {
 	border-color: var(--fg);
 }
 
+.cli-blurb {
+	color: var(--muted);
+	font-size: 12px;
+	line-height: 1.6;
+	margin-top: 6px;
+}
+
 /* ── How it works ── */
 
 .info-bottom {
