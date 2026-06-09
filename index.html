@@ -6,100 +6,122 @@
 		<title>Capsule — Send files. No accounts.</title>
 		<meta name="description" content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically." />
 		<link rel="stylesheet" href="styles.css" />
+	<!-- Privacy-friendly analytics by Plausible -->
+	<script async src="https://analytics.byseansingh.com/js/pa-hKo0_jTmBVNnhdPbwQxsT.js"></script>
+	<script>
+		window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+		plausible.init()
+	</script>
 	</head>
 	<body>
 
-		<header>
-			<div class="header-inner">
-				<span class="brand">capsule</span>
-				<a href="#tool" class="header-link">web tool ↓</a>
-			</div>
-		</header>
+		<div class="layout">
 
-		<section class="hero">
-			<h1>Send files.<br>No accounts.</h1>
-			<p class="hero-sub">Upload via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically — nothing lingers.</p>
-			<div class="cmd-block">
-				<code id="hero-cmd">curl -F "file=@photo.jpg" https://send.withcapsule.dev</code>
-				<button class="cmd-copy" onclick="copyCmd('hero-cmd', this)">copy</button>
-			</div>
-		</section>
+			<!-- Left pane: tool -->
+			<div class="pane pane-tool">
+				<div class="pane-tool-inner">
 
-		<section class="how">
-			<div class="how-step">
-				<span class="step-n">01</span>
-				<h3>upload</h3>
-				<p>Drop any file via curl, the CLI, or the web tool below. No login, no setup.</p>
-			</div>
-			<div class="how-step">
-				<span class="step-n">02</span>
-				<h3>share</h3>
-				<p>Get a short link and a QR code rendered right in your terminal. Send it however you want.</p>
-			</div>
-			<div class="how-step">
-				<span class="step-n">03</span>
-				<h3>expires</h3>
-				<p>Files auto-delete after 15–60 min depending on size. No manual cleanup needed.</p>
-			</div>
-		</section>
+					<nav class="tab-nav">
+						<button id="tab-upload" class="tab" onclick="showTab('upload')">Upload</button>
+						<button id="tab-download" class="tab" onclick="showTab('download')">Download</button>
+					</nav>
 
-		<div class="specs">
-			<span>512 MB max</span>
-			<span class="specs-dot">·</span>
-			<span>15–60 min expiry</span>
-			<span class="specs-dot">·</span>
-			<span>2 GB/hr per IP</span>
-			<span class="specs-dot">·</span>
-			<span>no accounts</span>
-		</div>
+					<section id="section-upload">
+						<form id="upload-form">
+							<input
+								type="file"
+								id="file-input"
+								name="file_upload_field"
+								required
+							/>
+							<button type="submit" id="upload-btn">Upload</button>
+						</form>
+						<progress id="upload-progress" value="0" max="100"></progress>
+						<p id="upload-status"></p>
+						<div id="upload-result">
+							<code id="file-id-text"></code>
+							<button id="copy-btn" onclick="copyFileId()">Copy ID</button>
+						</div>
+					</section>
 
-		<section class="tool-section" id="tool">
-			<p class="tool-heading">— or use the browser tool</p>
+					<section id="section-download">
+						<form id="download-form">
+							<input
+								type="text"
+								id="download-input"
+								name="file_download_field"
+								placeholder="File ID or download URL"
+								autocomplete="off"
+								spellcheck="false"
+							/>
+							<button type="submit" id="search-btn">Search</button>
+						</form>
+						<p id="download-status"></p>
+						<button id="download-btn">Download</button>
+					</section>
 
-			<nav class="tab-nav">
-				<button id="tab-upload" class="tab" onclick="showTab('upload')">Upload</button>
-				<button id="tab-download" class="tab" onclick="showTab('download')">Download</button>
-			</nav>
+					<div class="curl-block">
+						<p class="curl-label">or via curl</p>
+						<div class="cmd-block">
+							<code id="hero-cmd">curl -F "file=@photo.jpg" https://send.withcapsule.dev</code>
+							<button class="cmd-copy" onclick="copyCmd('hero-cmd', this)">copy</button>
+						</div>
+					</div>
 
-			<section id="section-upload">
-				<form id="upload-form">
-					<input
-						type="file"
-						id="file-input"
-						name="file_upload_field"
-						required
-					/>
-					<button type="submit" id="upload-btn">Upload</button>
-				</form>
-				<progress id="upload-progress" value="0" max="100"></progress>
-				<p id="upload-status"></p>
-				<div id="upload-result">
-					<code id="file-id-text"></code>
-					<button id="copy-btn" onclick="copyFileId()">Copy ID</button>
 				</div>
-			</section>
+			</div>
 
-			<section id="section-download">
-				<form id="download-form">
-					<input
-						type="text"
-						id="download-input"
-						name="file_download_field"
-						placeholder="File ID or download URL"
-						autocomplete="off"
-						spellcheck="false"
-					/>
-					<button type="submit" id="search-btn">Search</button>
-				</form>
-				<p id="download-status"></p>
-				<button id="download-btn">Download</button>
-			</section>
-		</section>
+			<!-- Right pane: info -->
+			<div class="pane pane-info">
+				<div class="pane-info-inner">
 
-		<footer>
-			<span>withcapsule.dev</span>
-			<span>files expire · no accounts · no tracking</span>
-		</footer>
+					<div class="info-top">
+						<span class="brand">capsule</span>
+						<h1 class="tagline">Send files.<br>No accounts.</h1>
+						<p class="description">Upload any file via curl, the CLI, or this page. Get a short link and QR code back instantly. Files expire automatically — nothing lingers.</p>
+						<a class="site-link" href="https://www.byseansingh.com" target="_blank" rel="noopener">byseansingh.com ↗</a>
+					</div>
+
+					<div class="info-bottom">
+						<div class="how-steps">
+							<div class="how-step">
+								<span class="step-n">01</span>
+								<div>
+									<h3>upload</h3>
+									<p>Drop any file via curl, the CLI, or the web tool. No login, no setup.</p>
+								</div>
+							</div>
+							<div class="how-step">
+								<span class="step-n">02</span>
+								<div>
+									<h3>share</h3>
+									<p>Get a short link and a QR code rendered right in your terminal.</p>
+								</div>
+							</div>
+							<div class="how-step">
+								<span class="step-n">03</span>
+								<div>
+									<h3>expires</h3>
+									<p>Files auto-delete after 15–60 min depending on size.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="specs">
+							<span>512 MB max</span>
+							<span class="specs-dot">·</span>
+							<span>15–60 min expiry</span>
+							<span class="specs-dot">·</span>
+							<span>2 GB/hr per IP</span>
+							<span class="specs-dot">·</span>
+							<span>no accounts</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
 
 		<script src="scripts.js"></script>
 	</body>
