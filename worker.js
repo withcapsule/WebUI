@@ -25,6 +25,24 @@ export default {
 			});
 		}
 
+		if (url.pathname === "/u.js") {
+			const res = await fetch("https://analytics2.byseansingh.com/script.js");
+			const headers = new Headers(res.headers);
+			headers.set("Cache-Control", "public, max-age=86400");
+			return new Response(res.body, { status: res.status, headers });
+		}
+
+		if (url.pathname === "/cdn/u") {
+			const headers = new Headers(request.headers);
+			headers.set("X-Forwarded-For", request.headers.get("CF-Connecting-IP") || "");
+			headers.delete("host");
+			return fetch("https://analytics2.byseansingh.com/api/send", {
+				method: request.method,
+				headers,
+				body: request.body,
+			});
+		}
+
 		return env.ASSETS.fetch(request);
 	},
 };
