@@ -32,7 +32,7 @@ export default {
 			return new Response(res.body, { status: res.status, headers });
 		}
 
-		if (url.pathname === "/cdn/u" || url.pathname === "/send") {
+		if (url.pathname === "/cdn/u" || url.pathname === "/api/send") {
 			const headers = new Headers(request.headers);
 			headers.set("X-Forwarded-For", request.headers.get("CF-Connecting-IP") || "");
 			headers.delete("host");

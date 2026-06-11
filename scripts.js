@@ -5,7 +5,7 @@ function track( name, props ) {
 	window.umami?.track( name, props );
 }
 
-function setTheme( val, track = false ) {
+function setTheme( val, doTrack = false ) {
 	if( val === "system" ) {
 		document.documentElement.removeAttribute( "data-theme" );
 	} else {
@@ -15,7 +15,7 @@ function setTheme( val, track = false ) {
 	document.querySelectorAll( ".theme-btn" ).forEach( btn => {
 		btn.classList.toggle( "active", btn.dataset.themeVal === val );
 	} );
-	if( track ) track( "Theme Change", { theme: val } );
+	if( doTrack ) track( "Theme Change", { theme: val } );
 }
 
 ( function () {
