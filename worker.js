@@ -17,7 +17,11 @@ export default {
 		if (url.pathname === "/pa-api/event") {
 			const headers = new Headers(request.headers);
 			const visitorIp = request.headers.get("CF-Connecting-IP");
-			if (visitorIp) headers.set("X-Forwarded-For", visitorIp);
+			if (visitorIp) {
+				headers.set("X-Forwarded-For", visitorIp);
+				headers.set("X-Real-IP", visitorIp);
+			}
+			headers.delete("host");
 			return fetch("https://analytics.byseansingh.com/api/event", {
 				method: request.method,
 				headers,
@@ -34,7 +38,11 @@ export default {
 
 		if (url.pathname === "/cdn/u" || url.pathname === "/api/send") {
 			const headers = new Headers(request.headers);
-			headers.set("X-Forwarded-For", request.headers.get("CF-Connecting-IP") || "");
+			const visitorIp = request.headers.get("CF-Connecting-IP");
+			if (visitorIp) {
+				headers.set("X-Forwarded-For", visitorIp);
+				headers.set("X-Real-IP", visitorIp);
+			}
 			headers.delete("host");
 			return fetch("https://analytics2.byseansingh.com/api/send", {
 				method: request.method,
