@@ -1,5 +1,10 @@
 const API = "https://send.withcapsule.dev";
 
+function track( name, props ) {
+	plausible( name, props ? { props } : undefined );
+	window.umami?.track( name, props );
+}
+
 function setTheme( val, track = false ) {
 	if( val === "system" ) {
 		document.documentElement.removeAttribute( "data-theme" );
@@ -10,7 +15,7 @@ function setTheme( val, track = false ) {
 	document.querySelectorAll( ".theme-btn" ).forEach( btn => {
 		btn.classList.toggle( "active", btn.dataset.themeVal === val );
 	} );
-	if( track ) plausible( "Theme Change", { props: { theme: val } } );
+	if( track ) track( "Theme Change", { theme: val } );
 }
 
 ( function () {
@@ -31,7 +36,7 @@ function showTab( name ) {
 	document.getElementById( "tab-upload" ).classList.toggle( "active", name === "upload" );
 	document.getElementById( "tab-download" ).classList.toggle( "active", name === "download" );
 	document.getElementById( "hero-cmd" ).textContent = name === "upload" ? CURL_UPLOAD : CURL_DOWNLOAD;
-	plausible( "Tab Switch", { props: { tab: name } } );
+	track( "Tab Switch", { tab: name } );
 }
 
 function extractId( input ) {
@@ -49,7 +54,7 @@ function copyCmd( id, btn ) {
 	const text = document.getElementById( id ).textContent;
 	if( !text ) return;
 	navigator.clipboard.writeText( text ).then( () => {
-		plausible( "Copy Curl Command" );
+		track( "Copy Curl Command" );
 		const orig = btn.textContent;
 		btn.textContent = "copied";
 		setTimeout( () => {
@@ -62,7 +67,7 @@ function copyFileId() {
 	const id = document.getElementById( "file-id-text" ).textContent;
 	if( !id ) return;
 	navigator.clipboard.writeText( id ).then( () => {
-		plausible( "Copy File ID" );
+		track( "Copy File ID" );
 		const btn = document.getElementById( "copy-btn" );
 		const orig = btn.textContent;
 		btn.textContent = "Copied";
@@ -98,7 +103,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 	btn.disabled = true;
 
 	const fileSizeMB = ( fileInput.files[0].size / ( 1024 * 1024 ) ).toFixed( 1 );
-	plausible( "Upload Started", { props: { size_mb: fileSizeMB } } );
+	track( "Upload Started", { size_mb: fileSizeMB } );
 
 	const form = new FormData( this );
 	const xhr = new XMLHttpRequest();
@@ -132,7 +137,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 					currentFileId;
 				result.classList.add( "visible" );
 				status.textContent = "Uploaded.";
-				plausible( "Upload Success", { props: { size_mb: fileSizeMB } } );
+				track( "Upload Success", { size_mb: fileSizeMB } );
 				const canvas = document.getElementById( "qr-canvas" );
 				const downloadUrl = API + "/download/" + currentFileId;
 				QRCode.toCanvas( canvas, downloadUrl, { width: 160, margin: 1 }, function() {
@@ -145,7 +150,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 			status.className = "error";
 			status.textContent =
 				xhr.responseText.trim() || "Upload failed ( " + xhr.status + " )";
-			plausible( "Upload Failed", { props: { status: xhr.status } } );
+			track( "Upload Failed", { status: xhr.status } );
 		}
 	};
 
@@ -154,7 +159,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 		btn.disabled = false;
 		status.className = "error";
 		status.textContent = "Network error.";
-		plausible( "Upload Failed", { props: { status: "network_error" } } );
+		track( "Upload Failed", { status: "network_error" } );
 	};
 
 	xhr.open( "POST", API + "/html_upload_processor" );
@@ -175,7 +180,7 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 	const dlBtn = document.getElementById( "download-btn" );
 	const searchBtn = document.getElementById( "search-btn" );
 
-	plausible( "File Search" );
+	track( "File Search" );
 	status.textContent = "Searching...";
 	status.className = "";
 	dlBtn.classList.remove( "visible" );
@@ -195,13 +200,13 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 			currentFileId = id;
 			status.textContent = xhr.responseText.trim();
 			dlBtn.classList.add( "visible" );
-			plausible( "File Found" );
+			track( "File Found" );
 		} else {
 			status.className = "error";
 			status.textContent =
 				xhr.responseText.trim() || "Not found ( " + xhr.status + " )";
 			dlBtn.classList.remove( "visible" );
-			plausible( "File Not Found" );
+			track( "File Not Found" );
 		}
 	};
 
@@ -217,7 +222,7 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 
 document.getElementById( "download-btn" ).addEventListener( "click", function () {
 	if( !currentFileId ) return;
-	plausible( "File Downloaded" );
+	track( "File Downloaded" );
 	window.location.href = API + "/download/" + currentFileId;
 } );
 
