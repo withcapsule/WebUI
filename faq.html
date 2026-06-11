@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>How It Works & FAQ — Capsule File Transfer Tool</title>
+		<meta name="description" content="How Capsule works: send files for free with no login via curl or browser, get a short link instantly. FAQ covering file limits, security, privacy, CLI usage, and more." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="how to send files with curl, free file transfer no login, anonymous file sharing, temporary file hosting, curl upload share link, encrypted file transfer tool, no account file sharing" />
+		<link rel="canonical" href="https://withcapsule.dev/faq" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="How It Works & FAQ — Capsule" />
+		<meta property="og:description" content="How Capsule works: send files for free with no login via curl or browser, get a short link instantly. Covers limits, security, privacy, and CLI usage." />
+		<meta property="og:url" content="https://withcapsule.dev/faq" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- JSON-LD FAQPage (rich results in Google) -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "What is Capsule?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser and get a short link and QR code instantly. No login or account is required."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How do I send a file with curl?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Run: curl -F \"f=@yourfile.txt\" https://send.withcapsule.dev/curlup — you'll receive a short download link immediately."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Do I need an account to transfer files?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "No. Capsule requires no account, no login, and no personal information. Just upload and share."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "How long do files stay available?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Files automatically delete after 60 minutes. There is no way to extend this — it's a deliberate privacy feature."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What is the maximum file size?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "100 MB per file. There is also a 2 GB per hour upload limit across all users."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is there a CLI tool?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. The Capsule CLI supports file encryption and decryption, local transfer history, and self-hosting options — features beyond the web interface."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is Capsule free to use?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes, Capsule is completely free with no paid tiers."
+					}
+				}
+			]
+		}
+		</script>
+
+		<!-- Favicons -->
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<link rel="stylesheet" href="styles.css" />
+		<!-- Privacy-friendly analytics by Plausible -->
+		<script
+			defer
+			data-domain="withcapsule.dev"
+			src="/cdn/sdk.js"
+			data-api="/pa-api/event"
+		></script>
+		<script>
+			((window.plausible =
+				window.plausible ||
+				function () {
+					(plausible.q = plausible.q || []).push(arguments);
+				}),
+				(plausible.init =
+					plausible.init ||
+					function (i) {
+						plausible.o = i || {};
+					}));
+			plausible.init();
+		</script>
+	</head>
+	<body>
+		<div class="faq-wrap">
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-brand">Capsule</p>
+			<h1 class="faq-title">How it works &amp; FAQ</h1>
+			<p class="faq-intro">
+				Capsule is a free anonymous file transfer tool — no login, no account, no tracking.
+				Send any file from the command line or your browser and get a shareable link back in seconds.
+				Files automatically delete after 60 minutes.
+			</p>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Getting started</p>
+
+				<div class="faq-q">
+					<h3>How do I send a file with curl?</h3>
+					<p>One command. You get a short download link back immediately.</p>
+					<pre>curl -F "f=@photo.jpg" https://send.withcapsule.dev/curlup</pre>
+				</div>
+
+				<div class="faq-q">
+					<h3>How do I send a file from the browser?</h3>
+					<p>Go to <a href="/">withcapsule.dev</a>, click the Send tab, choose your file, and hit Send. You'll get a short link and a QR code you can share or scan immediately.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>How does the recipient download the file?</h3>
+					<p>Share the link or QR code with them. They open it in a browser (or use curl) and the file downloads directly — no account needed on their end either.</p>
+					<pre>curl -O https://send.withcapsule.dev/&lt;file-id&gt;</pre>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Limits &amp; specs</p>
+
+				<div class="faq-q">
+					<h3>What is the maximum file size?</h3>
+					<p>100 MB per file.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>How long do files stay up?</h3>
+					<p>60 minutes from the time of upload. After that the file is automatically and permanently deleted. This is a deliberate design choice — temporary by default.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Is there an upload rate limit?</h3>
+					<p>2 GB per hour across all uploads. This keeps the service free for everyone.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>What file types are supported?</h3>
+					<p>Any file type. There are no restrictions on file format.</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Privacy &amp; security</p>
+
+				<div class="faq-q">
+					<h3>Do I need an account or login?</h3>
+					<p>No. Capsule requires no account, no email, and no personal information of any kind. Just upload and share.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Is my file transfer private?</h3>
+					<p>Files are stored temporarily and deleted automatically after 60 minutes. No personal data is collected. Analytics are handled by Plausible, a privacy-friendly tool that does not use cookies or collect personal identifiers.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Does Capsule support encrypted file transfer?</h3>
+					<p>Encryption and decryption are available in the Capsule CLI tool. The web interface handles transport over HTTPS but does not apply end-to-end encryption on its own.</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">CLI &amp; advanced use</p>
+
+				<div class="faq-q">
+					<h3>Is there a CLI tool?</h3>
+					<p>Yes. The Capsule CLI supports encrypted file transfer, local transfer history, and self-hosting options — more than what the web interface offers.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Can I self-host Capsule?</h3>
+					<p>Self-hosting support is available via the CLI tool.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Who built this?</h3>
+					<p>Capsule was built by <a href="https://www.byseansingh.com?utm_source=withcapsule.dev&utm_medium=faq&utm_campaign=faq_footer" target="_blank" rel="noopener">Sean Singh</a>. Read about the motivation and design decisions on the <a href="https://blog.byseansingh.com" target="_blank" rel="noopener">blog →</a></p>
+				</div>
+			</div>
+
+			<a class="faq-back" href="/">← back to Capsule</a>
+		</div>
+
+		<script defer src="/u.js" data-website-id="5e9bc0c2-4cdf-44d9-b38d-12fd3fb26784" data-api="/cdn/u"></script>
+		<script>
+			const stored = localStorage.getItem("theme");
+			if (stored === "dark") {
+				document.documentElement.setAttribute("data-theme", "dark");
+			} else if (stored === "light") {
+				document.documentElement.setAttribute("data-theme", "light");
+			}
+		</script>
+	</body>
+</html>
