@@ -3,11 +3,63 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Capsule — Send files. No accounts.</title>
-		<meta
-			name="description"
-			content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically."
-		/>
+		<title>Capsule — Send Files Online. No Login, No Accounts.</title>
+		<meta name="description" content="Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser — get a short link and QR code instantly. No login, no account. Files auto-delete after 60 minutes." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href="https://withcapsule.dev/" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta property="og:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+		<meta property="og:url" content="https://withcapsule.dev/" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta name="twitter:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+
+		<!-- JSON-LD -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebApplication",
+			"name": "Capsule",
+			"url": "https://withcapsule.dev",
+			"description": "A free, anonymous file transfer tool. Upload any file via curl, CLI, or browser and get a short link and QR code instantly. Files auto-delete after 60 minutes. No login or account required.",
+			"applicationCategory": "UtilitiesApplication",
+			"operatingSystem": "Any",
+			"browserRequirements": "Requires JavaScript",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"author": {
+				"@type": "Person",
+				"name": "Sean Singh",
+				"url": "https://www.byseansingh.com"
+			},
+			"featureList": [
+				"No login or account required",
+				"File upload via curl, CLI, or browser",
+				"Short link and QR code on upload",
+				"Files auto-delete after 60 minutes",
+				"100 MB max file size",
+				"2 GB/hr upload limit"
+			]
+		}
+		</script>
+
+		<!-- Favicons -->
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
 		<link rel="stylesheet" href="styles.css" />
 		<!-- Privacy-friendly analytics by Plausible -->
 		<script
