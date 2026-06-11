@@ -228,3 +228,68 @@ document.getElementById( "download-btn" ).addEventListener( "click", function ()
 
 
 showTab( "upload" );
+
+( function () {
+	function findAnchor( target ) {
+		let el = target;
+		for( let i = 0; i <= 3 && el; i++, el = el.parentNode ) {
+			if( el.tagName?.toLowerCase() === "a" && el.href ) return el;
+		}
+		return null;
+	}
+
+	function handleClick( e ) {
+		if( e.type === "auxclick" && e.button !== 1 ) return;
+		const anchor = findAnchor( e.target );
+		if( anchor && anchor.host && anchor.host !== location.host ) {
+			window.umami?.track( "Outbound Link: Click", { url: anchor.href } );
+		}
+	}
+	document.addEventListener( "click", handleClick );
+	document.addEventListener( "auxclick", handleClick );
+
+	function pageHeight() {
+		const b = document.body || {}, d = document.documentElement || {};
+		return Math.max(
+			b.scrollHeight || 0, b.offsetHeight || 0,
+			d.scrollHeight || 0, d.offsetHeight || 0, d.clientHeight || 0,
+		);
+	}
+
+	let totalH = pageHeight();
+	let maxScroll = ( window.scrollY || 0 ) + ( window.innerHeight || document.documentElement?.clientHeight || 0 );
+	let activeStart = document.hasFocus() ? Date.now() : 0;
+	let activeMs = 0;
+	let sent = false;
+
+	document.addEventListener( "scroll", () => {
+		totalH = pageHeight();
+		const reached = ( window.scrollY || 0 ) + ( window.innerHeight || document.documentElement?.clientHeight || 0 );
+		if( reached > maxScroll ) maxScroll = reached;
+	} );
+
+	window.addEventListener( "load", () => { totalH = pageHeight(); } );
+
+	function onFocusChange() {
+		if( document.hasFocus() && document.visibilityState === "visible" ) {
+			if( !activeStart ) activeStart = Date.now();
+		} else {
+			if( activeStart ) { activeMs += Date.now() - activeStart; activeStart = 0; }
+			flush();
+		}
+	}
+	document.addEventListener( "visibilitychange", onFocusChange );
+	window.addEventListener( "blur", onFocusChange );
+	window.addEventListener( "focus", onFocusChange );
+
+	function flush() {
+		if( sent ) return;
+		const vp = window.innerHeight || document.documentElement?.clientHeight || 0;
+		const sd = totalH <= vp ? 100 : Math.round( ( maxScroll / totalH ) * 100 );
+		const elapsed = activeStart ? activeMs + ( Date.now() - activeStart ) : activeMs;
+		if( elapsed < 0 ) return;
+		sent = true;
+		window.umami?.track( "engagement", { sd, e: elapsed } );
+	}
+} )();
+
