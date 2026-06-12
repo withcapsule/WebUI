@@ -10,7 +10,6 @@
 		<meta name="keywords" content="how to send files with curl, free file transfer no login, anonymous file sharing, temporary file hosting, curl upload share link, encrypted file transfer tool, no account file sharing" />
 		<link rel="canonical" href="https://withcapsule.dev/faq" />
 
-		<!-- Open Graph -->
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="Capsule" />
 		<meta property="og:title" content="How It Works & FAQ — Capsule" />
@@ -18,7 +17,6 @@
 		<meta property="og:url" content="https://withcapsule.dev/faq" />
 		<meta property="og:locale" content="en_US" />
 
-		<!-- JSON-LD FAQPage (rich results in Google) -->
 		<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -29,7 +27,7 @@
 					"name": "What is Capsule?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser and get a short link and QR code instantly. No login or account is required."
+						"text": "Capsule is an open source, free, and secure file transfer tool. Upload any file via your browser, the CLI, or curl and get a short link and QR code instantly. No login or account is required."
 					}
 				},
 				{
@@ -53,7 +51,7 @@
 					"name": "How long do files stay available?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Files automatically delete after 60 minutes. There is no way to extend this — it's a deliberate privacy feature."
+						"text": "Files automatically delete after 60 minutes. It's a deliberate privacy and security feature."
 					}
 				},
 				{
@@ -69,7 +67,7 @@
 					"name": "Is there a CLI tool?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Yes. The Capsule CLI supports file encryption and decryption, local transfer history, and self-hosting options — features beyond the web interface."
+						"text": "Yes. The Capsule CLI supports file encryption and decryption, local transfer history, and self-hosting options. All of these are features beyond the web interface."
 					}
 				},
 				{
@@ -77,21 +75,19 @@
 					"name": "Is Capsule free to use?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Yes, Capsule is completely free with no paid tiers."
+						"text": "Yes, Capsule is completely free with no paid tiers. Additionally, it can be easily self-hosted."
 					}
 				}
 			]
 		}
 		</script>
 
-		<!-- Favicons -->
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
 
 		<link rel="stylesheet" href="styles.css" />
-		<!-- Privacy-friendly analytics by Plausible -->
 		<script
 			defer
 			data-domain="withcapsule.dev"
@@ -119,8 +115,8 @@
 			<p class="faq-brand">Capsule</p>
 			<h1 class="faq-title">How it works &amp; FAQ</h1>
 			<p class="faq-intro">
-				Capsule is a free anonymous file transfer tool — no login, no account, no tracking.
-				Send any file from the command line or your browser and get a shareable link back in seconds.
+				Capsule is a free anonymous file transfer tool with no logins, no accounts, and no personal information collected.
+				Send any file from your browser or the command line and get a shareable link back in seconds.
 				Files automatically delete after 60 minutes.
 			</p>
 
@@ -140,7 +136,7 @@
 
 				<div class="faq-q">
 					<h3>How does the recipient download the file?</h3>
-					<p>Share the link or QR code with them. They open it in a browser (or use curl) and the file downloads directly — no account needed on their end either.</p>
+					<p>Share the link or QR code with them. They open it in a browser (or use curl as shown here) and the file downloads directly, no account needed on their end either.</p>
 					<pre>curl -O https://send.withcapsule.dev/&lt;file-id&gt;</pre>
 				</div>
 			</div>
@@ -155,12 +151,12 @@
 
 				<div class="faq-q">
 					<h3>How long do files stay up?</h3>
-					<p>60 minutes from the time of upload. After that the file is automatically and permanently deleted. This is a deliberate design choice — temporary by default.</p>
+					<p>60 minutes from the time of upload. After that the file is automatically and permanently deleted.</p>
 				</div>
 
 				<div class="faq-q">
 					<h3>Is there an upload rate limit?</h3>
-					<p>2 GB per hour across all uploads. This keeps the service free for everyone.</p>
+					<p>2 GB per hour per uploader. This keeps the service free for everyone.</p>
 				</div>
 
 				<div class="faq-q">
@@ -179,12 +175,12 @@
 
 				<div class="faq-q">
 					<h3>Is my file transfer private?</h3>
-					<p>Files are stored temporarily and deleted automatically after 60 minutes. No personal data is collected. Analytics are handled by Plausible, a privacy-friendly tool that does not use cookies or collect personal identifiers.</p>
+					<p>Files are stored temporarily and deleted automatically after 60 minutes. No personal data is collected. Analytics are only on the web interface, and handled by Plausible, a privacy-friendly tool that does not use cookies or collect personal identifiers.</p>
 				</div>
 
 				<div class="faq-q">
 					<h3>Does Capsule support encrypted file transfer?</h3>
-					<p>Encryption and decryption are available in the Capsule CLI tool. The web interface handles transport over HTTPS but does not apply end-to-end encryption on its own.</p>
+					<p>Encryption and decryption are available in the Capsule CLI tool. The web interface handles transfers without any additional setup but does not apply end-to-end encryption on its own.</p>
 				</div>
 			</div>
 
@@ -193,12 +189,12 @@
 
 				<div class="faq-q">
 					<h3>Is there a CLI tool?</h3>
-					<p>Yes. The Capsule CLI supports encrypted file transfer, local transfer history, and self-hosting options — more than what the web interface offers.</p>
+					<p>Yes. The Capsule CLI supports encrypted file transfer, local history, and self-hosting options, more than what the web interface offers.</p>
 				</div>
 
 				<div class="faq-q">
 					<h3>Can I self-host Capsule?</h3>
-					<p>Self-hosting support is available via the CLI tool.</p>
+					<p>Yes, the documentation has instructions on how to host the Capsule Server and configure the CLI to point to it.</p>
 				</div>
 
 				<div class="faq-q">
@@ -221,3 +217,4 @@
 		</script>
 	</body>
 </html>
+
