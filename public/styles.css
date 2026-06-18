@@ -444,6 +444,132 @@ code {
 	background: var(--border);
 }
 
+/* ── SEO footer ── */
+
+.seo-footer {
+	padding: 2.5rem 3rem;
+	border-top: 1px solid var(--border);
+	color: var(--muted);
+	font-size: 12px;
+	line-height: 1.8;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.seo-footer ul {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem 1.5rem;
+}
+
+.seo-footer ul li::before {
+	content: "— ";
+	opacity: 0.4;
+}
+
+.seo-footer a {
+	color: var(--muted);
+	text-decoration: none;
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 1px;
+	align-self: flex-start;
+	transition: color 0.3s, border-color 0.3s;
+}
+
+.seo-footer a:hover {
+	color: var(--fg);
+	border-color: var(--fg);
+}
+
+/* ── FAQ page ── */
+
+.faq-wrap {
+	max-width: 680px;
+	margin: 0 auto;
+	padding: 3rem 2rem 5rem;
+}
+
+.faq-back {
+	display: inline-block;
+	color: var(--muted);
+	text-decoration: none;
+	font-size: 12px;
+	border-bottom: 1px solid transparent;
+	margin-bottom: 2.5rem;
+	transition: color 0.3s, border-color 0.3s;
+}
+
+.faq-back:hover {
+	color: var(--fg);
+	border-color: var(--border);
+}
+
+.faq-brand {
+	font-size: 0.85rem;
+	letter-spacing: 0.1em;
+	color: var(--muted);
+	margin-bottom: 0.75rem;
+}
+
+.faq-title {
+	font-size: 1.75rem;
+	font-weight: normal;
+	margin-bottom: 0.75rem;
+}
+
+.faq-intro {
+	color: var(--muted);
+	font-size: 13px;
+	line-height: 1.75;
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid var(--border);
+}
+
+.faq-section {
+	margin-bottom: 3rem;
+}
+
+.faq-section-title {
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	color: var(--muted);
+	text-transform: uppercase;
+	margin-bottom: 1.5rem;
+}
+
+.faq-q {
+	margin-bottom: 2rem;
+}
+
+.faq-q h3 {
+	font-size: 0.9rem;
+	font-weight: normal;
+	margin-bottom: 0.4rem;
+}
+
+.faq-q p,
+.faq-q pre {
+	color: var(--muted);
+	font-size: 12px;
+	line-height: 1.75;
+}
+
+.faq-q pre {
+	background: var(--code-bg);
+	padding: 0.6rem 0.75rem;
+	margin-top: 0.5rem;
+	overflow-x: auto;
+}
+
+.faq-q a {
+	color: var(--fg);
+	text-decoration: none;
+	border-bottom: 1px solid var(--border);
+}
+
 /* ── Mobile: stack tool on top, info on bottom ── */
 
 @media (max-width: 700px) {

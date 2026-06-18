@@ -1,8 +1,0 @@
-name = "webui"
-main = "worker.js"
-compatibility_date = "2026-06-09"
-compatibility_flags = ["nodejs_compat"]
-
-[assets]
-directory = "."
-binding = "ASSETS"

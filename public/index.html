@@ -3,11 +3,61 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Capsule — Send files. No accounts.</title>
-		<meta
-			name="description"
-			content="Upload a file via curl or the CLI. Get a link and QR code back in seconds. Files expire automatically."
-		/>
+		<title>Capsule — Send Files Online. No Login, No Accounts.</title>
+		<meta name="description" content="Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser — get a short link and QR code instantly. No login, no account. Files auto-delete after 60 minutes." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="free file transfer tool, anonymous file sharing, send files online, no login file upload, curl file upload, temporary file hosting, encrypted file transfer, file sharing no account, send large files online" />
+		<link rel="canonical" href="https://withcapsule.dev/" />
+		<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta property="og:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+		<meta property="og:url" content="https://withcapsule.dev/" />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta name="twitter:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebApplication",
+			"name": "Capsule",
+			"url": "https://withcapsule.dev",
+			"description": "A free, anonymous file transfer tool. Upload any file via curl, CLI, or browser and get a short link and QR code instantly. Files auto-delete after 60 minutes. No login or account required.",
+			"applicationCategory": "UtilitiesApplication",
+			"operatingSystem": "Any",
+			"browserRequirements": "Requires JavaScript",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"author": {
+				"@type": "Person",
+				"name": "Sean Singh",
+				"url": "https://www.byseansingh.com"
+			},
+			"featureList": [
+				"No login or account required",
+				"File upload via curl, CLI, or browser",
+				"Short link and QR code on upload",
+				"Files auto-delete after 60 minutes",
+				"100 MB max file size",
+				"2 GB/hr upload limit"
+			]
+		}
+		</script>
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
 		<link rel="stylesheet" href="styles.css" />
 		<!-- Privacy-friendly analytics by Plausible -->
 		<script
@@ -138,12 +188,21 @@
 								rel="noopener"
 								>byseansingh.com ↗</a
 							>
+							·
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule"
+								target="_blank"
+								rel="noopener"
+								>View Source on GitHub ↗</a
+							>
 						</p>
 						<p class="cli-blurb">
 							Want more features?
 							<br/>
-							The CLI tool supports file encryption &amp; decryption, local transfer history, and self-hosting options.
+							The <a class="site-link" href="https://github.com/withcapsule/CLI" target="_blank" rel="noopener">CLI tool</a> supports file encryption &amp; decryption, local transfer history, and self-hosting options.
 						</p>
+						<a class="site-link" href="/faq">How it works &amp; FAQ →</a>
 					</div>
 
 					<div class="info-bottom">
@@ -192,7 +251,14 @@
 			</div>
 		</div>
 
+		<footer class="seo-footer">
+			<p>Capsule is a free anonymous file transfer tool with no accounts, auto-deletion, and no server-side tracking. Upload any file via <code>curl</code>, the CLI, or your browser and get a short link and QR code back in seconds. Files are automatically deleted after 60 minutes, making it ideal for quick temporary file sharing, sending files between devices, or one-off file drops without setting up cloud storage. Optionally, use the CLI for the ability to encrypt and decrypt files.</p>
+			<a href="/faq">How it works &amp; FAQ →</a>
+		</footer>
+
+		<script defer src="/u.js" data-website-id="5e9bc0c2-4cdf-44d9-b38d-12fd3fb26784" data-api="/cdn/u"></script>
 		<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 		<script src="scripts.js"></script>
 	</body>
 </html>
+
