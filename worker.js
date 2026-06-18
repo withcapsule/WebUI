@@ -4,12 +4,12 @@ export default {
 
 		if (url.pathname === "/cdn/d") {
 			const headers = new Headers(request.headers);
-			const visitorIp = request.headers.get("CF-Connecting-IP");
-			if (visitorIp) {
-				headers.set("X-Forwarded-For", visitorIp);
-				headers.set("X-Real-IP", visitorIp);
-			}
+			headers.set(
+				"X-Forwarded-For",
+				request.headers.get("CF-Connecting-IP") || "",
+			);
 			headers.delete("host");
+
 			return fetch("https://analytics.byseansingh.com/api/event", {
 				method: request.method,
 				headers,
@@ -18,7 +18,9 @@ export default {
 		}
 
 		if (url.pathname === "/u.js") {
-			const res = await fetch("https://analytics2.byseansingh.com/script.js");
+			const res = await fetch(
+				"https://analytics2.byseansingh.com/script.js",
+			);
 			const headers = new Headers(res.headers);
 			headers.set("Cache-Control", "public, max-age=86400");
 			return new Response(res.body, { status: res.status, headers });
@@ -26,12 +28,12 @@ export default {
 
 		if (url.pathname === "/cdn/u" || url.pathname === "/api/send") {
 			const headers = new Headers(request.headers);
-			const visitorIp = request.headers.get("CF-Connecting-IP");
-			if (visitorIp) {
-				headers.set("X-Forwarded-For", visitorIp);
-				headers.set("X-Real-IP", visitorIp);
-			}
+			headers.set(
+				"X-Forwarded-For",
+				request.headers.get("CF-Connecting-IP") || "",
+			);
 			headers.delete("host");
+
 			return fetch("https://analytics2.byseansingh.com/api/send", {
 				method: request.method,
 				headers,
