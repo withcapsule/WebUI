@@ -34,7 +34,7 @@ export default {
 			);
 			headers.delete("host");
 
-			return fetch("https://analytics2.byseansingh.com/api/send", {
+			return fetch("https://a1.withcapsule.dev/api/send", {
 				method: request.method,
 				headers,
 				body: request.body,
