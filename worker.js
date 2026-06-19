@@ -19,7 +19,7 @@ export default {
 
 		if (url.pathname === "/u.js") {
 			const res = await fetch(
-				"https://a1.withcapsule.dev./script.js",
+				"https://a1.withcapsule.dev/script.js",
 			);
 			const headers = new Headers(res.headers);
 			headers.set("Cache-Control", "public, max-age=86400");
