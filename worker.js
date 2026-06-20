@@ -10,7 +10,7 @@ export default {
 			);
 			headers.delete("host");
 
-			return fetch("https://analytics.byseansingh.com/api/event", {
+			return fetch("https://ap.byseansingh.com/api/event", {
 				method: request.method,
 				headers,
 				body: request.body,
@@ -19,7 +19,7 @@ export default {
 
 		if (url.pathname === "/u.js") {
 			const res = await fetch(
-				"https://a1.withcapsule.dev/script.js",
+				"https://au.withcapsule.dev/script.js",
 			);
 			const headers = new Headers(res.headers);
 			headers.set("Cache-Control", "public, max-age=86400");
@@ -34,7 +34,7 @@ export default {
 			);
 			headers.delete("host");
 
-			return fetch("https://a1.withcapsule.dev/api/send", {
+			return fetch("https://au.withcapsule.dev/api/send", {
 				method: request.method,
 				headers,
 				body: request.body,
