@@ -27,7 +27,7 @@ let currentFileId = "";
 let lastUploadAt = 0;
 let lastSearchAt = 0;
 
-const CURL_UPLOAD   = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/curlup';
+const CURL_UPLOAD   = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload';
 const CURL_DOWNLOAD = "curl -OJ https://send.withcapsule.dev/download/[file_ID]";
 
 function showTab( name ) {
