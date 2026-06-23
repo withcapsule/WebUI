@@ -162,7 +162,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 		track( "Upload Failed", { status: "network_error" } );
 	};
 
-	xhr.open( "POST", API + "/html_upload_processor" );
+	xhr.open( "POST", API + "/upload?encrypted=false" );
 	xhr.send( form );
 } );
 
@@ -190,15 +190,16 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 		searchBtn.disabled = false;
 	}, 1000 );
 
-	const form = new FormData();
-	form.append( "file_download_field", id );
-
 	const xhr = new XMLHttpRequest();
 
 	xhr.onload = function () {
 		if( xhr.status === 200 ) {
+			const info = JSON.parse( xhr.responseText );
 			currentFileId = id;
-			status.textContent = xhr.responseText.trim();
+			const mb = info.file_size / ( 1024 * 1024 );
+			const sizeStr = mb >= 1 ? mb.toFixed( 1 ) + " MB" : ( info.file_size / 1024 ).toFixed( 1 ) + " KB";
+			const minLeft = Math.max( 1, Math.ceil( info.time_remaining / 60 ) );
+			status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left";
 			dlBtn.classList.add( "visible" );
 			track( "File Found" );
 		} else {
@@ -215,8 +216,8 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 		status.textContent = "Network error.";
 	};
 
-	xhr.open( "POST", API + "/html_download_processor" );
-	xhr.send( form );
+	xhr.open( "GET", API + "/status/" + id );
+	xhr.send();
 } );
 
 
