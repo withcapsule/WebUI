@@ -79,12 +79,31 @@ body {
 /* ── Left pane (tool) ── */
 
 .pane-tool {
+	position: relative;
 	flex: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 3rem 2rem;
 	border-right: 1px solid var(--border);
+}
+
+.pane-tool.drag-active::after {
+	content: "Drop to send";
+	position: absolute;
+	inset: 1rem;
+	border: 2px dashed var(--muted);
+	border-radius: 4px;
+	background: var(--bg);
+	opacity: 0.93;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: monospace;
+	font-size: 13px;
+	color: var(--muted);
+	pointer-events: none;
+	z-index: 10;
 }
 
 .pane-tool-inner {
@@ -304,6 +323,17 @@ input[type="text"] {
 	min-width: 0;
 }
 
+input[type="file"]::file-selector-button {
+	background: var(--btn-bg);
+	border: none;
+	color: var(--btn-fg);
+	cursor: pointer;
+	font-family: monospace;
+	font-size: 14px;
+	padding: 0.3rem 0.8rem;
+	margin-right: 0.5rem;
+}
+
 input[type="text"]::placeholder {
 	color: var(--muted);
 }
@@ -336,6 +366,12 @@ progress {
 
 progress.visible {
 	display: block;
+}
+
+p#upload-hint {
+	font-size: 13px;
+	color: var(--muted);
+	margin-bottom: 0.6rem;
 }
 
 p#upload-status,

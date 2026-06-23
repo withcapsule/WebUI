@@ -228,6 +228,55 @@ document.getElementById( "download-btn" ).addEventListener( "click", function ()
 } );
 
 
+( function () {
+	const dropZone = document.querySelector( ".pane-tool" );
+	let dragCounter = 0;
+
+	dropZone.addEventListener( "dragenter", function ( e ) {
+		if( !e.dataTransfer.types.includes( "Files" ) ) return;
+		e.preventDefault();
+		dragCounter++;
+		dropZone.classList.add( "drag-active" );
+	} );
+
+	dropZone.addEventListener( "dragleave", function () {
+		if( --dragCounter === 0 ) dropZone.classList.remove( "drag-active" );
+	} );
+
+	dropZone.addEventListener( "dragover", function ( e ) {
+		e.preventDefault();
+		e.dataTransfer.dropEffect = "copy";
+	} );
+
+	dropZone.addEventListener( "drop", function ( e ) {
+		e.preventDefault();
+		dragCounter = 0;
+		dropZone.classList.remove( "drag-active" );
+
+		const files = e.dataTransfer.files;
+		if( !files.length ) return;
+
+		showTab( "upload" );
+
+		const dt = new DataTransfer();
+		dt.items.add( files[ 0 ] );
+		document.getElementById( "file-input" ).files = dt.files;
+	} );
+} )();
+
+
+document.addEventListener( "paste", function ( e ) {
+	const files = e.clipboardData?.files;
+	if( !files?.length ) return;
+
+	showTab( "upload" );
+
+	const dt = new DataTransfer();
+	dt.items.add( files[ 0 ] );
+	document.getElementById( "file-input" ).files = dt.files;
+} );
+
+
 showTab( "upload" );
 
 ( function () {
