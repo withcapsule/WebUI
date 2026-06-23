@@ -41,6 +41,20 @@ export default {
 			});
 		}
 
-		return env.ASSETS.fetch(request);
+		const response = await env.ASSETS.fetch(request);
+		const headers = new Headers(response.headers);
+		headers.set( "Content-Security-Policy",
+			"default-src 'none'; " +
+			"script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; " +
+			"style-src 'self'; " +
+			"connect-src 'self' https://send.withcapsule.dev; " +
+			"img-src 'self' data:; " +
+			"font-src 'self'; " +
+			"manifest-src 'self'; " +
+			"frame-ancestors 'none';"
+		);
+		headers.set( "X-Frame-Options", "DENY" );
+		headers.set( "X-Content-Type-Options", "nosniff" );
+		return new Response( response.body, { status: response.status, headers } );
 	},
 };
