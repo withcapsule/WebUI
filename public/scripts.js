@@ -279,6 +279,36 @@ document.addEventListener( "paste", function ( e ) {
 
 showTab( "upload" );
 
+function showInstallTab( platform ) {
+	[ 'mac', 'linux', 'windows' ].forEach( p => {
+		document.getElementById( 'install-' + p ).classList.toggle( 'visible', p === platform );
+		document.getElementById( 'itab-' + p ).classList.toggle( 'active', p === platform );
+	} );
+}
+
+function copyInstall( platform ) {
+	const text = document.getElementById( 'install-cmd-' + platform ).textContent;
+	navigator.clipboard.writeText( text ).then( () => {
+		track( 'Copy Install Command', { platform } );
+		const btn = document.querySelector( '#install-' + platform + ' .cmd-copy' );
+		const orig = btn.textContent;
+		btn.textContent = 'copied';
+		setTimeout( () => { btn.textContent = orig; }, 1200 );
+	} );
+}
+
+( function () {
+	const ua = navigator.userAgent;
+	const pl = ( navigator.userAgentData?.platform || navigator.platform || '' ).toLowerCase();
+	if( pl.includes( 'win' ) || ua.includes( 'Windows' ) ) {
+		showInstallTab( 'windows' );
+	} else if( !pl.includes( 'mac' ) && !ua.includes( 'Mac' ) ) {
+		showInstallTab( 'linux' );
+	} else {
+		showInstallTab( 'mac' );
+	}
+} )();
+
 ( function () {
 	function findAnchor( target ) {
 		let el = target;

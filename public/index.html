@@ -156,6 +156,28 @@
 							</button>
 						</div>
 					</div>
+
+					<div class="install-block">
+						<p class="curl-label">or install the CLI</p>
+						<nav class="install-tab-nav">
+							<button id="itab-mac"     class="install-tab" onclick="showInstallTab('mac')">Mac</button>
+							<button id="itab-linux"   class="install-tab" onclick="showInstallTab('linux')">Linux</button>
+							<button id="itab-windows" class="install-tab" onclick="showInstallTab('windows')">Windows</button>
+						</nav>
+						<div id="install-mac" class="cmd-block install-cmd">
+							<code id="install-cmd-mac">curl -fsSL https://withcapsule.dev/install-macos.sh | sh</code>
+							<button class="cmd-copy" onclick="copyInstall('mac')">copy</button>
+						</div>
+						<div id="install-linux" class="cmd-block install-cmd">
+							<code id="install-cmd-linux">curl -fsSL https://withcapsule.dev/install-linux.sh | sh</code>
+							<button class="cmd-copy" onclick="copyInstall('linux')">copy</button>
+						</div>
+						<div id="install-windows" class="cmd-block install-cmd">
+							<code id="install-cmd-windows">irm https://withcapsule.dev/install.ps1 | iex</code>
+							<button class="cmd-copy" onclick="copyInstall('windows')">copy</button>
+						</div>
+						<p class="install-more">See supported package managers in the <a class="site-link" href="https://docs.withcapsule.dev/guides/cli/#installation" target="_blank" rel="noopener">CLI docs ↗</a></p>
+					</div>
 				</div>
 			</div>
 
