@@ -10,7 +10,18 @@ case "$ARCH" in
     *)       printf 'Unsupported architecture: %s\n' "$ARCH" >&2; exit 1 ;;
 esac
 
-VERSION=$(curl -fsSL "https://api.github.com/repos/withcapsule/CLI/releases/latest" \
+fetch() {
+    if command -v curl > /dev/null 2>&1; then
+        curl -fsSL "$1"
+    elif command -v wget > /dev/null 2>&1; then
+        wget -qO- "$1"
+    else
+        printf 'error: curl or wget is required\n' >&2
+        exit 1
+    fi
+}
+
+VERSION=$(fetch "https://api.github.com/repos/withcapsule/CLI/releases/latest" \
     | grep '"tag_name"' \
     | sed 's/.*"tag_name": *"\([^"]*\)".*/\1/')
 [ -z "$VERSION" ] && { printf 'Could not fetch latest version\n' >&2; exit 1; }
@@ -22,7 +33,7 @@ TMP=$(mktemp -d)
 trap 'rm -rf "${TMP}"' EXIT
 
 printf 'Installing capsule %s (%s)...\n' "$VERSION" "$TARGET"
-curl -fsSL "$URL" | tar -xz -C "${TMP}"
+fetch "$URL" | tar -xz -C "${TMP}"
 chmod +x "${TMP}/capsule"
 mv "${TMP}/capsule" "${BIN_DIR}/capsule"
 
