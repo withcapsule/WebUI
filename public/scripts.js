@@ -130,7 +130,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 			const idx = text.indexOf( marker );
 			if( idx !== -1 ) {
 				const after = text.slice( idx + marker.length );
-				currentFileId = after.match( /^[A-Za-z0-9]+/ )?.[0] ?? "";
+				currentFileId = after.match( /^[A-Za-z0-9-]+/ )?.[0] ?? "";
 			}
 			if( currentFileId ) {
 				document.getElementById( "file-id-text" ).textContent =
