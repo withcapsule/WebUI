@@ -84,20 +84,22 @@
 							id="tab-upload"
 							class="tab"
 							onclick="showTab('upload')"
+							aria-keyshortcuts="S"
 						>
-							Send
+							Send <kbd class="tab-key" aria-hidden="true">S</kbd>
 						</button>
 						<button
 							id="tab-download"
 							class="tab"
 							onclick="showTab('download')"
+							aria-keyshortcuts="R"
 						>
-							Receive
+							Receive <kbd class="tab-key" aria-hidden="true">R</kbd>
 						</button>
 					</nav>
 
 					<section id="section-upload">
-						<p id="upload-hint">Drag &amp; drop, paste a file, or pick one below.</p>
+						<p id="upload-hint">Drag &amp; drop, paste a file or text, or pick one below.</p>
 						<form id="upload-form">
 							<input
 								type="file"
@@ -138,6 +140,7 @@
 								Search
 							</button>
 						</form>
+						<p id="download-hint">Tip: spacebar inserts a hyphen, so you can type IDs like <code>made by sean</code> :)</p>
 						<p id="download-status"></p>
 						<button id="download-btn">Receive</button>
 					</section>

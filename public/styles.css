@@ -293,6 +293,24 @@ body {
 	color: var(--fg);
 }
 
+.tab-key {
+	margin-left: 0.4rem;
+	padding: 0 0.3rem;
+	border: 1px solid var(--border);
+	border-radius: 3px;
+	font-family: monospace;
+	font-size: 11px;
+	color: var(--muted);
+	opacity: 0.65;
+}
+
+.tab.active .tab-key,
+.tab:hover .tab-key {
+	border-color: currentColor;
+	color: inherit;
+	opacity: 1;
+}
+
 section#section-upload,
 section#section-download {
 	display: none;
@@ -368,10 +386,16 @@ progress.visible {
 	display: block;
 }
 
-p#upload-hint {
+p#upload-hint,
+p#download-hint {
 	font-size: 13px;
 	color: var(--muted);
 	margin-bottom: 0.6rem;
+}
+
+p#download-hint code {
+	font-size: 12px;
+	padding: 0.1rem 0.3rem;
 }
 
 p#upload-status,

@@ -27,27 +27,43 @@ let currentFileId = "";
 let lastUploadAt = 0;
 let lastSearchAt = 0;
 
-const CURL_UPLOAD   = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload';
-const CURL_DOWNLOAD = "curl -OJ https://send.withcapsule.dev/download/[file_ID]";
+const CURL_UPLOAD         = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload';
+const DOWNLOAD_CMD_PREFIX = "curl -OJ https://send.withcapsule.dev/download/";
+
+
+
+function downloadCmd() {
+	const id = extractId( document.getElementById( "download-input" ).value );
+	return DOWNLOAD_CMD_PREFIX + ( id || "[file_ID]" );
+}
+
+
+function updateDownloadCmd() {
+	if( !document.getElementById( "tab-download" ).classList.contains( "active" ) ) return;
+	document.getElementById( "hero-cmd" ).textContent = downloadCmd();
+}
 
 function showTab( name ) {
 	document.getElementById( "section-upload" ).classList.toggle( "visible", name === "upload" );
 	document.getElementById( "section-download" ).classList.toggle( "visible", name === "download" );
 	document.getElementById( "tab-upload" ).classList.toggle( "active", name === "upload" );
 	document.getElementById( "tab-download" ).classList.toggle( "active", name === "download" );
-	document.getElementById( "hero-cmd" ).textContent = name === "upload" ? CURL_UPLOAD : CURL_DOWNLOAD;
+	document.getElementById( "hero-cmd" ).textContent = name === "upload" ? CURL_UPLOAD : downloadCmd();
 	track( "Tab Switch", { tab: name } );
 }
 
 function extractId( input ) {
 	const i = input.lastIndexOf( "/download/" );
+	let id;
 
 	if( i !== -1 ) {
 		const after = input.slice( i + "/download/".length ).replace( /\/$/, "" );
-		return after || input;
+		id = after || input;
+	} else {
+		id = input.trim();
 	}
 
-	return input.trim();
+	return id.replace( /^-+|-+$/g, "" );
 }
 
 function copyCmd( id, btn ) {
@@ -167,6 +183,18 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 } );
 
 
+
+
+document.getElementById( "download-input" ).addEventListener( "input", function () {
+	if( this.value.indexOf( " " ) !== -1 ) {
+		const start = this.selectionStart;
+		const end = this.selectionEnd;
+		this.value = this.value.replace( / /g, "-" );
+		this.setSelectionRange( start, end );
+	}
+	updateDownloadCmd();
+} );
+
 document.getElementById( "download-form" ).addEventListener( "submit", function ( e ) {
 	e.preventDefault();
 
@@ -256,24 +284,53 @@ document.getElementById( "download-btn" ).addEventListener( "click", function ()
 		const files = e.dataTransfer.files;
 		if( !files.length ) return;
 
-		showTab( "upload" );
-
-		const dt = new DataTransfer();
-		dt.items.add( files[ 0 ] );
-		document.getElementById( "file-input" ).files = dt.files;
+		setUploadFile( files[ 0 ] );
 	} );
 } )();
 
 
+
+function setUploadFile( file ) {
+	showTab( "upload" );
+	const dt = new DataTransfer();
+	dt.items.add( file );
+	document.getElementById( "file-input" ).files = dt.files;
+}
+
 document.addEventListener( "paste", function ( e ) {
 	const files = e.clipboardData?.files;
-	if( !files?.length ) return;
+	if( files?.length ) {
+		setUploadFile( files[ 0 ] );
+		return;
+	}
 
-	showTab( "upload" );
 
-	const dt = new DataTransfer();
-	dt.items.add( files[ 0 ] );
-	document.getElementById( "file-input" ).files = dt.files;
+	const el = document.activeElement;
+	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable ) ) return;
+
+	const text = e.clipboardData?.getData( "text/plain" );
+	if( !text ) return;
+
+	setUploadFile( new File( [ text ], "pasted.txt", { type: "text/plain" } ) );
+} );
+
+
+
+
+document.addEventListener( "keydown", function ( e ) {
+	if( e.ctrlKey || e.metaKey || e.altKey ) return;
+
+	const el = document.activeElement;
+	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable ) ) return;
+
+	const key = e.key.toLowerCase();
+	const target = key === "s" ? "upload" : key === "r" ? "download" : null;
+	if( !target ) return;
+
+	const tabId = target === "upload" ? "tab-upload" : "tab-download";
+	if( document.getElementById( tabId ).classList.contains( "active" ) ) return;
+
+	showTab( target );
 } );
 
 
@@ -372,4 +429,3 @@ function copyInstall( platform ) {
 		window.umami?.track( "engagement", { sd, e: elapsed } );
 	}
 } )();
-
