@@ -111,6 +111,10 @@
 								Send
 							</button>
 						</form>
+						<label id="encrypt-toggle-label">
+							<input type="checkbox" id="encrypt-toggle" />
+							Encrypt <span class="encrypt-hint">(fully in your browser; we never see the contents)</span>
+						</label>
 						<progress
 							id="upload-progress"
 							value="0"
@@ -124,6 +128,13 @@
 							</button>
 						</div>
 						<canvas id="qr-canvas"></canvas>
+						<div id="mnemonic-block">
+							<p class="mnemonic-warn">Save this key. Without it, your file cannot be recovered.</p>
+							<div class="mnemonic-row">
+								<code id="mnemonic-text"></code>
+								<button id="mnemonic-copy" onclick="copyMnemonic()">Copy</button>
+							</div>
+						</div>
 					</section>
 
 					<section id="section-download">
@@ -142,6 +153,9 @@
 						</form>
 						<p id="download-hint">Tip: spacebar inserts a hyphen, so you can type IDs like <code>made by sean</code> :)</p>
 						<p id="download-status"></p>
+						<div id="decrypt-block">
+							<input type="password" id="mnemonic-input" placeholder="Enter the 12-word phrase to decrypt" autocomplete="off" spellcheck="false" />
+						</div>
 						<button id="download-btn">Receive</button>
 					</section>
 
@@ -180,6 +194,11 @@
 							<button class="cmd-copy" onclick="copyInstall('windows')">copy</button>
 						</div>
 						<p class="install-more">See supported package managers in the <a class="site-link" href="https://docs.withcapsule.dev/guides/cli/#installation" target="_blank" rel="noopener">CLI docs ↗</a></p>
+					</div>
+
+					<div class="install-block">
+						<p class="curl-label">or get the Android app</p>
+						<p class="install-more">Download from <a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a> — Play Store release coming soon.</p>
 					</div>
 				</div>
 			</div>
@@ -288,6 +307,7 @@
 		<script defer src="/s.js"></script>
 		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
 		<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+		<script src="/vendor/capsule-crypto.js"></script>
 		<script src="scripts.js"></script>
 	</body>
 </html>

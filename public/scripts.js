@@ -24,6 +24,8 @@ function setTheme( val, doTrack = false ) {
 } )();
 
 let currentFileId = "";
+let currentFileName = "";
+let currentIsEncrypted = false;
 let lastUploadAt = 0;
 let lastSearchAt = 0;
 
@@ -94,7 +96,7 @@ function copyFileId() {
 }
 
 
-document.getElementById( "upload-form" ).addEventListener( "submit", function ( e ) {
+document.getElementById( "upload-form" ).addEventListener( "submit", async function ( e ) {
 	e.preventDefault();
 
 	const now = Date.now();
@@ -103,25 +105,57 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 
 	const fileInput = document.getElementById( "file-input" );
 	if( !fileInput.files.length ) return;
+	const file = fileInput.files[ 0 ];
 
 	const status = document.getElementById( "upload-status" );
 	const progress = document.getElementById( "upload-progress" );
 	const result = document.getElementById( "upload-result" );
 	const btn = document.getElementById( "upload-btn" );
+	const mnemonicBlock = document.getElementById( "mnemonic-block" );
 
 	status.textContent = "";
 	status.className = "";
 	result.classList.remove( "visible" );
+	mnemonicBlock.classList.remove( "visible" );
 	const qr = document.getElementById( "qr-canvas" );
 	qr.classList.remove( "visible" );
 	progress.value = 0;
-	progress.classList.add( "visible" );
 	btn.disabled = true;
 
-	const fileSizeMB = ( fileInput.files[0].size / ( 1024 * 1024 ) ).toFixed( 1 );
-	track( "Upload Started", { size_mb: fileSizeMB } );
+	const encrypt = document.getElementById( "encrypt-toggle" ).checked;
+	const fileSizeMB = ( file.size / ( 1024 * 1024 ) ).toFixed( 1 );
+	track( "Upload Started", { size_mb: fileSizeMB, encrypted: encrypt } );
 
-	const form = new FormData( this );
+	let form;
+	let mnemonic = "";
+
+	if( encrypt ) {
+		if( !window.CapsuleCrypto ) {
+			status.className = "error";
+			status.textContent = "Encryption unavailable. Reload and try again.";
+			btn.disabled = false;
+			return;
+		}
+		try {
+			status.textContent = "Encrypting…";
+			mnemonic = CapsuleCrypto.makeMnemonic();
+			const plain = new Uint8Array( await file.arrayBuffer() );
+			const cipher = await CapsuleCrypto.encryptFile( plain, mnemonic );
+			form = new FormData();
+			form.append( "f", new Blob( [ cipher ], { type: "application/octet-stream" } ), file.name );
+		} catch ( err ) {
+			status.className = "error";
+			status.textContent = "Encryption failed.";
+			btn.disabled = false;
+			track( "Encrypt Failed" );
+			return;
+		}
+	} else {
+		form = new FormData( this );
+	}
+
+	progress.classList.add( "visible" );
+
 	const xhr = new XMLHttpRequest();
 	const startTime = Date.now();
 
@@ -152,13 +186,17 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 				document.getElementById( "file-id-text" ).textContent =
 					currentFileId;
 				result.classList.add( "visible" );
-				status.textContent = "Uploaded.";
-				track( "Upload Success", { size_mb: fileSizeMB } );
+				status.textContent = encrypt ? "Encrypted & uploaded." : "Uploaded.";
+				track( "Upload Success", { size_mb: fileSizeMB, encrypted: encrypt } );
 				const canvas = document.getElementById( "qr-canvas" );
 				const downloadUrl = API + "/download/" + currentFileId;
 				QRCode.toCanvas( canvas, downloadUrl, { width: 160, margin: 1 }, function() {
 					canvas.classList.add( "visible" );
 				} );
+				if( encrypt && mnemonic ) {
+					document.getElementById( "mnemonic-text" ).textContent = mnemonic;
+					mnemonicBlock.classList.add( "visible" );
+				}
 			} else {
 				status.textContent = text.trim();
 			}
@@ -178,9 +216,22 @@ document.getElementById( "upload-form" ).addEventListener( "submit", function ( 
 		track( "Upload Failed", { status: "network_error" } );
 	};
 
-	xhr.open( "POST", API + "/upload?encrypted=false" );
+	xhr.open( "POST", API + "/upload?encrypted=" + ( encrypt ? "true" : "false" ) );
 	xhr.send( form );
 } );
+
+
+function copyMnemonic() {
+	const text = document.getElementById( "mnemonic-text" ).textContent;
+	if( !text ) return;
+	navigator.clipboard.writeText( text ).then( () => {
+		track( "Copy Mnemonic" );
+		const btn = document.getElementById( "mnemonic-copy" );
+		const orig = btn.textContent;
+		btn.textContent = "Copied";
+		setTimeout( () => { btn.textContent = orig; }, 1200 );
+	} );
+}
 
 
 
@@ -221,16 +272,23 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 	const xhr = new XMLHttpRequest();
 
 	xhr.onload = function () {
+		const decryptBlock = document.getElementById( "decrypt-block" );
 		if( xhr.status === 200 ) {
 			const info = JSON.parse( xhr.responseText );
 			currentFileId = id;
+			currentFileName = info.file_name;
+			currentIsEncrypted = !!info.is_encrypted;
 			const mb = info.file_size / ( 1024 * 1024 );
 			const sizeStr = mb >= 1 ? mb.toFixed( 1 ) + " MB" : ( info.file_size / 1024 ).toFixed( 1 ) + " KB";
 			const minLeft = Math.max( 1, Math.ceil( info.time_remaining / 60 ) );
-			status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left";
+			status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left" + ( currentIsEncrypted ? " · encrypted" : "" );
+			decryptBlock.classList.toggle( "visible", currentIsEncrypted );
+			document.getElementById( "mnemonic-input" ).value = "";
+			dlBtn.textContent = currentIsEncrypted ? "Decrypt & save" : "Receive";
 			dlBtn.classList.add( "visible" );
-			track( "File Found" );
+			track( "File Found", { encrypted: currentIsEncrypted } );
 		} else {
+			decryptBlock.classList.remove( "visible" );
 			status.className = "error";
 			status.textContent =
 				xhr.responseText.trim() || "Not found ( " + xhr.status + " )";
@@ -249,11 +307,75 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 } );
 
 
-document.getElementById( "download-btn" ).addEventListener( "click", function () {
+document.getElementById( "download-btn" ).addEventListener( "click", async function () {
 	if( !currentFileId ) return;
-	track( "File Downloaded" );
-	window.location.href = API + "/download/" + currentFileId;
+	const status = document.getElementById( "download-status" );
+
+	if( !currentIsEncrypted ) {
+		track( "File Downloaded", { encrypted: false } );
+		window.location.href = API + "/download/" + currentFileId;
+		return;
+	}
+
+	if( !window.CapsuleCrypto ) {
+		status.className = "error";
+		status.textContent = "Decryption unavailable. Reload and try again.";
+		return;
+	}
+
+	const phrase = document.getElementById( "mnemonic-input" ).value;
+	if( !phrase.trim() ) {
+		status.className = "error";
+		status.textContent = "Enter the phrase to decrypt.";
+		return;
+	}
+
+	const dlBtn = this;
+	dlBtn.disabled = true;
+	status.className = "";
+	status.textContent = "Downloading…";
+
+	try {
+		const resp = await fetch( API + "/download/" + currentFileId );
+		if( !resp.ok ) {
+			status.className = "error";
+			status.textContent = "Download failed ( " + resp.status + " )";
+			return;
+		}
+		const cipher = new Uint8Array( await resp.arrayBuffer() );
+		status.textContent = "Decrypting…";
+		let plain;
+		try {
+			plain = await CapsuleCrypto.decryptFile( cipher, phrase );
+		} catch ( err ) {
+			status.className = "error";
+			status.textContent = "Incorrect phrase or corrupted file.";
+			track( "Decrypt Failed" );
+			return;
+		}
+		saveBlob( plain, currentFileName || "download" );
+		status.className = "";
+		status.textContent = "Decrypted & saved.";
+		track( "File Downloaded", { encrypted: true } );
+	} catch ( err ) {
+		status.className = "error";
+		status.textContent = "Network error.";
+	} finally {
+		dlBtn.disabled = false;
+	}
 } );
+
+function saveBlob( bytes, name ) {
+	const blob = new Blob( [ bytes ], { type: "application/octet-stream" } );
+	const url = URL.createObjectURL( blob );
+	const a = document.createElement( "a" );
+	a.href = url;
+	a.download = name;
+	document.body.appendChild( a );
+	a.click();
+	a.remove();
+	URL.revokeObjectURL( url );
+}
 
 
 ( function () {
