@@ -491,7 +491,16 @@ code {
 
 #mnemonic-text {
 	flex: 1;
+	min-width: 0;
 	line-height: 1.6;
+	word-break: normal;
+	overflow-wrap: break-word;
+}
+
+#mnemonic-copy {
+	flex-shrink: 0;
+	min-width: 5rem;
+	text-align: center;
 }
 
 #decrypt-block {
@@ -742,7 +751,7 @@ code {
 
 /* ── Mobile: stack tool on top, info on bottom ── */
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
 	.layout {
 		flex-direction: column;
 	}
