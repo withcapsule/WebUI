@@ -753,6 +753,10 @@ code {
 /* ── FAQ two-column layout (desktop only) ── */
 
 @media (min-width: 851px) {
+	.faq-wrap.why-wide {
+		max-width: 860px;
+	}
+
 	.faq-wrap.faq-two-col {
 		max-width: 1100px;
 	}
@@ -868,6 +872,26 @@ code {
 	color: var(--fg);
 	text-decoration: none;
 	border-bottom: 1px solid var(--border);
+}
+
+/* ── Why page screenshot ── */
+
+.why-screenshot {
+	margin-top: 1.25rem;
+	display: inline-block;
+}
+
+.why-screenshot img {
+	display: block;
+	max-width: 100%;
+	width: 480px;
+	border: 1px solid var(--border);
+}
+
+.why-screenshot figcaption {
+	font-size: 11px;
+	color: var(--muted);
+	margin-top: 0.5rem;
 }
 
 /* ── Alt clients line ── */

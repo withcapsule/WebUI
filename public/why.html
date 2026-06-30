@@ -3,16 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Why We Built Capsule | Capsule</title>
-		<meta name="description" content="Why we built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
+		<title>Why I Built Capsule | Capsule</title>
+		<meta name="description" content="Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
-		<meta name="keywords" content="why we built capsule, anonymous file sharing philosophy, zero knowledge file transfer, open source file sharing, self-hosted file transfer, curl file sharing tool, encrypted file transfer open source, wetransfer alternative, dropbox alternative no account" />
+		<meta name="keywords" content="why i built capsule, anonymous file sharing philosophy, zero knowledge file transfer, open source file sharing, self-hosted file transfer, curl file sharing tool, encrypted file transfer open source, wetransfer alternative, dropbox alternative no account" />
 		<link rel="canonical" href="https://withcapsule.dev/why" />
 
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="Capsule" />
-		<meta property="og:title" content="Why We Built Capsule | Capsule" />
+		<meta property="og:title" content="Why I Built Capsule | Capsule" />
 		<meta property="og:description" content="Ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
 		<meta property="og:url" content="https://withcapsule.dev/why" />
 		<meta property="og:locale" content="en_US" />
@@ -21,8 +21,8 @@
 		{
 			"@context": "https://schema.org",
 			"@type": "Article",
-			"headline": "Why We Built Capsule",
-			"description": "Why we built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting.",
+			"headline": "Why I Built Capsule",
+			"description": "Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting.",
 			"url": "https://withcapsule.dev/why",
 			"author": {
 				"@type": "Person",
@@ -58,15 +58,42 @@
 		</script>
 	</head>
 	<body>
-		<div class="faq-wrap">
+		<div class="faq-wrap why-wide">
 			<a class="faq-back" href="/">← back to Capsule</a>
 
 			<p class="faq-brand">Capsule</p>
-			<h1 class="faq-title">Why We Built Capsule</h1>
+			<h1 class="faq-title">Why I Built Capsule</h1>
 			<p class="faq-intro">
 				File sharing should be fast, private, and honest. No accounts, no ads,
 				no files sitting in someone else's cloud indefinitely.
 			</p>
+
+			<div class="faq-section">
+				<p class="faq-section-title">The real reason</p>
+
+				<div class="faq-q">
+					<h3>Moving files between devices should not be this hard</h3>
+					<p>
+						I built Capsule because I wanted a fast, simple, private way to move
+						files between platforms. That sounds like it should already exist. It
+						mostly does not.
+					</p>
+					<p>
+						Emailing yourself a file to get it from your Android phone to your Mac
+						is embarrassing. Uploading a photo to Google Drive just to download it
+						on another device a minute later is the same. There is no good reason
+						a simple file handoff should require signing into an account, syncing a
+						library, or navigating a cloud storage dashboard.
+					</p>
+					<p>
+						Quick Share and AirDrop now have cross-platform support, which is
+						progress. But they are still unreliable in practice, require both
+						devices to be on the same network or nearby, and offer exactly zero
+						support for anyone running Linux. A curl command works everywhere,
+						needs nothing installed, and takes about three seconds.
+					</p>
+				</div>
+			</div>
 
 			<div class="faq-section">
 				<p class="faq-section-title">The problem</p>
@@ -87,11 +114,15 @@
 					<h3>Most services require an account, store your data, and serve ads</h3>
 					<p>
 						WeTransfer shows ads next to your files and sends data to tracking
-						companies like Google Tag Manager and Facebook. Dropbox requires your
+						companies like Google and Facebook. Dropbox requires your
 						full name, email, and other personal information. Google Drive ties
 						every upload to a Google account. Capsule requires nothing: no email,
 						no name, no account. Upload, share, done.
 					</p>
+					<figure class="why-screenshot">
+						<img src="/wetransfer.png" alt="uBlock Origin on wetransfer.com showing 13 of 18 domains blocked on page load" />
+						<figcaption>wetransfer.com — 13 of 18 domains blocked by uBlock Origin on a single page load</figcaption>
+					</figure>
 				</div>
 			</div>
 
