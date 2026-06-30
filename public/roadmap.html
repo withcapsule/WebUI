@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Roadmap | Capsule</title>
+		<meta name="description" content="What Capsule has shipped and what's coming: cross-client encryption, CLI, Android app, QR codes, self-hosting, and planned features like iOS, multi-file upload, and in-browser preview." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="capsule roadmap, file transfer roadmap, capsule features, capsule cli, capsule android, capsule ios, anonymous file sharing features, encrypted file transfer features" />
+		<link rel="canonical" href="https://withcapsule.dev/roadmap" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="Roadmap | Capsule" />
+		<meta property="og:description" content="What Capsule has shipped and what's coming: cross-client encryption, CLI, Android app, QR codes, self-hosting, and planned features like iOS and multi-file upload." />
+		<meta property="og:url" content="https://withcapsule.dev/roadmap" />
+		<meta property="og:locale" content="en_US" />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebPage",
+			"name": "Capsule Roadmap",
+			"description": "Shipped and planned features for Capsule, the anonymous file transfer tool.",
+			"url": "https://withcapsule.dev/roadmap"
+		}
+		</script>
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<link rel="stylesheet" href="styles.css" />
+		<script>
+			((window.plausible =
+				window.plausible ||
+				function () {
+					(plausible.q = plausible.q || []).push(arguments);
+				}),
+				(plausible.init =
+					plausible.init ||
+					function (i) {
+						plausible.o = i || {};
+					}));
+			plausible.init();
+		</script>
+	</head>
+	<body>
+		<div class="faq-wrap">
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-brand">Capsule</p>
+			<h1 class="faq-title">Roadmap</h1>
+			<p class="faq-intro">
+				What Capsule has shipped and what's coming next. Planned items are
+				directional. They are not commitments or timelines.
+			</p>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Shipped</p>
+
+				<div class="faq-q">
+					<h3>Web upload &amp; download</h3>
+					<p>Send and receive any file in a browser with no install and no login.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>curl upload</h3>
+					<p>One command, one link.</p>
+					<pre>curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
+				</div>
+
+				<div class="faq-q">
+					<h3>CLI tool (Mac, Linux, Windows)</h3>
+					<p>
+						Available via Homebrew, Cargo, COPR, and a shell installer. Supports
+						all server operations plus encrypted transfers and local transfer
+						history.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Client-side encryption</h3>
+					<p>
+						Encrypt files entirely on your device using the age v1 format and a
+						12-word BIP39 mnemonic. Available in the web UI (Encrypt checkbox),
+						CLI (<code>upload-encrypted</code>), and Android app.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Cross-client interoperability</h3>
+					<p>
+						Encrypt on the web, decrypt with the CLI. Encrypt with the CLI,
+						decrypt on the web. All clients produce compatible age v1 ciphertext.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>QR code on upload</h3>
+					<p>Every upload produces a QR code for instant mobile sharing.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Three-word human-readable file IDs</h3>
+					<p>
+						Human-readable IDs like <code>made-by-sean</code> instead of random
+						hashes. On the Receive tab, spacebar inserts a hyphen so you can type
+						IDs naturally.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Android app</h3>
+					<p>
+						Available now on
+						<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>.
+						Full feature parity with the web UI including encryption.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Self-hosting</h3>
+					<p>
+						Run your own Capsule server and point the CLI at it. The server is a
+						single binary with SQLite and no external dependencies. See the
+						<a class="site-link" href="https://docs.withcapsule.dev/self-hosting/setup/" target="_blank" rel="noopener">self-hosting guide ↗</a>.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Privacy-friendly analytics</h3>
+					<p>Plausible analytics on the web interface: no cookies, no personal identifiers.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Open source server (AGPL-3.0)</h3>
+					<p>
+						Server source code published on
+						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Bandwidth limiting</h3>
+					<p>2 GB per hour per uploader to keep the service free for everyone.</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Planned</p>
+
+				<div class="faq-q">
+					<h3>Android on Google Play Store</h3>
+					<p>
+						The app is available via GitHub releases now. Play Store distribution
+						is coming.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>iOS app</h3>
+					<p>An iOS client is on the roadmap.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Multiple files in one transfer</h3>
+					<p>Bundle multiple files into a single shareable link.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>In-browser file preview</h3>
+					<p>Preview images and video in the browser before downloading.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Delete button in web UI</h3>
+					<p>
+						Currently available in the CLI via the <code>delete</code>
+						subcommand. Coming to the web interface.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Custom expiry time</h3>
+					<p>
+						Choose how long your file is available, shorter or longer than the
+						default 60 minutes.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Download count display</h3>
+					<p>See how many times your file has been downloaded.</p>
+				</div>
+			</div>
+
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-legal-links">
+				<a href="/why">Why We Built This</a>
+				·
+				<a href="/security">Security</a>
+				·
+				<a href="/faq">How it works &amp; FAQ</a>
+				·
+				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
+				·
+				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
+				·
+				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
+			</p>
+		</div>
+
+		<script defer src="/s.js"></script>
+		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script>
+			const stored = localStorage.getItem("theme");
+			if (stored === "dark") {
+				document.documentElement.setAttribute("data-theme", "dark");
+			} else if (stored === "light") {
+				document.documentElement.setAttribute("data-theme", "light");
+			}
+		</script>
+	</body>
+</html>

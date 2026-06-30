@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Capsule — Send Files Online. No Login, No Accounts.</title>
-		<meta name="description" content="Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser — get a short link and QR code instantly. No login, no account. Files auto-delete after 60 minutes." />
+		<title>Capsule: Send Files Online. No Login, No Accounts.</title>
+		<meta name="description" content="Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser and get a short link and QR code instantly. No login, no account. Files auto-delete after 60 minutes." />
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
 		<meta name="keywords" content="free file transfer tool, anonymous file sharing, send files online, no login file upload, curl file upload, temporary file hosting, encrypted file transfer, file sharing no account, send large files online" />
@@ -13,13 +13,13 @@
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Capsule" />
-		<meta property="og:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta property="og:title" content="Capsule: Send Files Online. No Login, No Accounts." />
 		<meta property="og:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
 		<meta property="og:url" content="https://withcapsule.dev/" />
 		<meta property="og:locale" content="en_US" />
 
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="Capsule — Send Files Online. No Login, No Accounts." />
+		<meta name="twitter:title" content="Capsule: Send Files Online. No Login, No Accounts." />
 		<meta name="twitter:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
 
 
@@ -162,44 +162,17 @@
 					<div class="curl-block">
 						<p class="curl-label">or via curl</p>
 						<div class="cmd-block">
-							<code id="hero-cmd"
-								>curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</code
-							>
-							<button
-								class="cmd-copy"
-								onclick="copyCmd('hero-cmd', this)"
-							>
-								copy
-							</button>
+							<code id="hero-cmd">curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</code>
+							<button class="cmd-copy" onclick="copyCmd('hero-cmd', this)">copy</button>
 						</div>
 					</div>
 
-					<div class="install-block">
-						<p class="curl-label">or install the CLI</p>
-						<nav class="install-tab-nav">
-							<button id="itab-mac"     class="install-tab" onclick="showInstallTab('mac')">Mac</button>
-							<button id="itab-linux"   class="install-tab" onclick="showInstallTab('linux')">Linux</button>
-							<button id="itab-windows" class="install-tab" onclick="showInstallTab('windows')">Windows</button>
-						</nav>
-						<div id="install-mac" class="cmd-block install-cmd">
-							<code id="install-cmd-mac">curl -fsSL https://withcapsule.dev/install-macos.sh | sh</code>
-							<button class="cmd-copy" onclick="copyInstall('mac')">copy</button>
-						</div>
-						<div id="install-linux" class="cmd-block install-cmd">
-							<code id="install-cmd-linux">curl -fsSL https://withcapsule.dev/install-linux.sh | sh</code>
-							<button class="cmd-copy" onclick="copyInstall('linux')">copy</button>
-						</div>
-						<div id="install-windows" class="cmd-block install-cmd">
-							<code id="install-cmd-windows">irm https://withcapsule.dev/install.ps1 | iex</code>
-							<button class="cmd-copy" onclick="copyInstall('windows')">copy</button>
-						</div>
-						<p class="install-more">See supported package managers in the <a class="site-link" href="https://docs.withcapsule.dev/guides/cli/#installation" target="_blank" rel="noopener">CLI docs ↗</a></p>
-					</div>
-
-					<div class="install-block">
-						<p class="curl-label">or get the Android app</p>
-						<p class="install-more">Download from <a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a> — Play Store release coming soon.</p>
-					</div>
+					<p class="alt-clients">
+						also available via
+						<a class="site-link" href="https://docs.withcapsule.dev/guides/cli/" target="_blank" rel="noopener">CLI</a>
+						·
+						<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">Android ↗</a>
+					</p>
 				</div>
 			</div>
 
@@ -237,46 +210,10 @@
 								>View Source on GitHub ↗</a
 							>
 						</p>
-						<p class="cli-blurb">
-							Want more features?
-							<br/>
-							The <a class="site-link" href="https://github.com/withcapsule/CLI" target="_blank" rel="noopener">CLI tool</a> supports file encryption &amp; decryption, local transfer history, and self-hosting options.
-						</p>
 						<a class="site-link" href="/faq">How it works &amp; FAQ →</a>
 					</div>
 
 					<div class="info-bottom">
-						<div class="how-steps">
-							<div class="how-step">
-								<span class="step-n">01</span>
-								<div>
-									<h3>Send</h3>
-									<p>
-										Send any file via curl, the CLI, or this
-										website. No login & no setup.
-									</p>
-								</div>
-							</div>
-							<div class="how-step">
-								<span class="step-n">02</span>
-								<div>
-									<h3>Share</h3>
-									<p>
-										Get a link and a QR code immediately.
-									</p>
-								</div>
-							</div>
-							<div class="how-step">
-								<span class="step-n">03</span>
-								<div>
-									<h3>Secure</h3>
-									<p>
-										Files auto-delete after 60 min.
-									</p>
-								</div>
-							</div>
-						</div>
-
 						<div class="specs">
 							<span>100 MB max file size</span>
 							<span class="specs-dot">·</span>
@@ -285,26 +222,35 @@
 							<span>2 GB/hr upload limit</span>
 							<span class="specs-dot">·</span>
 							<span>No accounts</span>
+							<span class="specs-dot">·</span>
+							<span>Open source (AGPL-3.0)</span>
+							<span class="specs-dot">·</span>
+							<span>Self-hostable</span>
 						</div>
 					</div>
 				</div>
 			</div>
+			<footer class="site-footer">
+				<p class="site-footer-desc">Capsule is a free anonymous file transfer tool with no accounts, auto-deletion, and no server-side tracking. Upload any file via <code>curl</code>, the CLI, or your browser and get a short link and QR code back in seconds. Files delete automatically after 60 minutes.</p>
+				<nav class="site-footer-links">
+					<a href="/why">Why Capsule</a>
+					<span class="specs-dot">·</span>
+					<a href="/security">Encryption</a>
+					<span class="specs-dot">·</span>
+					<a href="/roadmap">Roadmap</a>
+					<span class="specs-dot">·</span>
+					<a href="/faq">How It Works</a>
+					<span class="specs-dot">·</span>
+					<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
+					<span class="specs-dot">·</span>
+					<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
+					<span class="specs-dot">·</span>
+					<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Uptime</a>
+					<span class="specs-dot">·</span>
+					<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub (AGPL-3.0) ↗</a>
+				</nav>
+			</footer>
 		</div>
-
-		<footer class="seo-footer">
-			<p>Capsule is a free anonymous file transfer tool with no accounts, auto-deletion, and no server-side tracking. Upload any file via <code>curl</code>, the CLI, or your browser and get a short link and QR code back in seconds. Files are automatically deleted after 60 minutes, making it ideal for quick temporary file sharing, sending files between devices, or one-off file drops without setting up cloud storage. Optionally, use the CLI for the ability to encrypt and decrypt files.</p>
-			<div>
-				<a href="/faq">How it works &amp; FAQ →</a>
-				·
-				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
-				·
-				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
-				·
-				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
-				·
-				<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">Server source (AGPL-3.0)</a>
-			</div>
-		</footer>
 
 		<script defer src="/s.js"></script>
 		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>

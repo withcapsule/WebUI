@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>How It Works & FAQ — Capsule File Transfer Tool</title>
+		<title>How It Works & FAQ | Capsule File Transfer Tool</title>
 		<meta name="description" content="How Capsule works: send files for free with no login via curl or browser, get a short link instantly. FAQ covering file limits, security, privacy, CLI usage, and more." />
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
@@ -12,7 +12,7 @@
 
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="Capsule" />
-		<meta property="og:title" content="How It Works & FAQ — Capsule" />
+		<meta property="og:title" content="How It Works & FAQ | Capsule" />
 		<meta property="og:description" content="How Capsule works: send files for free with no login via curl or browser, get a short link instantly. Covers limits, security, privacy, and CLI usage." />
 		<meta property="og:url" content="https://withcapsule.dev/faq" />
 		<meta property="og:locale" content="en_US" />
@@ -35,7 +35,7 @@
 					"name": "How do I send a file with curl?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Run: curl -F \"f=@yourfile.txt\" https://send.withcapsule.dev/upload — you'll receive a short download link immediately."
+						"text": "Run: curl -F \"f=@yourfile.txt\" https://send.withcapsule.dev/upload. You'll receive a short download link immediately."
 					}
 				},
 				{
@@ -67,7 +67,15 @@
 					"name": "Is there a CLI tool?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Yes. The Capsule CLI supports file encryption and decryption, local transfer history, and self-hosting options. All of these are features beyond the web interface."
+						"text": "Yes. The Capsule CLI supports encrypted transfers, local transfer history, and self-hosting configuration, in addition to everything available in the web interface."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Does Capsule support encrypted file transfer?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes. The web interface has a built-in Encrypt checkbox on the Send tab. When checked, the file is encrypted entirely in your browser before upload using the age v1 format. The server never sees your key or the original file. After upload, you receive a 12-word mnemonic phrase; the recipient enters it on the Receive tab to decrypt. The CLI's upload-encrypted subcommand and Android app work the same way, and all three clients produce compatible ciphertext."
 					}
 				},
 				{
@@ -174,7 +182,8 @@
 
 				<div class="faq-q">
 					<h3>Does Capsule support encrypted file transfer?</h3>
-					<p>Encryption and decryption are available in the Capsule CLI tool. The web interface handles transfers without any additional setup but does not apply end-to-end encryption on its own.</p>
+					<p>Yes. The web interface has a built-in <strong>Encrypt</strong> checkbox on the Send tab. When checked, the file is encrypted entirely in your browser before upload using the age v1 format. The server never sees your key or the original file. After upload, you receive a 12-word mnemonic phrase; the recipient enters it on the Receive tab to decrypt.</p>
+					<p>The CLI's <code>upload-encrypted</code> subcommand and Android app work the same way. All three clients produce compatible age v1 ciphertext, so a file encrypted on the web can be decrypted in the CLI and vice versa.</p>
 				</div>
 			</div>
 
@@ -205,6 +214,12 @@
 			<a class="faq-back" href="/">← back to Capsule</a>
 
 			<p class="faq-legal-links">
+				<a href="/why">Why We Built This</a>
+				·
+				<a href="/security">Security</a>
+				·
+				<a href="/roadmap">Roadmap</a>
+				·
 				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
 				·
 				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>

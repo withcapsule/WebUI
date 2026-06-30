@@ -459,6 +459,7 @@ document.addEventListener( "keydown", function ( e ) {
 showTab( "upload" );
 
 function showInstallTab( platform ) {
+	if( !document.getElementById( 'install-mac' ) ) return;
 	[ 'mac', 'linux', 'windows' ].forEach( p => {
 		document.getElementById( 'install-' + p ).classList.toggle( 'visible', p === platform );
 		document.getElementById( 'itab-' + p ).classList.toggle( 'active', p === platform );

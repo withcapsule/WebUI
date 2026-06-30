@@ -72,8 +72,11 @@ body {
 /* ── Layout ── */
 
 .layout {
-	display: flex;
-	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 360px;
+	grid-template-rows: 1fr auto;
+	height: 100vh;
+	overflow: hidden;
 }
 
 /* ── Left pane (tool) ── */
@@ -86,6 +89,7 @@ body {
 	justify-content: center;
 	padding: 3rem 2rem;
 	border-right: 1px solid var(--border);
+	overflow-y: auto;
 }
 
 .pane-tool.drag-active::after {
@@ -119,6 +123,7 @@ body {
 	background: var(--pane-info-bg);
 	display: flex;
 	align-items: stretch;
+	overflow-y: auto;
 }
 
 .pane-info-inner {
@@ -616,6 +621,50 @@ code {
 	border-color: var(--fg);
 }
 
+/* ── Site footer (visible in viewport) ── */
+
+.site-footer {
+	grid-column: 1 / -1;
+	border-top: 1px solid var(--border);
+	padding: 1rem 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	background: var(--bg);
+	transition: background 0.5s;
+	flex-shrink: 0;
+}
+
+.site-footer-desc {
+	font-size: 12px;
+	color: var(--muted);
+	line-height: 1.65;
+}
+
+.site-footer-desc code {
+	font-size: 11px;
+	background: none;
+	padding: 0;
+}
+
+.site-footer-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.15rem 0.55rem;
+	font-size: 12px;
+}
+
+.site-footer-links a {
+	color: var(--fg);
+	text-decoration: none;
+	transition: opacity 0.2s;
+}
+
+.site-footer-links a:hover {
+	opacity: 0.6;
+}
+
 /* ── FAQ page ── */
 
 .faq-wrap {
@@ -703,6 +752,21 @@ code {
 	border-bottom: 1px solid var(--border);
 }
 
+/* ── Alt clients line ── */
+
+.alt-clients {
+	margin-top: 1.75rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--border);
+	font-size: 12px;
+	color: var(--muted);
+	line-height: 1.8;
+}
+
+.alt-clients .site-link {
+	font-size: 12px;
+}
+
 /* ── Install block ── */
 
 .install-block {
@@ -753,22 +817,44 @@ code {
 
 @media (max-width: 850px) {
 	.layout {
-		flex-direction: column;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto auto;
+		height: auto;
+		min-height: 100vh;
+		overflow: visible;
+	}
+
+	.site-footer {
+		grid-column: 1;
+		padding: 1rem 1.5rem;
+	}
+
+	.curl-block {
+		display: none;
+	}
+
+	.alt-clients {
+		border-top: none;
+		padding-top: 0;
+		margin-top: 1rem;
 	}
 
 	.pane-tool {
 		border-right: none;
 		border-bottom: 1px solid var(--border);
 		padding: 2.5rem 1.5rem;
-		align-items: flex-start;
-	}
-
-	.pane-tool-inner {
-		max-width: 100%;
+		align-items: center;
+		min-height: 55vh;
+		overflow-y: visible;
 	}
 
 	.pane-info {
 		width: 100%;
+		overflow-y: visible;
+	}
+
+	.pane-tool-inner {
+		max-width: 100%;
 	}
 
 	.pane-info-inner {
