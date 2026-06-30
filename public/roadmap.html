@@ -58,151 +58,109 @@
 				directional. They are not commitments or timelines.
 			</p>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Shipped</p>
+			<p class="tl-section-label">Shipped</p>
+			<ul class="tl">
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Web upload &amp; download</h3>
+					<p class="tl-desc">Send and receive any file in a browser with no install and no login.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Web upload &amp; download</h3>
-					<p>Send and receive any file in a browser with no install and no login.</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">curl upload</h3>
+					<p class="tl-desc">One command, one link.</p>
+					<pre class="tl-pre">curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
+				</li>
 
-				<div class="faq-q">
-					<h3>curl upload</h3>
-					<p>One command, one link.</p>
-					<pre>curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">CLI tool &mdash; Mac, Linux, Windows</h3>
+					<p class="tl-desc">Available via Homebrew, Cargo, COPR, and a shell installer. Supports all server operations plus encrypted transfers and local transfer history.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>CLI tool (Mac, Linux, Windows)</h3>
-					<p>
-						Available via Homebrew, Cargo, COPR, and a shell installer. Supports
-						all server operations plus encrypted transfers and local transfer
-						history.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Client-side encryption</h3>
+					<p class="tl-desc">Encrypt files entirely on your device using the age v1 format and a 12-word BIP39 mnemonic. Available in the web UI (Encrypt checkbox), CLI (<code>upload-encrypted</code>), and Android app.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Client-side encryption</h3>
-					<p>
-						Encrypt files entirely on your device using the age v1 format and a
-						12-word BIP39 mnemonic. Available in the web UI (Encrypt checkbox),
-						CLI (<code>upload-encrypted</code>), and Android app.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Cross-client interoperability</h3>
+					<p class="tl-desc">Encrypt on the web, decrypt with the CLI. Encrypt with the CLI, decrypt on the web. All clients produce compatible age v1 ciphertext.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Cross-client interoperability</h3>
-					<p>
-						Encrypt on the web, decrypt with the CLI. Encrypt with the CLI,
-						decrypt on the web. All clients produce compatible age v1 ciphertext.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">QR code on upload</h3>
+					<p class="tl-desc">Every upload produces a QR code for instant mobile sharing.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>QR code on upload</h3>
-					<p>Every upload produces a QR code for instant mobile sharing.</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Human-readable file IDs</h3>
+					<p class="tl-desc">Three-word IDs like <code>made-by-sean</code> instead of random hashes. On the Receive tab, spacebar inserts a hyphen so you can type IDs naturally.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Three-word human-readable file IDs</h3>
-					<p>
-						Human-readable IDs like <code>made-by-sean</code> instead of random
-						hashes. On the Receive tab, spacebar inserts a hyphen so you can type
-						IDs naturally.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Android app</h3>
+					<p class="tl-desc">Available on <a class="tl-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>. Full feature parity with the web UI including encryption.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Android app</h3>
-					<p>
-						Available now on
-						<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>.
-						Full feature parity with the web UI including encryption.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Self-hosting</h3>
+					<p class="tl-desc">Run your own Capsule server and point the CLI at it. Single binary, SQLite, no external dependencies. See the <a class="tl-link" href="https://docs.withcapsule.dev/self-hosting/setup/" target="_blank" rel="noopener">self-hosting guide ↗</a>.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Self-hosting</h3>
-					<p>
-						Run your own Capsule server and point the CLI at it. The server is a
-						single binary with SQLite and no external dependencies. See the
-						<a class="site-link" href="https://docs.withcapsule.dev/self-hosting/setup/" target="_blank" rel="noopener">self-hosting guide ↗</a>.
-					</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Open source server (AGPL-3.0)</h3>
+					<p class="tl-desc">Server source code published on <a class="tl-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Privacy-friendly analytics</h3>
-					<p>Plausible analytics on the web interface: no cookies, no personal identifiers.</p>
-				</div>
+				<li class="tl-item tl-done">
+					<h3 class="tl-title">Bandwidth limiting</h3>
+					<p class="tl-desc">2 GB per hour per uploader to keep the service free for everyone.</p>
+				</li>
+			</ul>
 
-				<div class="faq-q">
-					<h3>Open source server (AGPL-3.0)</h3>
-					<p>
-						Server source code published on
-						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>.
-					</p>
-				</div>
+			<p class="tl-section-label">Coming up</p>
+			<ul class="tl">
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">Android on Google Play Store</h3>
+					<p class="tl-desc">The app is available via GitHub releases now. Play Store distribution is coming.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Bandwidth limiting</h3>
-					<p>2 GB per hour per uploader to keep the service free for everyone.</p>
-				</div>
-			</div>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">iOS app</h3>
+					<p class="tl-desc">An iOS client is on the roadmap.</p>
+				</li>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Planned</p>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">Multiple files in one transfer</h3>
+					<p class="tl-desc">Bundle multiple files into a single shareable link.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Android on Google Play Store</h3>
-					<p>
-						The app is available via GitHub releases now. Play Store distribution
-						is coming.
-					</p>
-				</div>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">In-browser file preview</h3>
+					<p class="tl-desc">Preview images and video in the browser before downloading.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>iOS app</h3>
-					<p>An iOS client is on the roadmap.</p>
-				</div>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">Delete button in web UI</h3>
+					<p class="tl-desc">Currently available in the CLI via the <code>delete</code> subcommand. Coming to the web interface.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>Multiple files in one transfer</h3>
-					<p>Bundle multiple files into a single shareable link.</p>
-				</div>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">Custom expiry time</h3>
+					<p class="tl-desc">Choose how long your file is available, shorter or longer than the default 60 minutes.</p>
+				</li>
 
-				<div class="faq-q">
-					<h3>In-browser file preview</h3>
-					<p>Preview images and video in the browser before downloading.</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>Delete button in web UI</h3>
-					<p>
-						Currently available in the CLI via the <code>delete</code>
-						subcommand. Coming to the web interface.
-					</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>Custom expiry time</h3>
-					<p>
-						Choose how long your file is available, shorter or longer than the
-						default 60 minutes.
-					</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>Download count display</h3>
-					<p>See how many times your file has been downloaded.</p>
-				</div>
-			</div>
+				<li class="tl-item tl-planned">
+					<h3 class="tl-title">Download count display</h3>
+					<p class="tl-desc">See how many times your file has been downloaded.</p>
+				</li>
+			</ul>
 
 			<a class="faq-back" href="/">← back to Capsule</a>
 
 			<p class="faq-legal-links">
-				<a href="/why">Why We Built This</a>
+				<a href="/why">Why Capsule</a>
 				·
-				<a href="/security">Security</a>
+				<a href="/security">Encryption</a>
 				·
 				<a href="/faq">How it works &amp; FAQ</a>
 				·
@@ -210,7 +168,7 @@
 				·
 				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
 				·
-				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
+				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Uptime</a>
 			</p>
 		</div>
 
