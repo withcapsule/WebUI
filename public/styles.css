@@ -1046,7 +1046,7 @@ code {
 		gap: 0.2rem;
 	}
 
-	.specs-dot {
+	.specs .specs-dot {
 		display: none;
 	}
 }
