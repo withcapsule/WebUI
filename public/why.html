@@ -69,15 +69,16 @@
 			</p>
 
 			<div class="faq-section">
-				<p class="faq-section-title">The real reason</p>
+				<p class="faq-section-title">The motivation</p>
 
 				<div class="faq-q">
 					<h3>Moving files between devices should not be this hard</h3>
 					<p>
 						I built Capsule because I wanted a fast, simple, private way to move
 						files between platforms. That sounds like it should already exist. It
-						mostly does not.
+						mostly does not. Why is it so hard to move a photo?
 					</p>
+					<br/>
 					<p>
 						Emailing yourself a file to get it from your Android phone to your Mac
 						is embarrassing. Uploading a photo to Google Drive just to download it
@@ -85,6 +86,7 @@
 						a simple file handoff should require signing into an account, syncing a
 						library, or navigating a cloud storage dashboard.
 					</p>
+					<br/>
 					<p>
 						Quick Share and AirDrop now have cross-platform support, which is
 						progress. But they are still unreliable in practice, require both
@@ -118,10 +120,13 @@
 						full name, email, and other personal information. Google Drive ties
 						every upload to a Google account. Capsule requires nothing: no email,
 						no name, no account. Upload, share, done.
+
+						Or, a service can just be down entirely. Then what? Capsule's entire
+						architecture is fully open source, allowing anyone to run the service themselves.
 					</p>
 					<figure class="why-screenshot">
 						<img src="/wetransfer.png" alt="uBlock Origin on wetransfer.com showing 13 of 18 domains blocked on page load" />
-						<figcaption>wetransfer.com — 13 of 18 domains blocked by uBlock Origin on a single page load</figcaption>
+						<figcaption>Visiting wetransfer.com - 13 of 18 domains blocked by uBlock Origin on a single page load</figcaption>
 					</figure>
 				</div>
 			</div>
@@ -137,8 +142,8 @@
 						CLI, and the Android app alike. Capsule uses the age v1 format with a 12-word
 						BIP39 mnemonic passphrase. The mnemonic is generated locally, stays
 						on your device, and is never transmitted. The server receives
-						ciphertext and nothing else. This is architecture, not a policy
-						commitment.
+						ciphertext and nothing else. If you lose the key, nothing can save that file.
+					 	This is architecture, not a policy commitment.
 					</p>
 				</div>
 
@@ -146,7 +151,7 @@
 					<h3>Works across all clients</h3>
 					<p>
 						A file encrypted on the web can be decrypted in the CLI, and vice
-						versa. The web UI, CLI, and Android app all produce compatible age v1
+						versa. The web UI, CLI, and Android app all produce compatible age
 						ciphertext with no proprietary format. If you encrypt with one client,
 						any other can decrypt. Read more about the
 						<a class="site-link" href="/security">technical security design →</a>
@@ -158,16 +163,17 @@
 				<p class="faq-section-title">Developer experience</p>
 
 				<div class="faq-q">
-					<h3>Developers deserve better tools</h3>
+					<h3>People deserve better tools</h3>
 					<p>
-						Most file-sharing services assume you have a browser open. Capsule is
-						curl-first: one command, one link, done.
+						Most file-sharing services assume you have a browser open. Or come with other sorts of issues.
+						Capsule is curl-native: one command, one link, done. Designed to be simple with a "just works" philosophy.
 					</p>
 					<pre>curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</pre>
+					<br/>
 					<p>
 						The CLI adds encrypted transfers, local transfer history, and
-						self-hosting. The same HTTP API the web interface uses is what your
-						scripts use. There is no hidden layer or separate developer tier.
+						self-hosting. The same API the web interface uses is what your
+						scripts use. There is no hidden layer or separate tier.
 						See the
 						<a class="site-link" href="https://docs.withcapsule.dev/api/reference/" target="_blank" rel="noopener">API reference ↗</a>
 						for direct integration.
@@ -185,7 +191,7 @@
 						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">AGPL-3.0 on GitHub ↗</a>.
 						You can audit every line of code that handles your upload, run your
 						own instance, and point the CLI at it. Nothing about using Capsule
-						requires trusting us specifically. We prefer it that way.
+						requires trusting Capsule specifically.
 					</p>
 				</div>
 			</div>
@@ -195,12 +201,22 @@
 
 				<div class="faq-q">
 					<h3>How Capsule compares</h3>
-					<p>No account required. WeTransfer requires one for large files; Google Drive and Dropbox always do.</p>
-					<p>No ads and no upsell tiers. Free to use.</p>
-					<p>Files deleted in 60 minutes, not "eventually" or "when storage is full".</p>
-					<p>Server is <a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">fully open source (AGPL-3.0) ↗</a>. Google's and Dropbox's servers are proprietary; WeTransfer is closed source.</p>
-					<p>Self-hostable. None of the above support running your own instance.</p>
-					<p>curl-first. Browser-only alternatives offer no scriptable API without a paid plan or unofficial hacks.</p>
+					<style>
+						ol {
+							padding-left: 40px;
+						}
+						li {
+							padding-bottom: 6px;
+						}
+					</style>
+					<ol>
+						<li><p>No account required. WeTransfer requires one for large files; Google Drive and Dropbox always do.</p></li>
+						<li><p>No ads and no upsell tiers. Free to use.</p></li>
+						<li><p>Files deleted in 60 minutes, not "eventually" or "when storage is full".</p></li>
+						<li><p>Server is <a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">fully open source (AGPL-3.0) ↗</a>. Google's and Dropbox's servers are proprietary; WeTransfer is closed source.</p></li>
+						<li><p>Self-hostable. None of the above support running your own instance.</p></li>
+						<li><p>curl compatibility. Browser-only alternatives offer no scriptable API without a paid plan or unofficial hacks.</p></li>
+					</ol>
 				</div>
 			</div>
 
