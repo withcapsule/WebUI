@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Send Files from Android to Mac | Capsule</title>
+		<meta name="description" content="Transfer files from Android to Mac without a cable or account. Upload from your Android browser or the Capsule app and open the link on your Mac. No AirDrop, no Android File Transfer." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="android to mac file transfer, send files from android to mac, android mac transfer without cable, android to macbook, transfer photos android to mac, android mac file sharing, android to mac no itunes" />
+		<link rel="canonical" href="https://withcapsule.dev/android-to-mac" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="Send Files from Android to Mac | Capsule" />
+		<meta property="og:description" content="Transfer files from Android to Mac without a cable. Upload from Android, open on Mac. No AirDrop, no Android File Transfer, no account." />
+		<meta property="og:url" content="https://withcapsule.dev/android-to-mac" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Send Files from Android to Mac | Capsule" />
+		<meta name="twitter:description" content="Transfer files from Android to Mac without a cable. Upload from Android, open on Mac. No AirDrop, no account." />
+		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"headline": "Send Files from Android to Mac",
+			"description": "How to transfer files from Android to Mac without a cable using Capsule.",
+			"url": "https://withcapsule.dev/android-to-mac",
+			"author": {
+				"@type": "Person",
+				"name": "Sean Singh",
+				"url": "https://www.byseansingh.com"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Capsule",
+				"url": "https://withcapsule.dev"
+			}
+		}
+		</script>
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<link rel="stylesheet" href="styles.css" />
+		<script>
+			((window.plausible =
+				window.plausible ||
+				function () {
+					(plausible.q = plausible.q || []).push(arguments);
+				}),
+				(plausible.init =
+					plausible.init ||
+					function (i) {
+						plausible.o = i || {};
+					}));
+			plausible.init();
+		</script>
+	</head>
+	<body>
+		<div class="faq-wrap">
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-brand">Capsule</p>
+			<h1 class="faq-title">Send files from Android to Mac</h1>
+			<p class="faq-intro">
+				AirDrop is iPhone-only. Android File Transfer is effectively abandoned.
+				Quick Share on macOS exists but requires setup and proximity. This page
+				covers the approach that actually works: upload from Android, open on Mac.
+			</p>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Why it's annoying</p>
+
+				<div class="faq-q">
+					<h3>AirDrop doesn't work with Android</h3>
+					<p>
+						AirDrop is Apple-only. It works between iPhones, iPads, and Macs — not
+						Android phones. There is no workaround.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Android File Transfer is essentially dead</h3>
+					<p>
+						Android File Transfer for macOS has been unmaintained for years. It is
+						unreliable on modern macOS versions and requires a USB cable anyway.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Quick Share on Mac is brand new and still limited</h3>
+					<p>
+						Google added macOS support to Quick Share in 2024, which is genuine
+						progress. But it requires installing an app on your Mac, both devices
+						on the same network, and the sender and receiver to be nearby. It also
+						has no terminal access, so it does not help in scripted or headless
+						workflows.
+					</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">How to do it with Capsule</p>
+
+				<div class="faq-q">
+					<h3>From your Android phone: use the browser</h3>
+					<p>
+						Open <a class="site-link" href="/">withcapsule.dev</a> in Chrome or
+						any Android browser. Tap the Send tab, pick your file, hit Send. You
+						get a short download link and a QR code back instantly. Open the link
+						on your Mac — the file downloads directly. No app install, no account,
+						no pairing.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>From your Android phone: use the Capsule app</h3>
+					<p>
+						The Capsule Android app is available on
+						<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>.
+						It supports encrypted transfers and keeps a local history of what
+						you've sent, in addition to everything the web interface does.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>On your Mac: open the link in any browser</h3>
+					<p>
+						Paste the link in Safari, Chrome, or Firefox. The file downloads
+						immediately. Or from the terminal:
+					</p>
+					<pre>curl -OJ https://send.withcapsule.dev/download/[file-id]</pre>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Mac to Android</p>
+
+				<div class="faq-q">
+					<h3>Works the same way in reverse</h3>
+					<p>
+						Upload from the Mac (browser or terminal), share the link with your
+						Android phone. Tap the link in Chrome, the file downloads to your
+						Downloads folder. No app required on the receiving end.
+					</p>
+					<pre>curl -F "f=@document.pdf" https://send.withcapsule.dev/upload</pre>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Details</p>
+
+				<div class="faq-q">
+					<h3>How long does the link stay active?</h3>
+					<p>
+						60 minutes from upload time, then the file is permanently deleted.
+						Long enough to transfer the file, short enough not to accumulate
+						indefinitely in someone's cloud.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>What's the file size limit?</h3>
+					<p>100 MB per file. No account required on either side.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Does it work without Wi-Fi?</h3>
+					<p>
+						Yes — sender and receiver just need an internet connection (Wi-Fi or
+						mobile data). They do not need to be on the same network or near each
+						other.
+					</p>
+				</div>
+			</div>
+
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-legal-links">
+				<a href="/why">Why Capsule</a>
+				·
+				<a href="/security">Encryption</a>
+				·
+				<a href="/roadmap">Roadmap</a>
+				·
+				<a href="/faq">How it works &amp; FAQ</a>
+				·
+				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
+				·
+				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
+				·
+				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
+			</p>
+		</div>
+
+		<script defer src="/s.js"></script>
+		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script>
+			const stored = localStorage.getItem("theme");
+			if (stored === "dark") {
+				document.documentElement.setAttribute("data-theme", "dark");
+			} else if (stored === "light") {
+				document.documentElement.setAttribute("data-theme", "light");
+			}
+		</script>
+	</body>
+</html>

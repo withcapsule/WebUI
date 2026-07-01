@@ -117,6 +117,7 @@ document.getElementById( "upload-form" ).addEventListener( "submit", async funct
 	status.className = "";
 	result.classList.remove( "visible" );
 	mnemonicBlock.classList.remove( "visible" );
+	document.getElementById( "share-btn" ).classList.remove( "visible" );
 	const qr = document.getElementById( "qr-canvas" );
 	qr.classList.remove( "visible" );
 	progress.value = 0;
@@ -196,6 +197,15 @@ document.getElementById( "upload-form" ).addEventListener( "submit", async funct
 				if( encrypt && mnemonic ) {
 					document.getElementById( "mnemonic-text" ).textContent = mnemonic;
 					mnemonicBlock.classList.add( "visible" );
+				}
+				const shareBtn = document.getElementById( "share-btn" );
+				if( navigator.share ) {
+					shareBtn.classList.add( "visible" );
+					shareBtn.onclick = function() {
+						navigator.share( { url: downloadUrl } )
+							.then( () => track( "Share Link" ) )
+							.catch( () => {} );
+					};
 				}
 			} else {
 				status.textContent = text.trim();

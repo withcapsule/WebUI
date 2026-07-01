@@ -894,6 +894,38 @@ code {
 	margin-top: 0.5rem;
 }
 
+/* ── Share button ── */
+
+#share-btn {
+	display: none;
+}
+
+#share-btn.visible {
+	display: inline-block;
+}
+
+/* ── FAQ page footer nav ── */
+
+.faq-legal-links {
+	font-size: 12px;
+	color: var(--muted);
+	margin-top: 2rem;
+	line-height: 2;
+}
+
+.faq-legal-links a {
+	color: var(--muted);
+	text-decoration: none;
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 1px;
+	transition: color 0.2s, border-color 0.2s;
+}
+
+.faq-legal-links a:hover {
+	color: var(--fg);
+	border-color: var(--fg);
+}
+
 /* ── Alt clients line ── */
 
 .alt-clients {

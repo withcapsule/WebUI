@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Transfer Files from Linux to Any Device | Capsule</title>
+		<meta name="description" content="Send files from Linux to iPhone, Mac, Android, or Windows with a single curl command. No AirDrop, no cable, no account required. Works from any terminal." />
+		<meta name="author" content="Sean Singh" />
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="linux file transfer, transfer files from linux, linux to iphone file transfer, linux to mac file transfer, linux file sharing, curl file upload share link, linux to android, send files from terminal, linux cross platform file transfer" />
+		<link rel="canonical" href="https://withcapsule.dev/linux-file-transfer" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="Capsule" />
+		<meta property="og:title" content="Transfer Files from Linux to Any Device | Capsule" />
+		<meta property="og:description" content="Send files from Linux to iPhone, Mac, Android, or Windows with one curl command. No cable, no account, no AirDrop." />
+		<meta property="og:url" content="https://withcapsule.dev/linux-file-transfer" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Transfer Files from Linux to Any Device | Capsule" />
+		<meta name="twitter:description" content="Send files from Linux to iPhone, Mac, Android, or Windows with one curl command. No cable, no account." />
+		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"headline": "Transfer Files from Linux to Any Device",
+			"description": "How to send files from Linux to iPhone, Mac, Android, or Windows using a single curl command and Capsule.",
+			"url": "https://withcapsule.dev/linux-file-transfer",
+			"author": {
+				"@type": "Person",
+				"name": "Sean Singh",
+				"url": "https://www.byseansingh.com"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Capsule",
+				"url": "https://withcapsule.dev"
+			}
+		}
+		</script>
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<link rel="stylesheet" href="styles.css" />
+		<script>
+			((window.plausible =
+				window.plausible ||
+				function () {
+					(plausible.q = plausible.q || []).push(arguments);
+				}),
+				(plausible.init =
+					plausible.init ||
+					function (i) {
+						plausible.o = i || {};
+					}));
+			plausible.init();
+		</script>
+	</head>
+	<body>
+		<div class="faq-wrap">
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-brand">Capsule</p>
+			<h1 class="faq-title">Transfer files from Linux to any device</h1>
+			<p class="faq-intro">
+				AirDrop is Apple-only. Quick Share barely reaches Linux. USB cables require
+				physical proximity. Here is what actually works: one curl command, one link,
+				opens anywhere.
+			</p>
+
+			<div class="faq-section">
+				<p class="faq-section-title">The problem</p>
+
+				<div class="faq-q">
+					<h3>Linux doesn't have AirDrop</h3>
+					<p>
+						AirDrop is macOS and iOS only. Google's Quick Share recently shipped
+						a Linux client via snap, but it still requires both devices to be on
+						the same network and in proximity, and in practice it's unreliable
+						outside of Android-to-Android transfers. USB cables work but require
+						you to have the cable, be physically next to the other device, and
+						know which mount point to look in. Email and cloud storage work but
+						require accounts, and you're uploading a file just to download it
+						again a minute later.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>curl works on every Linux system already</h3>
+					<p>
+						curl is installed by default on virtually every Linux distribution.
+						No new packages, no app stores, no proximity requirement. The recipient
+						doesn't need Linux — they just need a browser, which everyone has.
+					</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Sending from Linux</p>
+
+				<div class="faq-q">
+					<h3>Upload with one command</h3>
+					<p>Run this in any terminal. You get a download link back in seconds.</p>
+					<pre>curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</pre>
+					<p>
+						The response includes a link like
+						<code>https://send.withcapsule.dev/download/made-by-sean</code>.
+						Share that link with whoever needs the file. They open it in a browser
+						on any device and the file downloads immediately, no account required
+						on their end.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Upload from the browser instead</h3>
+					<p>
+						If you prefer not to use the terminal, go to
+						<a class="site-link" href="/">withcapsule.dev</a>,
+						drop the file on the Send tab, and hit Send. You get the same short
+						link and a QR code you can scan from your phone.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Install the CLI for more options</h3>
+					<p>
+						The Capsule CLI adds encrypted transfers, local history, and
+						self-hosting support. On Linux:
+					</p>
+					<pre>curl -fsSL https://withcapsule.dev/install-linux.sh | sh</pre>
+					<p>
+						Or via Cargo: <code>cargo install capsule-cli</code>. Also available
+						on Fedora COPR. See the
+						<a class="site-link" href="https://docs.withcapsule.dev/guides/cli/" target="_blank" rel="noopener">CLI guide ↗</a>.
+					</p>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Receiving on any device</p>
+
+				<div class="faq-q">
+					<h3>iPhone or iPad</h3>
+					<p>
+						Open the download link in Safari. The file downloads directly to Files.
+						No app install, no Apple ID required on the sender's side.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Mac</h3>
+					<p>
+						Open the link in any browser, or download from the terminal:
+					</p>
+					<pre>curl -OJ https://send.withcapsule.dev/download/[file-id]</pre>
+				</div>
+
+				<div class="faq-q">
+					<h3>Android</h3>
+					<p>
+						Open the link in Chrome or any Android browser. The file downloads
+						to your Downloads folder. No app required on the receiving end.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Windows</h3>
+					<p>
+						Open the link in a browser, or via PowerShell:
+					</p>
+					<pre>curl.exe -OJ https://send.withcapsule.dev/download/[file-id]</pre>
+				</div>
+
+				<div class="faq-q">
+					<h3>Another Linux machine</h3>
+					<p>
+						Same curl command, works over any network, no proximity required:
+					</p>
+					<pre>curl -OJ https://send.withcapsule.dev/download/[file-id]</pre>
+				</div>
+			</div>
+
+			<div class="faq-section">
+				<p class="faq-section-title">Details</p>
+
+				<div class="faq-q">
+					<h3>How long does the link stay active?</h3>
+					<p>
+						60 minutes from upload time. After that the file is permanently deleted.
+						This is a deliberate privacy boundary, not a storage limitation.
+					</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>What's the file size limit?</h3>
+					<p>100 MB per file. No account required.</p>
+				</div>
+
+				<div class="faq-q">
+					<h3>Can I encrypt the file before it leaves my machine?</h3>
+					<p>
+						Yes. The CLI's <code>upload-encrypted</code> subcommand encrypts the
+						file entirely on your machine using the age v1 format before upload.
+						The server receives only ciphertext and never sees the contents.
+						See the <a class="site-link" href="/security">encryption page →</a>
+					</p>
+				</div>
+			</div>
+
+			<a class="faq-back" href="/">← back to Capsule</a>
+
+			<p class="faq-legal-links">
+				<a href="/why">Why Capsule</a>
+				·
+				<a href="/security">Encryption</a>
+				·
+				<a href="/roadmap">Roadmap</a>
+				·
+				<a href="/faq">How it works &amp; FAQ</a>
+				·
+				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
+				·
+				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
+				·
+				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
+			</p>
+		</div>
+
+		<script defer src="/s.js"></script>
+		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script>
+			const stored = localStorage.getItem("theme");
+			if (stored === "dark") {
+				document.documentElement.setAttribute("data-theme", "dark");
+			} else if (stored === "light") {
+				document.documentElement.setAttribute("data-theme", "light");
+			}
+		</script>
+	</body>
+</html>

@@ -18,9 +18,12 @@
 		<meta property="og:url" content="https://withcapsule.dev/" />
 		<meta property="og:locale" content="en_US" />
 
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Capsule: Send Files Online. No Login, No Accounts." />
 		<meta name="twitter:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
 
 
 
@@ -126,6 +129,7 @@
 							<button id="copy-btn" onclick="copyFileId()">
 								Copy ID
 							</button>
+							<button id="share-btn">Share</button>
 						</div>
 						<canvas id="qr-canvas"></canvas>
 						<div id="mnemonic-block">
@@ -238,6 +242,8 @@
 					<a href="/security">Encryption</a>
 					<span class="specs-dot">·</span>
 					<a href="/roadmap">Roadmap</a>
+					<span class="specs-dot">·</span>
+					<a href="/changelog">Changelog</a>
 					<span class="specs-dot">·</span>
 					<a href="/faq">How It Works</a>
 					<span class="specs-dot">·</span>
