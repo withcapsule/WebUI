@@ -959,7 +959,7 @@ code {
 	color: var(--muted);
 	cursor: pointer;
 	font-family: monospace;
-	font-size: 11px;
+	font-size: 12px;
 	padding: 0.15rem 0.5rem;
 	transition: border-color 0.5s, color 0.5s;
 }

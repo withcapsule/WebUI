@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<body style="margin:0">
+<iframe id="f" src="/index.html" style="width:1400px;height:1000px;border:none"></iframe>
+<script>
+document.getElementById('f').addEventListener('load', () => {
+  const win = document.getElementById('f').contentWindow;
+  win.showInstallTab('linux');
+});
+</script>
+</body>
+</html>
