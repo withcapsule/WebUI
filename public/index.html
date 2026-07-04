@@ -104,6 +104,8 @@
 					<section id="section-upload">
 						<p id="upload-hint">Drag &amp; drop, paste a file or text, or pick one below.</p>
 						<form id="upload-form">
+							<div class="send-div">
+
 							<input
 								type="file"
 								id="file-input"
@@ -113,6 +115,7 @@
 							<button type="submit" id="upload-btn">
 								Send
 							</button>
+							</div>
 						</form>
 						<label id="encrypt-toggle-label">
 							<input type="checkbox" id="encrypt-toggle" />
@@ -143,17 +146,19 @@
 
 					<section id="section-download">
 						<form id="download-form">
-							<input
-								type="text"
-								id="download-input"
-								name="file_download_field"
-								placeholder="File ID or download URL"
-								autocomplete="off"
-								spellcheck="false"
-							/>
-							<button type="submit" id="search-btn">
-								Search
-							</button>
+							<div class="receive-div">
+								<input
+									type="text"
+									id="download-input"
+									name="file_download_field"
+									placeholder="File ID or download URL"
+									autocomplete="off"
+									spellcheck="false"
+								/>
+								<button type="submit" id="search-btn">
+									Search
+								</button>
+							</div>
 						</form>
 						<p id="download-hint">Tip: spacebar inserts a hyphen, so you can type IDs like <code>made by sean</code> :)</p>
 						<p id="download-status"></p>

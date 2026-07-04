@@ -436,7 +436,6 @@ document.addEventListener( "paste", function ( e ) {
 		return;
 	}
 
-
 	const el = document.activeElement;
 	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable ) ) return;
 
@@ -447,8 +446,6 @@ document.addEventListener( "paste", function ( e ) {
 } );
 
 
-
-
 document.addEventListener( "keydown", function ( e ) {
 	if( e.ctrlKey || e.metaKey || e.altKey ) return;
 
@@ -456,6 +453,16 @@ document.addEventListener( "keydown", function ( e ) {
 	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable ) ) return;
 
 	const key = e.key.toLowerCase();
+
+	if( key === "enter" ) {
+		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
+		const fileInput = document.getElementById( "file-input" );
+		const btn = document.getElementById( "upload-btn" );
+		if( !fileInput.files.length || btn.disabled ) return;
+		document.getElementById( "upload-form" ).requestSubmit();
+		return;
+	}
+
 	const target = key === "s" ? "upload" : key === "r" ? "download" : null;
 	if( !target ) return;
 

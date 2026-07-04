@@ -361,6 +361,16 @@ input[type="text"]::placeholder {
 	color: var(--muted);
 }
 
+.send-div {
+	display: flex;
+	min-width: 100%;
+}
+
+.receive-div {
+	display: flex;
+	min-width: 100%;
+}
+
 button {
 	background: var(--btn-bg);
 	border: none;
