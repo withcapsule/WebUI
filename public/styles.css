@@ -327,6 +327,38 @@ body {
 	opacity: 0.55;
 }
 
+.shortcut-legend {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem 0.9rem;
+	margin-top: 1.5rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--border);
+	font-size: 12px;
+	color: var(--muted);
+}
+
+.shortcut-legend .legend-title {
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	font-size: 11px;
+	opacity: 0.8;
+}
+
+.shortcut-legend .legend-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	white-space: nowrap;
+}
+
+.shortcut-legend .tab-key {
+	margin-left: 0;
+	opacity: 1;
+}
+
 section#section-upload,
 section#section-download {
 	display: none;
@@ -1030,6 +1062,10 @@ code {
 	}
 
 	.curl-block {
+		display: none;
+	}
+
+	.shortcut-legend {
 		display: none;
 	}
 
