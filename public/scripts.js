@@ -87,10 +87,10 @@ function copyFileId() {
 	navigator.clipboard.writeText( id ).then( () => {
 		track( "Copy File ID" );
 		const btn = document.getElementById( "copy-btn" );
-		const orig = btn.textContent;
+		const orig = btn.innerHTML;
 		btn.textContent = "Copied";
 		setTimeout( () => {
-			btn.textContent = orig;
+			btn.innerHTML = orig;
 		}, 1200 );
 	} );
 }
@@ -264,6 +264,7 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 	lastSearchAt = now;
 
 	const raw = document.getElementById( "download-input" ).value.trim();
+	document.getElementById( "download-input" ).blur();
 	const id = extractId( raw );
 	const status = document.getElementById( "download-status" );
 	const dlBtn = document.getElementById( "download-btn" );
@@ -487,6 +488,13 @@ document.addEventListener( "keydown", function ( e ) {
 		const dlBtn = document.getElementById( "download-btn" );
 		if( !dlBtn.classList.contains( "visible" ) || dlBtn.disabled ) return;
 		dlBtn.click();
+		return;
+	}
+
+	if( key === "c" ) {
+		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
+		if( !document.getElementById( "upload-result" ).classList.contains( "visible" ) ) return;
+		copyFileId();
 		return;
 	}
 
