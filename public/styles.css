@@ -316,6 +316,17 @@ body {
 	opacity: 1;
 }
 
+.btn-key {
+	margin-left: 0.3rem;
+	padding: 0 0.25rem;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	font-family: monospace;
+	font-size: 11px;
+	line-height: 1;
+	opacity: 0.55;
+}
+
 section#section-upload,
 section#section-download {
 	display: none;
@@ -476,6 +487,11 @@ code {
 	margin-top: 0.75rem;
 	cursor: pointer;
 	user-select: none;
+}
+
+#encrypt-toggle-label .tab-key {
+	color: inherit;
+	opacity: 1;
 }
 
 #encrypt-toggle-label .encrypt-hint {

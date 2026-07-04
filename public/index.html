@@ -113,13 +113,13 @@
 								required
 							/>
 							<button type="submit" id="upload-btn">
-								Send
+								Send <kbd class="btn-key" aria-hidden="true">↵</kbd>
 							</button>
 							</div>
 						</form>
-						<label id="encrypt-toggle-label">
+						<label id="encrypt-toggle-label" aria-keyshortcuts="E">
 							<input type="checkbox" id="encrypt-toggle" />
-							Encrypt <span class="encrypt-hint">(fully in your browser; we never see the contents)</span>
+							Encrypt <kbd class="tab-key" aria-hidden="true">E</kbd> <span class="encrypt-hint">(fully in your browser; we never see the contents)</span>
 						</label>
 						<progress
 							id="upload-progress"
@@ -156,7 +156,7 @@
 									spellcheck="false"
 								/>
 								<button type="submit" id="search-btn">
-									Search
+									Search <kbd class="btn-key" aria-hidden="true">↵</kbd>
 								</button>
 							</div>
 						</form>
@@ -165,7 +165,7 @@
 						<div id="decrypt-block">
 							<input type="password" id="mnemonic-input" placeholder="Enter the 12-word phrase to decrypt" autocomplete="off" spellcheck="false" />
 						</div>
-						<button id="download-btn">Receive</button>
+						<button id="download-btn" aria-keyshortcuts="D">Receive <kbd class="btn-key" aria-hidden="true">D</kbd></button>
 					</section>
 
 					<div class="curl-block">

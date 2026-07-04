@@ -294,7 +294,7 @@ document.getElementById( "download-form" ).addEventListener( "submit", function 
 			status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left" + ( currentIsEncrypted ? " · encrypted" : "" );
 			decryptBlock.classList.toggle( "visible", currentIsEncrypted );
 			document.getElementById( "mnemonic-input" ).value = "";
-			dlBtn.textContent = currentIsEncrypted ? "Decrypt & save" : "Receive";
+			dlBtn.innerHTML = ( currentIsEncrypted ? "Decrypt &amp; save" : "Receive" ) + ' <kbd class="btn-key" aria-hidden="true">D</kbd>';
 			dlBtn.classList.add( "visible" );
 			track( "File Found", { encrypted: currentIsEncrypted } );
 		} else {
@@ -430,14 +430,27 @@ function setUploadFile( file ) {
 }
 
 document.addEventListener( "paste", function ( e ) {
+	const el = document.activeElement;
+	const inField = el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable );
+
+	if( document.getElementById( "tab-download" ).classList.contains( "active" ) ) {
+		if( inField ) return;
+		const text = e.clipboardData?.getData( "text/plain" );
+		if( !text ) return;
+		const input = document.getElementById( "download-input" );
+		input.focus();
+		input.value = text.trim();
+		input.dispatchEvent( new Event( "input", { bubbles: true } ) );
+		return;
+	}
+
 	const files = e.clipboardData?.files;
 	if( files?.length ) {
 		setUploadFile( files[ 0 ] );
 		return;
 	}
 
-	const el = document.activeElement;
-	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable ) ) return;
+	if( inField ) return;
 
 	const text = e.clipboardData?.getData( "text/plain" );
 	if( !text ) return;
@@ -460,6 +473,20 @@ document.addEventListener( "keydown", function ( e ) {
 		const btn = document.getElementById( "upload-btn" );
 		if( !fileInput.files.length || btn.disabled ) return;
 		document.getElementById( "upload-form" ).requestSubmit();
+		return;
+	}
+
+	if( key === "e" ) {
+		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
+		document.getElementById( "encrypt-toggle" ).click();
+		return;
+	}
+
+	if( key === "d" ) {
+		if( !document.getElementById( "tab-download" ).classList.contains( "active" ) ) return;
+		const dlBtn = document.getElementById( "download-btn" );
+		if( !dlBtn.classList.contains( "visible" ) || dlBtn.disabled ) return;
+		dlBtn.click();
 		return;
 	}
 
