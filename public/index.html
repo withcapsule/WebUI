@@ -82,91 +82,93 @@
 		<div class="layout">
 			<div class="pane pane-tool">
 				<div class="pane-tool-inner">
-					<nav class="tab-nav">
-						<button
-							id="tab-upload"
-							class="tab"
-							onclick="showTab('upload')"
-							aria-keyshortcuts="S"
-						>
-							Send <kbd class="tab-key" aria-hidden="true">S</kbd>
-						</button>
-						<button
-							id="tab-download"
-							class="tab"
-							onclick="showTab('download')"
-							aria-keyshortcuts="R"
-						>
-							Receive <kbd class="tab-key" aria-hidden="true">R</kbd>
-						</button>
-					</nav>
-
-					<section id="section-upload">
-						<p id="upload-hint">Drag &amp; drop, paste a file or text, or pick one below.</p>
-						<form id="upload-form">
-							<div class="send-div">
-
-							<input
-								type="file"
-								id="file-input"
-								name="f"
-								required
-							/>
-							<button type="submit" id="upload-btn">
-								Send <kbd class="btn-key" aria-hidden="true">↵</kbd>
+					<div class="tab-container">
+						<nav class="tab-nav">
+							<button
+								id="tab-upload"
+								class="tab"
+								onclick="showTab('upload')"
+								aria-keyshortcuts="S"
+							>
+								Send <kbd class="tab-key" aria-hidden="true">S</kbd>
 							</button>
-							</div>
-						</form>
-						<label id="encrypt-toggle-label" aria-keyshortcuts="E">
-							<input type="checkbox" id="encrypt-toggle" />
-							Encrypt <kbd class="tab-key" aria-hidden="true">E</kbd> <span class="encrypt-hint">(fully in your browser; we never see the contents)</span>
-						</label>
-						<progress
-							id="upload-progress"
-							value="0"
-							max="100"
-						></progress>
-						<p id="upload-status"></p>
-						<div id="upload-result">
-							<code id="file-id-text"></code>
-							<button id="copy-btn" onclick="copyFileId()" aria-keyshortcuts="C">
-								Copy ID <kbd class="btn-key" aria-hidden="true">C</kbd>
+							<button
+								id="tab-download"
+								class="tab"
+								onclick="showTab('download')"
+								aria-keyshortcuts="R"
+							>
+								Receive <kbd class="tab-key" aria-hidden="true">R</kbd>
 							</button>
-							<button id="share-btn">Share</button>
-						</div>
-						<canvas id="qr-canvas"></canvas>
-						<div id="mnemonic-block">
-							<p class="mnemonic-warn">Save this key. Without it, your file cannot be recovered.</p>
-							<div class="mnemonic-row">
-								<code id="mnemonic-text"></code>
-								<button id="mnemonic-copy" onclick="copyMnemonic()">Copy</button>
-							</div>
-						</div>
-					</section>
+						</nav>
 
-					<section id="section-download">
-						<form id="download-form">
-							<div class="receive-div">
+						<section id="section-upload">
+							<p id="upload-hint">Drag &amp; drop, paste a file or text, or pick one below.</p>
+							<form id="upload-form">
+								<div class="send-div">
+
 								<input
-									type="text"
-									id="download-input"
-									name="file_download_field"
-									placeholder="File ID or download URL"
-									autocomplete="off"
-									spellcheck="false"
+									type="file"
+									id="file-input"
+									name="f"
+									required
 								/>
-								<button type="submit" id="search-btn">
-									Search <kbd class="btn-key" aria-hidden="true">↵</kbd>
+								<button type="submit" id="upload-btn">
+									Send <kbd class="btn-key" aria-hidden="true">↵</kbd>
 								</button>
+								</div>
+							</form>
+							<label id="encrypt-toggle-label" aria-keyshortcuts="E">
+								<input type="checkbox" id="encrypt-toggle" />
+								Encrypt <kbd class="tab-key" aria-hidden="true">E</kbd> <span class="encrypt-hint">(fully in your browser; we never see the contents)</span>
+							</label>
+							<progress
+								id="upload-progress"
+								value="0"
+								max="100"
+							></progress>
+							<p id="upload-status"></p>
+							<div id="upload-result">
+								<code id="file-id-text"></code>
+								<button id="copy-btn" onclick="copyFileId()" aria-keyshortcuts="C">
+									Copy ID <kbd class="btn-key" aria-hidden="true">C</kbd>
+								</button>
+								<button id="share-btn">Share</button>
 							</div>
-						</form>
-						<p id="download-hint">Tip: spacebar inserts a hyphen, so you can type IDs like <code>made by sean</code> :)</p>
-						<p id="download-status"></p>
-						<div id="decrypt-block">
-							<input type="password" id="mnemonic-input" placeholder="Enter the 12-word phrase to decrypt" autocomplete="off" spellcheck="false" />
-						</div>
-						<button id="download-btn" aria-keyshortcuts="D">Receive <kbd class="btn-key" aria-hidden="true">D</kbd></button>
-					</section>
+							<canvas id="qr-canvas"></canvas>
+							<div id="mnemonic-block">
+								<p class="mnemonic-warn">Save this key. Without it, your file cannot be recovered.</p>
+								<div class="mnemonic-row">
+									<code id="mnemonic-text"></code>
+									<button id="mnemonic-copy" onclick="copyMnemonic()">Copy</button>
+								</div>
+							</div>
+						</section>
+
+						<section id="section-download">
+							<form id="download-form">
+								<div class="receive-div">
+									<input
+										type="text"
+										id="download-input"
+										name="file_download_field"
+										placeholder="File ID or download URL"
+										autocomplete="off"
+										spellcheck="false"
+									/>
+									<button type="submit" id="search-btn">
+										Search <kbd class="btn-key" aria-hidden="true">↵</kbd>
+									</button>
+								</div>
+							</form>
+							<p id="download-hint">Tip: spacebar inserts a hyphen, so you can type IDs like <code>made by sean</code> :)</p>
+							<p id="download-status"></p>
+							<div id="decrypt-block">
+								<input type="password" id="mnemonic-input" placeholder="Enter the 12-word phrase to decrypt" autocomplete="off" spellcheck="false" />
+							</div>
+							<button id="download-btn" aria-keyshortcuts="D">Receive <kbd class="btn-key" aria-hidden="true">D</kbd></button>
+						</section>
+					</div>
 
 					<div class="curl-block">
 						<p class="curl-label">or via curl</p>
