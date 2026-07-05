@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Capsule: Send Files Online. No Login, No Accounts.</title>
+        <meta name="description" content="Capsule is a free, anonymous file transfer tool. Upload any file via curl, the CLI, or your browser and get a short link and QR code instantly. No login, no account. Files auto-delete after 60 minutes." />
+        <meta name="author" content="Sean Singh" />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="free file transfer tool, anonymous file sharing, send files online, no login file upload, curl file upload, temporary file hosting, encrypted file transfer, file sharing no account, send large files online" />
+        <link rel="canonical" href="https://withcapsule.dev/" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Capsule" />
+        <meta property="og:title" content="Capsule: Send Files Online. No Login, No Accounts." />
+        <meta property="og:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+        <meta property="og:url" content="https://withcapsule.dev/" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Capsule: Send Files Online. No Login, No Accounts." />
+        <meta name="twitter:description" content="Upload any file via curl, the CLI, or your browser. Get a short link and QR code instantly. Files auto-delete after 60 minutes. No login required." />
+        <meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Capsule",
+            "url": "https://withcapsule.dev",
+            "description": "A free, anonymous file transfer tool. Upload any file via curl, CLI, or browser and get a short link and QR code instantly. Files auto-delete after 60 minutes. No login or account required.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "author": { "@type": "Person", "name": "Sean Singh", "url": "https://www.byseansingh.com" },
+            "featureList": [
+                "No login or account required",
+                "File upload via curl, CLI, or browser",
+                "Short link and QR code on upload",
+                "Files auto-delete after 60 minutes",
+                "100 MB max file size",
+                "2 GB/hr upload limit"
+            ]
+        }
+        </script>
+
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <script>
+            ((window.plausible =
+                window.plausible ||
+                function () {
+                    (plausible.q = plausible.q || []).push(arguments);
+                }),
+                (plausible.init =
+                    plausible.init ||
+                    function (i) {
+                        plausible.o = i || {};
+                    }));
+            plausible.init();
+        </script>
+
+        <style>
+            :root {
+                --bg: #f6f6f3;
+                --panel: #ffffff;
+                --fg: #14140f;
+                --muted: #6a6a5f;
+                --faint: #9a9a8d;
+                --rule: #17170f;
+                --rule-soft: #dcdcd3;
+                --accent: #0f8a00;
+                --accent-bright: #15b500;
+                --accent-ink: #0c7a00;
+                --accent-soft: #e7f7df;
+                --code-bg: #f0f1ea;
+                --error: #c02626;
+                --go-fg: #ffffff;
+
+                --mono: ui-monospace, "SF Mono", "JetBrains Mono",
+                    "Cascadia Code", Menlo, Consolas, monospace;
+                --sans: ui-sans-serif, system-ui, -apple-system,
+                    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            }
+
+            :root[data-theme="dark"] {
+                --bg: #0c0d0a;
+                --panel: #121410;
+                --fg: #e8ebe2;
+                --muted: #9aa090;
+                --faint: #666c5e;
+                --rule: #e8ebe2;
+                --rule-soft: #262a20;
+                --accent: #3ad11a;
+                --accent-bright: #3ad11a;
+                --accent-ink: #52dd33;
+                --accent-soft: #14260d;
+                --code-bg: #181b14;
+                --error: #ff6b6b;
+                --go-fg: #08210a;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root:not([data-theme="light"]) {
+                    --bg: #0c0d0a;
+                    --panel: #121410;
+                    --fg: #e8ebe2;
+                    --muted: #9aa090;
+                    --faint: #666c5e;
+                    --rule: #e8ebe2;
+                    --rule-soft: #262a20;
+                    --accent: #3ad11a;
+                    --accent-bright: #3ad11a;
+                    --accent-ink: #52dd33;
+                    --accent-soft: #14260d;
+                    --code-bg: #181b14;
+                    --error: #ff6b6b;
+                    --go-fg: #08210a;
+                }
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                -webkit-text-size-adjust: 100%;
+            }
+            body {
+                background: var(--bg);
+                color: var(--fg);
+                font-family: var(--mono);
+                font-size: 16px;
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+                padding: clamp(0.75rem, 2.5vw, 2.75rem);
+            }
+            .sans {
+                font-family: var(--sans);
+            }
+            a {
+                color: inherit;
+            }
+
+            /* ── Frame ── */
+            .frame {
+                max-width: 1300px;
+                margin: 0 auto;
+                background: var(--panel);
+                border: 1px solid var(--rule);
+            }
+
+            /* ── Header ── */
+            .head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
+                border-bottom: 1px solid var(--rule);
+            }
+            .brand {
+                font-weight: 700;
+                font-size: 1.1rem;
+                letter-spacing: -0.01em;
+                display: inline-flex;
+                align-items: baseline;
+                text-decoration: none;
+                color: var(--fg);
+            }
+            .brand .caret {
+                display: inline-block;
+                width: 0.6em;
+                height: 1em;
+                margin-left: 0.15em;
+                background: var(--accent-bright);
+                transform: translateY(0.12em);
+                animation: blink 1.1s steps(1) infinite;
+            }
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+            .head-right {
+                display: flex;
+                align-items: center;
+                gap: 1.1rem;
+                font-size: 0.85rem;
+            }
+            .head-right a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+            .head-right a:hover {
+                color: var(--fg);
+            }
+            .flyout-wrap {
+                position: relative;
+            }
+            .ghost-btn {
+                border: 1px solid var(--rule);
+                background: transparent;
+                color: var(--fg);
+                font: inherit;
+                font-size: 0.82rem;
+                padding: 0.22rem 0.6rem;
+                cursor: pointer;
+            }
+            .ghost-btn:hover {
+                background: var(--fg);
+                color: var(--panel);
+            }
+            .flyout {
+                position: absolute;
+                right: 0;
+                top: calc(100% + 0.45rem);
+                width: 214px;
+                background: var(--panel);
+                border: 1px solid var(--rule);
+                padding: 0.4rem;
+                z-index: 30;
+                display: none;
+            }
+            .flyout.open {
+                display: block;
+            }
+            .flyout h4 {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--faint);
+                padding: 0.3rem 0.4rem 0.45rem;
+            }
+            .flyout .sc {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.3rem 0.4rem;
+                font-size: 0.86rem;
+            }
+            .flyout .sc:hover {
+                background: var(--code-bg);
+            }
+            kbd {
+                font-family: var(--mono);
+                display: inline-block;
+                min-width: 1.4em;
+                text-align: center;
+                border: 1px solid currentColor;
+                padding: 0 0.28rem;
+                font-size: 0.74rem;
+                line-height: 1.35;
+                opacity: 0.85;
+            }
+            .theme {
+                display: inline-flex;
+                gap: 0.6rem;
+            }
+            .theme button {
+                border: 0;
+                background: transparent;
+                color: var(--faint);
+                font: inherit;
+                font-size: 0.82rem;
+                cursor: pointer;
+                padding: 0;
+            }
+            .theme button:hover {
+                color: var(--fg);
+            }
+            .theme button.active {
+                color: var(--accent-ink);
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+
+            /* ── Split ── */
+            .split {
+                display: grid;
+                grid-template-columns: 1fr 360px;
+            }
+            @media (max-width: 860px) {
+                .split {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .tool {
+                padding: clamp(1.5rem, 3vw, 2.75rem);
+                border-right: 1px solid var(--rule);
+                min-width: 0;
+            }
+            @media (max-width: 860px) {
+                .tool {
+                    border-right: 0;
+                    border-bottom: 1px solid var(--rule);
+                }
+            }
+
+            /* ── Lead ── */
+            .lead {
+                font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+            .lead .dot {
+                color: var(--accent-bright);
+            }
+            .lead-sub {
+                font-family: var(--sans);
+                color: var(--muted);
+                font-size: 1rem;
+                margin-top: 0.7rem;
+                text-transform: none;
+                max-width: 46ch;
+            }
+
+            /* ── Tabs ── */
+            .tabs {
+                display: flex;
+                gap: 1.5rem;
+                margin: 1.75rem 0 1rem;
+                border-bottom: 1px solid var(--rule-soft);
+            }
+            .tab {
+                border: 0;
+                background: transparent;
+                font: inherit;
+                font-size: 0.98rem;
+                color: var(--muted);
+                cursor: pointer;
+                padding: 0 0 0.55rem;
+                margin-bottom: -1px;
+            }
+            .tab::before {
+                content: "  ";
+                white-space: pre;
+                color: var(--accent-bright);
+            }
+            .tab::after {
+                content: "  ";
+                white-space: pre;
+            }
+            .tab.active {
+                color: var(--fg);
+                font-weight: 700;
+                border-bottom: 2px solid var(--accent-bright);
+            }
+            .tab.active::before {
+                content: "[ ";
+            }
+            .tab.active::after {
+                content: " ]";
+            }
+            .tab kbd {
+                margin-left: 0.35rem;
+            }
+            .panel {
+                display: none;
+            }
+            .panel.visible {
+                display: block;
+            }
+
+            /* ── Slot ── */
+            .slot {
+                --mark: var(--rule);
+                --len: 18px;
+                --thk: 1.5px;
+                display: block;
+                cursor: pointer;
+                text-align: center;
+                padding: 3rem 1.5rem;
+                background: linear-gradient(var(--mark), var(--mark)) 0 0 /
+                        var(--len) var(--thk) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 0 0 / var(--thk)
+                        var(--len) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 100% 0 /
+                        var(--len) var(--thk) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 100% 0 /
+                        var(--thk) var(--len) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 0 100% /
+                        var(--len) var(--thk) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 0 100% /
+                        var(--thk) var(--len) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 100% 100% /
+                        var(--len) var(--thk) no-repeat,
+                    linear-gradient(var(--mark), var(--mark)) 100% 100% /
+                        var(--thk) var(--len) no-repeat;
+                transition: background-color 0.15s;
+            }
+            .slot:hover,
+            body.drag .slot {
+                --mark: var(--accent-bright);
+                background-color: var(--accent-soft);
+            }
+            .slot .glyph {
+                font-size: 1.6rem;
+                color: var(--accent-ink);
+                letter-spacing: 0.15em;
+            }
+            .slot .big {
+                font-weight: 700;
+                margin-top: 0.55rem;
+                font-size: 1.05rem;
+            }
+            .slot .small {
+                font-family: var(--sans);
+                color: var(--muted);
+                font-size: 0.9rem;
+                margin-top: 0.3rem;
+            }
+            .slot .picked {
+                display: none;
+                margin-top: 0.7rem;
+                color: var(--accent-ink);
+                word-break: break-all;
+            }
+            .slot.has-file .picked {
+                display: block;
+            }
+
+            /* ── Encrypt ── */
+            .encrypt {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.65rem;
+                margin-top: 1.2rem;
+                cursor: pointer;
+            }
+            .encrypt input {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                margin-top: 0.28rem;
+                border: 1px solid var(--rule);
+                background: var(--panel);
+                cursor: pointer;
+                flex-shrink: 0;
+                position: relative;
+            }
+            .encrypt input:checked {
+                background: var(--accent-bright);
+                border-color: var(--accent-bright);
+            }
+            .encrypt input:checked::after {
+                content: "";
+                position: absolute;
+                left: 4px;
+                top: 1px;
+                width: 4px;
+                height: 8px;
+                border: solid var(--panel);
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .encrypt .lbl {
+                font-weight: 700;
+                font-size: 0.94rem;
+            }
+            .encrypt .lbl kbd {
+                font-weight: 400;
+            }
+            .encrypt .hint {
+                display: block;
+                font-family: var(--sans);
+                color: var(--muted);
+                font-size: 0.88rem;
+                font-weight: 400;
+            }
+
+            /* ── Primary action ── */
+            .go {
+                margin-top: 1.3rem;
+                width: 100%;
+                border: 1px solid var(--accent);
+                background: var(--accent);
+                color: var(--go-fg);
+                font: inherit;
+                font-weight: 700;
+                font-size: 1rem;
+                padding: 0.75rem;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.55rem;
+                transition: filter 0.12s, transform 0.05s;
+            }
+            .go:hover {
+                filter: brightness(1.08);
+            }
+            .go:active {
+                transform: translateY(1px);
+            }
+            .go:disabled {
+                opacity: 0.55;
+                cursor: default;
+                transform: none;
+            }
+            .go kbd {
+                border-color: currentColor;
+                opacity: 0.75;
+            }
+            .go.hidden {
+                display: none;
+            }
+
+            /* ── Progress ── */
+            .prog {
+                display: none;
+                margin-top: 1.1rem;
+            }
+            .prog.on {
+                display: block;
+            }
+            .prog .bar {
+                height: 8px;
+                border: 1px solid var(--rule);
+                background: var(--panel);
+            }
+            .prog .fill {
+                height: 100%;
+                width: 0%;
+                background: var(--accent-bright);
+                transition: width 0.12s linear;
+            }
+
+            /* ── Status lines ── */
+            .status {
+                font-family: var(--sans);
+                margin-top: 0.7rem;
+                font-size: 0.9rem;
+                color: var(--muted);
+                min-height: 1.2em;
+            }
+            .status.error {
+                color: var(--error);
+                font-weight: 600;
+            }
+
+            /* ── Upload result ── */
+            .result {
+                display: none;
+                margin-top: 1.3rem;
+                padding-top: 1.1rem;
+                border-top: 1px solid var(--rule-soft);
+            }
+            .result.on {
+                display: block;
+            }
+            .result .ok {
+                color: var(--accent-ink);
+                font-weight: 700;
+                font-size: 0.9rem;
+            }
+            .id-row {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                margin-top: 0.7rem;
+                flex-wrap: wrap;
+            }
+            .id-row code {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: var(--fg);
+            }
+            .mini-btn {
+                border: 1px solid var(--rule);
+                background: transparent;
+                color: var(--fg);
+                font: inherit;
+                font-size: 0.8rem;
+                padding: 0.28rem 0.65rem;
+                cursor: pointer;
+            }
+            .mini-btn:hover {
+                background: var(--fg);
+                color: var(--panel);
+            }
+            .mini-btn.hidden {
+                display: none;
+            }
+            #qr-canvas {
+                display: none;
+                margin-top: 1.1rem;
+                border: 1px solid var(--rule-soft);
+                background: #fff;
+                padding: 6px;
+            }
+            #qr-canvas.on {
+                display: block;
+            }
+            .mnemonic {
+                display: none;
+                margin-top: 1.1rem;
+                border: 1px solid var(--accent);
+                background: var(--accent-soft);
+                padding: 0.8rem;
+            }
+            .mnemonic.on {
+                display: block;
+            }
+            .mnemonic .warn {
+                font-weight: 700;
+                font-size: 0.86rem;
+            }
+            .mnemonic .row {
+                display: flex;
+                gap: 0.55rem;
+                align-items: center;
+                margin-top: 0.55rem;
+            }
+            .mnemonic code {
+                flex: 1;
+                font-size: 0.92rem;
+                word-break: break-word;
+                color: var(--fg);
+            }
+
+            /* ── Receive ── */
+            .rcv-input {
+                width: 100%;
+                border: 1px solid var(--rule);
+                background: var(--panel);
+                color: var(--fg);
+                font-family: var(--mono);
+                font-size: 0.98rem;
+                padding: 0.75rem 0.85rem;
+            }
+            .rcv-input:focus {
+                outline: 2px solid var(--accent-bright);
+                outline-offset: -1px;
+            }
+            .rcv-tip {
+                font-family: var(--sans);
+                color: var(--faint);
+                font-size: 0.88rem;
+                margin-top: 0.6rem;
+            }
+            .decrypt {
+                display: none;
+                margin-top: 0.85rem;
+            }
+            .decrypt.on {
+                display: block;
+            }
+
+            /* ── Ledger ── */
+            .ledger {
+                margin-top: 1.75rem;
+                padding-top: 1.1rem;
+                border-top: 1px solid var(--rule-soft);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.45rem 1.25rem;
+                font-size: 0.84rem;
+                color: var(--muted);
+            }
+            .ledger span {
+                white-space: nowrap;
+            }
+            .ledger .tick {
+                color: var(--accent-bright);
+                font-weight: 700;
+            }
+
+            /* ── Terminal disclosure ── */
+            .terminal {
+                margin-top: 1.4rem;
+                border: 1px solid var(--rule-soft);
+            }
+            .terminal > summary {
+                list-style: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.75rem 0.95rem;
+                font-weight: 700;
+                font-size: 0.92rem;
+            }
+            .terminal > summary::-webkit-details-marker {
+                display: none;
+            }
+            .terminal > summary .sub {
+                font-family: var(--sans);
+                color: var(--muted);
+                font-weight: 400;
+                font-size: 0.86rem;
+            }
+            .terminal > summary .chev {
+                color: var(--accent-ink);
+            }
+            .terminal[open] > summary .chev::after {
+                content: "[-]";
+            }
+            .terminal:not([open]) > summary .chev::after {
+                content: "[+]";
+            }
+            .terminal-body {
+                padding: 0 0.95rem 0.95rem;
+                border-top: 1px solid var(--rule-soft);
+            }
+            .subhead {
+                color: var(--faint);
+                font-size: 0.78rem;
+                margin: 1rem 0 0.45rem;
+            }
+            .subhead::before {
+                content: "# ";
+                color: var(--accent-ink);
+            }
+            .cmd {
+                display: flex;
+                align-items: stretch;
+                border: 1px solid var(--rule-soft);
+                background: var(--code-bg);
+            }
+            .cmd code {
+                flex: 1;
+                font-size: 0.85rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 0.55rem 0.7rem;
+                min-width: 0;
+            }
+            .cmd .copy {
+                border: 0;
+                border-left: 1px solid var(--rule-soft);
+                background: transparent;
+                color: var(--muted);
+                font: inherit;
+                font-size: 0.8rem;
+                padding: 0 0.75rem;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .cmd .copy:hover {
+                background: var(--fg);
+                color: var(--panel);
+            }
+            .os-tabs {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 0.5rem;
+                font-size: 0.84rem;
+            }
+            .os-tabs button {
+                border: 0;
+                background: transparent;
+                font: inherit;
+                color: var(--muted);
+                cursor: pointer;
+                padding: 0;
+            }
+            .os-tabs button.active {
+                color: var(--accent-ink);
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+            .os-cmd {
+                display: none;
+            }
+            .os-cmd.visible {
+                display: flex;
+            }
+            .clients {
+                font-family: var(--sans);
+                margin-top: 0.95rem;
+                font-size: 0.88rem;
+                color: var(--muted);
+            }
+            .clients a {
+                color: var(--accent-ink);
+                text-decoration: none;
+                font-weight: 600;
+            }
+            .clients a:hover {
+                text-decoration: underline;
+            }
+
+
+
+            .info {
+                padding: clamp(1.5rem, 3vw, 2.75rem);
+            }
+            .info .tagline {
+                font-size: clamp(1.6rem, 3.6vw, 2.15rem);
+                line-height: 1.05;
+                letter-spacing: -0.02em;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+            .info .tagline .dot {
+                color: var(--accent-bright);
+            }
+            .info .desc {
+                font-family: var(--sans);
+                color: var(--muted);
+                margin-top: 0.8rem;
+                font-size: 0.95rem;
+            }
+            .info .links {
+                margin-top: 1.4rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .info .links a {
+                color: var(--fg);
+                text-decoration: none;
+                width: fit-content;
+            }
+            .info .links a::before {
+                content: "→ ";
+                color: var(--accent-ink);
+            }
+            .info .links a:hover {
+                color: var(--accent-ink);
+            }
+            .info .specs {
+                margin-top: 1.6rem;
+                padding-top: 1.2rem;
+                border-top: 1px solid var(--rule-soft);
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 0.4rem 1rem;
+                font-size: 0.84rem;
+                color: var(--muted);
+            }
+            .info .specs .k {
+                color: var(--fg);
+                font-weight: 700;
+            }
+
+            .foot {
+                border-top: 1px solid var(--rule);
+                padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3rem 0.85rem;
+                font-size: 0.82rem;
+                color: var(--muted);
+            }
+            .foot a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+            .foot a:hover {
+                color: var(--fg);
+            }
+            .foot .sep {
+                color: var(--faint);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="frame">
+            <header class="head">
+                <a class="brand" href="/">Capsule<span class="caret" aria-hidden="true"></span></a>
+                <div class="head-right">
+                    <a href="/faq">faq</a>
+                    <a href="https://github.com/withcapsule" target="_blank" rel="noopener">github</a>
+                    <div class="flyout-wrap">
+                        <button class="ghost-btn" id="sc-btn" aria-haspopup="true" aria-expanded="false">
+                            ⌨ shortcuts
+                        </button>
+                        <div class="flyout" id="sc-flyout" role="menu">
+                            <h4>Keyboard shortcuts</h4>
+                            <div class="sc"><span>Send</span><kbd>S</kbd></div>
+                            <div class="sc"><span>Receive</span><kbd>R</kbd></div>
+                            <div class="sc"><span>Encrypt</span><kbd>E</kbd></div>
+                            <div class="sc"><span>Submit</span><kbd>↵</kbd></div>
+                            <div class="sc"><span>Copy ID</span><kbd>C</kbd></div>
+                            <div class="sc"><span>Download</span><kbd>D</kbd></div>
+                        </div>
+                    </div>
+                    <div class="theme" role="group" aria-label="Color theme">
+                        <button class="theme-btn" data-theme-val="light" onclick="setTheme('light', true)">light</button>
+                        <button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark', true)">dark</button>
+                        <button class="theme-btn" data-theme-val="system" onclick="setTheme('system', true)">system</button>
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="split">
+                <section class="tool">
+                    <h2 class="lead">
+                        Drop a file.<br />It vanishes<br />in an hour<span class="dot">.</span>
+                        <span class="lead-sub">No accounts, no sign-up, no trace. You get a short link and QR code back.</span>
+                    </h2>
+
+                    <div class="tabs" role="tablist">
+                        <button id="tab-upload" class="tab" role="tab" onclick="showTab('upload')">send<kbd aria-hidden="true">S</kbd></button>
+                        <button id="tab-download" class="tab" role="tab" onclick="showTab('download')">receive<kbd aria-hidden="true">R</kbd></button>
+                    </div>
+
+
+
+                    <div class="panel" id="section-upload" role="tabpanel">
+                        <form id="upload-form">
+                            <label class="slot" id="slot">
+                                <input type="file" id="file-input" name="f" required hidden />
+                                <div class="glyph" aria-hidden="true">▲</div>
+                                <div class="big">Drag &amp; drop, or click to choose</div>
+                                <div class="small">any file up to 100 MB · or paste a file / text</div>
+                                <div class="picked" id="picked"></div>
+                            </label>
+
+                            <label class="encrypt">
+                                <input type="checkbox" id="encrypt-toggle" />
+                                <span>
+                                    <span class="lbl">Encrypt before sending <kbd aria-hidden="true">E</kbd></span>
+                                    <span class="hint">Scrambled in your browser — we never see the contents. You get a secret phrase to unlock it.</span>
+                                </span>
+                            </label>
+
+                            <button class="go" id="upload-btn" type="submit">send file <kbd aria-hidden="true">↵</kbd></button>
+                        </form>
+
+                        <div class="prog" id="upload-progress"><div class="bar"><div class="fill" id="progress-fill"></div></div></div>
+                        <p class="status" id="upload-status"></p>
+
+                        <div class="result" id="upload-result">
+                            <p class="ok" id="result-ok">✓ uploaded — share this link:</p>
+                            <div class="id-row">
+                                <code id="file-id-text"></code>
+                                <button class="mini-btn" id="copy-btn" type="button" onclick="copyFileId()">copy id</button>
+                                <button class="mini-btn hidden" id="share-btn" type="button">share</button>
+                            </div>
+                            <canvas id="qr-canvas"></canvas>
+                            <div class="mnemonic" id="mnemonic-block">
+                                <p class="warn">⚠ Save this phrase. Without it, your file cannot be recovered.</p>
+                                <div class="row">
+                                    <code id="mnemonic-text"></code>
+                                    <button class="mini-btn" id="mnemonic-copy" type="button" onclick="copyMnemonic()">copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel" id="section-download" role="tabpanel">
+                        <form id="download-form">
+                            <input class="rcv-input" type="text" id="download-input" name="file_download_field" placeholder="paste a file ID or download link" autocomplete="off" spellcheck="false" />
+                            <button class="go" id="search-btn" type="submit">look it up <kbd aria-hidden="true">↵</kbd></button>
+                        </form>
+                        <p class="rcv-tip">file IDs are three little words, like <span style="color: var(--accent-ink)">duck-view-time</span>.</p>
+                        <p class="status" id="download-status"></p>
+                        <div class="decrypt" id="decrypt-block">
+                            <input class="rcv-input" type="password" id="mnemonic-input" placeholder="enter the phrase to decrypt" autocomplete="off" spellcheck="false" />
+                        </div>
+                        <button class="go hidden" id="download-btn" type="button">receive <kbd aria-hidden="true">D</kbd></button>
+                    </div>
+
+
+
+                    <div class="ledger">
+                        <span><span class="tick">✓</span> no accounts</span>
+                        <span><span class="tick">✓</span> deletes in 1h</span>
+                        <span><span class="tick">✓</span> optional encryption</span>
+                        <span><span class="tick">✓</span> open source</span>
+                        <span><span class="tick">✓</span> self-hostable</span>
+                    </div>
+
+
+                    <details class="terminal">
+                        <summary>
+                            <span>Want more options? <span class="sub">curl · CLI · Android</span></span>
+                            <span class="chev" aria-hidden="true"></span>
+                        </summary>
+                        <div class="terminal-body">
+                            <p class="subhead">upload with curl</p>
+                            <div class="cmd">
+                                <code id="hero-cmd">curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</code>
+                                <button class="copy" onclick="copyCmd('hero-cmd', this)">copy</button>
+                            </div>
+
+                            <p class="subhead">install the CLI</p>
+                            <div class="os-tabs">
+                                <button id="itab-mac" onclick="showInstallTab('mac')">mac</button>
+                                <button id="itab-linux" onclick="showInstallTab('linux')">linux</button>
+                                <button id="itab-windows" onclick="showInstallTab('windows')">windows</button>
+                            </div>
+                            <div class="cmd os-cmd" id="install-mac">
+                                <code id="install-cmd-mac">curl -fsSL https://withcapsule.dev/install-macos.sh | sh</code>
+                                <button class="copy" onclick="copyInstall('mac')">copy</button>
+                            </div>
+                            <div class="cmd os-cmd" id="install-linux">
+                                <code id="install-cmd-linux">curl -fsSL https://withcapsule.dev/install-linux.sh | sh</code>
+                                <button class="copy" onclick="copyInstall('linux')">copy</button>
+                            </div>
+                            <div class="cmd os-cmd" id="install-windows">
+                                <code id="install-cmd-windows">irm https://withcapsule.dev/install.ps1 | iex</code>
+                                <button class="copy" onclick="copyInstall('windows')">copy</button>
+                            </div>
+
+                            <p class="clients">
+                                Also a
+                                <a href="https://docs.withcapsule.dev/guides/cli/" target="_blank" rel="noopener">command-line tool</a>
+                                and an
+                                <a href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">Android app ↗</a>.
+                                See
+                                <a href="https://docs.withcapsule.dev/guides/cli/#installation" target="_blank" rel="noopener">package managers</a>.
+                            </p>
+                        </div>
+                    </details>
+                </section>
+
+                <aside class="info">
+                    <h1 class="tagline">Send files.<br />No accounts<span class="dot">.</span></h1>
+                    <p class="desc">Upload any file via your browser, curl, or the CLI. Get a short link and QR code back instantly. Files expire automatically after one hour.</p>
+                    <nav class="links">
+                        <a href="https://www.byseansingh.com?utm_source=withcapsule.dev&utm_medium=web&utm_campaign=info_pane" target="_blank" rel="noopener">Made by byseansingh.com ↗</a>
+                        <a href="https://github.com/withcapsule" target="_blank" rel="noopener">View source ↗</a>
+                        <a href="/faq">How it works &amp; FAQ</a>
+                    </nav>
+                    <div class="specs">
+                        <span class="k">100 MB</span><span>max file size</span>
+                        <span class="k">60 min</span><span>then it's gone</span>
+                        <span class="k">2 GB/hr</span><span>upload limit</span>
+                        <span class="k">0</span><span>accounts / trackers</span>
+                        <span class="k">AGPL-3.0</span><span>self-hostable</span>
+                    </div>
+                </aside>
+            </div>
+
+
+            <footer class="foot">
+                <a href="/why">why capsule</a><span class="sep">·</span>
+                <a href="/security">encryption</a><span class="sep">·</span>
+                <a href="/roadmap">roadmap</a><span class="sep">·</span>
+                <a href="/changelog">changelog</a><span class="sep">·</span>
+                <a href="/faq">how it works</a><span class="sep">·</span>
+                <a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">privacy</a><span class="sep">·</span>
+                <a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">terms</a><span class="sep">·</span>
+                <a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">github (AGPL-3.0) ↗</a>
+            </footer>
+        </div>
+
+        <script src="/s.js"></script>
+        <script src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+        <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+        <script src="/vendor/capsule-crypto.js"></script>
+        <script>
+            const API = "https://send.withcapsule.dev";
+
+            function track(name, props) {
+                try { plausible(name, props ? { props } : undefined); } catch (e) {}
+                window.umami?.track(name, props);
+            }
+
+
+
+            function setTheme(val, doTrack = false) {
+                if (val === "system") document.documentElement.removeAttribute("data-theme");
+                else document.documentElement.setAttribute("data-theme", val);
+                localStorage.setItem("theme", val);
+                document.querySelectorAll(".theme-btn").forEach((btn) =>
+                    btn.classList.toggle("active", btn.dataset.themeVal === val)
+                );
+                if (doTrack) track("Theme Change", { theme: val });
+            }
+            setTheme(localStorage.getItem("theme") || "system");
+
+
+
+            let currentFileId = "";
+            let currentFileName = "";
+            let currentIsEncrypted = false;
+            let lastUploadAt = 0;
+            let lastSearchAt = 0;
+
+            const $ = (id) => document.getElementById(id);
+
+
+
+            function showTab(name) {
+                $("section-upload").classList.toggle("visible", name === "upload");
+                $("section-download").classList.toggle("visible", name === "download");
+                $("tab-upload").classList.toggle("active", name === "upload");
+                $("tab-download").classList.toggle("active", name === "download");
+                track("Tab Switch", { tab: name });
+            }
+            const isUpload = () => $("tab-upload").classList.contains("active");
+            const isDownload = () => $("tab-download").classList.contains("active");
+
+
+
+            function extractId(input) {
+                const i = input.lastIndexOf("/download/");
+                let id;
+                if (i !== -1) {
+                    const after = input.slice(i + "/download/".length).replace(/\/$/, "");
+                    id = after || input;
+                } else {
+                    id = input.trim();
+                }
+                return id.replace(/^-+|-+$/g, "");
+            }
+
+
+
+            function copyCmd(id, btn) {
+                const text = $(id).textContent;
+                if (!text) return;
+                navigator.clipboard.writeText(text).then(() => {
+                    track("Copy Curl Command");
+                    const orig = btn.textContent;
+                    btn.textContent = "copied";
+                    setTimeout(() => (btn.textContent = orig), 1200);
+                });
+            }
+            function copyFileId() {
+                const id = $("file-id-text").textContent;
+                if (!id) return;
+                navigator.clipboard.writeText(id).then(() => {
+                    track("Copy File ID");
+                    const btn = $("copy-btn");
+                    const orig = btn.textContent;
+                    btn.textContent = "copied";
+                    setTimeout(() => (btn.textContent = orig), 1200);
+                });
+            }
+            function copyMnemonic() {
+                const text = $("mnemonic-text").textContent;
+                if (!text) return;
+                navigator.clipboard.writeText(text).then(() => {
+                    track("Copy Mnemonic");
+                    const btn = $("mnemonic-copy");
+                    const orig = btn.textContent;
+                    btn.textContent = "copied";
+                    setTimeout(() => (btn.textContent = orig), 1200);
+                });
+            }
+
+
+
+            $("upload-form").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const now = Date.now();
+                if (now - lastUploadAt < 1000) return;
+                lastUploadAt = now;
+
+                const fileInput = $("file-input");
+                if (!fileInput.files.length) return;
+                const file = fileInput.files[0];
+
+                const status = $("upload-status");
+                const prog = $("upload-progress");
+                const fill = $("progress-fill");
+                const result = $("upload-result");
+                const btn = $("upload-btn");
+                const mnemonicBlock = $("mnemonic-block");
+
+                status.textContent = "";
+                status.className = "status";
+                result.classList.remove("on");
+                mnemonicBlock.classList.remove("on");
+                $("share-btn").classList.add("hidden");
+                $("qr-canvas").classList.remove("on");
+                fill.style.width = "0%";
+                btn.disabled = true;
+
+                const encrypt = $("encrypt-toggle").checked;
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+                track("Upload Started", { size_mb: fileSizeMB, encrypted: encrypt });
+
+                let form;
+                let mnemonic = "";
+
+                if (encrypt) {
+                    if (!window.CapsuleCrypto) {
+                        status.className = "status error";
+                        status.textContent = "Encryption unavailable. Reload and try again.";
+                        btn.disabled = false;
+                        return;
+                    }
+                    try {
+                        status.textContent = "Encrypting…";
+                        mnemonic = CapsuleCrypto.makeMnemonic();
+                        const plain = new Uint8Array(await file.arrayBuffer());
+                        const cipher = await CapsuleCrypto.encryptFile(plain, mnemonic);
+                        form = new FormData();
+                        form.append("f", new Blob([cipher], { type: "application/octet-stream" }), file.name);
+                    } catch (err) {
+                        status.className = "status error";
+                        status.textContent = "Encryption failed.";
+                        btn.disabled = false;
+                        track("Encrypt Failed");
+                        return;
+                    }
+                } else {
+                    form = new FormData($("upload-form"));
+                }
+
+                prog.classList.add("on");
+                const xhr = new XMLHttpRequest();
+                const startTime = Date.now();
+
+                xhr.upload.onprogress = function (e) {
+                    if (e.lengthComputable) {
+                        const pct = Math.round((e.loaded / e.total) * 100);
+                        fill.style.width = pct + "%";
+                        const mbps = (e.loaded / ((Date.now() - startTime) / 1000) / (1024 * 1024)).toFixed(1);
+                        status.textContent = pct + "% — " + mbps + " MB/s";
+                    }
+                };
+
+                xhr.onload = function () {
+                    prog.classList.remove("on");
+                    btn.disabled = false;
+                    if (xhr.status === 200) {
+                        const text = xhr.responseText;
+                        const marker = "File ID for downloading is ";
+                        const idx = text.indexOf(marker);
+                        if (idx !== -1) {
+                            const after = text.slice(idx + marker.length);
+                            currentFileId = after.match(/^[A-Za-z0-9-]+/)?.[0] ?? "";
+                        }
+                        if (currentFileId) {
+                            $("file-id-text").textContent = currentFileId;
+                            $("result-ok").textContent = encrypt ? "✓ encrypted & uploaded — share this link:" : "✓ uploaded — share this link:";
+                            result.classList.add("on");
+                            status.textContent = "";
+                            track("Upload Success", { size_mb: fileSizeMB, encrypted: encrypt });
+
+                            const canvas = $("qr-canvas");
+                            const downloadUrl = API + "/download/" + currentFileId;
+                            QRCode.toCanvas(canvas, downloadUrl, { width: 168, margin: 1 }, function () {
+                                canvas.classList.add("on");
+                            });
+
+                            if (encrypt && mnemonic) {
+                                $("mnemonic-text").textContent = mnemonic;
+                                mnemonicBlock.classList.add("on");
+                            }
+
+                            const shareBtn = $("share-btn");
+                            if (navigator.share) {
+                                shareBtn.classList.remove("hidden");
+                                shareBtn.onclick = function () {
+                                    navigator.share({ url: downloadUrl }).then(() => track("Share Link")).catch(() => {});
+                                };
+                            }
+                        } else {
+                            status.textContent = text.trim();
+                        }
+                    } else {
+                        status.className = "status error";
+                        status.textContent = xhr.responseText.trim() || "Upload failed ( " + xhr.status + " )";
+                        track("Upload Failed", { status: xhr.status });
+                    }
+                };
+
+                xhr.onerror = function () {
+                    prog.classList.remove("on");
+                    btn.disabled = false;
+                    status.className = "status error";
+                    status.textContent = "Network error.";
+                    track("Upload Failed", { status: "network_error" });
+                };
+
+                xhr.open("POST", API + "/upload?encrypted=" + (encrypt ? "true" : "false"));
+                xhr.send(form);
+            });
+
+
+            $("download-input").addEventListener("input", function () {
+                if (this.value.indexOf(" ") !== -1) {
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.replace(/ /g, "-");
+                    this.setSelectionRange(start, end);
+                }
+            });
+
+
+            $("download-form").addEventListener("submit", function (e) {
+                e.preventDefault();
+                const now = Date.now();
+                if (now - lastSearchAt < 1000) return;
+                lastSearchAt = now;
+
+                const raw = $("download-input").value.trim();
+                $("download-input").blur();
+                const id = extractId(raw);
+                if (!id) return;
+
+                const status = $("download-status");
+                const dlBtn = $("download-btn");
+                const searchBtn = $("search-btn");
+
+                track("File Search");
+                status.textContent = "Searching…";
+                status.className = "status";
+                dlBtn.classList.add("hidden");
+                searchBtn.disabled = true;
+                setTimeout(() => (searchBtn.disabled = false), 1000);
+
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    const decryptBlock = $("decrypt-block");
+                    if (xhr.status === 200) {
+                        const info = JSON.parse(xhr.responseText);
+                        currentFileId = id;
+                        currentFileName = info.file_name;
+                        currentIsEncrypted = !!info.is_encrypted;
+                        const mb = info.file_size / (1024 * 1024);
+                        const sizeStr = mb >= 1 ? mb.toFixed(1) + " MB" : (info.file_size / 1024).toFixed(1) + " KB";
+                        const minLeft = Math.max(1, Math.ceil(info.time_remaining / 60));
+                        status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left" + (currentIsEncrypted ? " · encrypted" : "");
+                        decryptBlock.classList.toggle("on", currentIsEncrypted);
+                        $("mnemonic-input").value = "";
+                        dlBtn.innerHTML = (currentIsEncrypted ? "decrypt &amp; save" : "receive") + ' <kbd aria-hidden="true">D</kbd>';
+                        dlBtn.classList.remove("hidden");
+                        track("File Found", { encrypted: currentIsEncrypted });
+                    } else {
+                        decryptBlock.classList.remove("on");
+                        status.className = "status error";
+                        status.textContent = xhr.responseText.trim() || "Not found ( " + xhr.status + " )";
+                        dlBtn.classList.add("hidden");
+                        track("File Not Found");
+                    }
+                };
+                xhr.onerror = function () {
+                    status.className = "status error";
+                    status.textContent = "Network error.";
+                };
+                xhr.open("GET", API + "/status/" + id);
+                xhr.send();
+            });
+
+            $("download-btn").addEventListener("click", async function () {
+                if (!currentFileId) return;
+                const status = $("download-status");
+
+                if (!currentIsEncrypted) {
+                    track("File Downloaded", { encrypted: false });
+                    window.location.href = API + "/download/" + currentFileId;
+                    return;
+                }
+                if (!window.CapsuleCrypto) {
+                    status.className = "status error";
+                    status.textContent = "Decryption unavailable. Reload and try again.";
+                    return;
+                }
+                const phrase = $("mnemonic-input").value;
+                if (!phrase.trim()) {
+                    status.className = "status error";
+                    status.textContent = "Enter the phrase to decrypt.";
+                    return;
+                }
+
+                const dlBtn = this;
+                dlBtn.disabled = true;
+                status.className = "status";
+                status.textContent = "Downloading…";
+
+                try {
+                    const resp = await fetch(API + "/download/" + currentFileId);
+                    if (!resp.ok) {
+                        status.className = "status error";
+                        status.textContent = "Download failed ( " + resp.status + " )";
+                        return;
+                    }
+                    const cipher = new Uint8Array(await resp.arrayBuffer());
+                    status.textContent = "Decrypting…";
+                    let plain;
+                    try {
+                        plain = await CapsuleCrypto.decryptFile(cipher, phrase);
+                    } catch (err) {
+                        status.className = "status error";
+                        status.textContent = "Incorrect phrase or corrupted file.";
+                        track("Decrypt Failed");
+                        return;
+                    }
+                    saveBlob(plain, currentFileName || "download");
+                    status.className = "status";
+                    status.textContent = "Decrypted & saved.";
+                    track("File Downloaded", { encrypted: true });
+                } catch (err) {
+                    status.className = "status error";
+                    status.textContent = "Network error.";
+                } finally {
+                    dlBtn.disabled = false;
+                }
+            });
+
+            function saveBlob(bytes, name) {
+                const blob = new Blob([bytes], { type: "application/octet-stream" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = name;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+            }
+
+            function setUploadFile(file) {
+                showTab("upload");
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                $("file-input").files = dt.files;
+                $("picked").textContent = "› " + file.name;
+                $("slot").classList.add("has-file");
+            }
+            $("file-input").addEventListener("change", function () {
+                if (this.files[0]) {
+                    $("picked").textContent = "› " + this.files[0].name;
+                    $("slot").classList.add("has-file");
+                }
+            });
+
+            (function () {
+                let dragCounter = 0;
+                document.addEventListener("dragenter", function (e) {
+                    if (!e.dataTransfer?.types.includes("Files")) return;
+                    e.preventDefault();
+                    dragCounter++;
+                    document.body.classList.add("drag");
+                });
+                document.addEventListener("dragleave", function () {
+                    if (--dragCounter <= 0) {
+                        dragCounter = 0;
+                        document.body.classList.remove("drag");
+                    }
+                });
+                document.addEventListener("dragover", function (e) {
+                    if (!e.dataTransfer?.types.includes("Files")) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = "copy";
+                });
+                document.addEventListener("drop", function (e) {
+                    if (!e.dataTransfer?.files.length) return;
+                    e.preventDefault();
+                    dragCounter = 0;
+                    document.body.classList.remove("drag");
+                    setUploadFile(e.dataTransfer.files[0]);
+                });
+            })();
+
+            document.addEventListener("paste", function (e) {
+                const el = document.activeElement;
+                const inField = el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable);
+
+                if (isDownload()) {
+                    if (inField) return;
+                    const text = e.clipboardData?.getData("text/plain");
+                    if (!text) return;
+                    const input = $("download-input");
+                    input.focus();
+                    input.value = text.trim();
+                    input.dispatchEvent(new Event("input", { bubbles: true }));
+                    return;
+                }
+                const files = e.clipboardData?.files;
+                if (files?.length) { setUploadFile(files[0]); return; }
+                if (inField) return;
+                const text = e.clipboardData?.getData("text/plain");
+                if (!text) return;
+                setUploadFile(new File([text], "pasted.txt", { type: "text/plain" }));
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                const el = document.activeElement;
+                if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable)) return;
+                const key = e.key.toLowerCase();
+
+                if (key === "enter") {
+                    if (!isUpload()) return;
+                    const fileInput = $("file-input");
+                    const btn = $("upload-btn");
+                    if (!fileInput.files.length || btn.disabled) return;
+                    $("upload-form").requestSubmit();
+                    return;
+                }
+                if (key === "e") {
+                    if (!isUpload()) return;
+                    $("encrypt-toggle").click();
+                    return;
+                }
+                if (key === "d") {
+                    if (!isDownload()) return;
+                    const dlBtn = $("download-btn");
+                    if (dlBtn.classList.contains("hidden") || dlBtn.disabled) return;
+                    dlBtn.click();
+                    return;
+                }
+                if (key === "c") {
+                    if (!isUpload()) return;
+                    if (!$("upload-result").classList.contains("on")) return;
+                    copyFileId();
+                    return;
+                }
+                const target = key === "s" ? "upload" : key === "r" ? "download" : null;
+                if (!target) return;
+                const tabId = target === "upload" ? "tab-upload" : "tab-download";
+                if ($(tabId).classList.contains("active")) return;
+                showTab(target);
+            });
+
+            (function () {
+                const scBtn = $("sc-btn");
+                const scFly = $("sc-flyout");
+                scBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const open = scFly.classList.toggle("open");
+                    scBtn.setAttribute("aria-expanded", open);
+                });
+                document.addEventListener("click", (e) => {
+                    if (!scFly.contains(e.target) && e.target !== scBtn) {
+                        scFly.classList.remove("open");
+                        scBtn.setAttribute("aria-expanded", "false");
+                    }
+                });
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape") {
+                        scFly.classList.remove("open");
+                        scBtn.setAttribute("aria-expanded", "false");
+                    }
+                });
+            })();
+
+            function showInstallTab(platform) {
+                ["mac", "linux", "windows"].forEach((p) => {
+                    $("install-" + p).classList.toggle("visible", p === platform);
+                    $("itab-" + p).classList.toggle("active", p === platform);
+                });
+            }
+            function copyInstall(platform) {
+                const text = $("install-cmd-" + platform).textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    track("Copy Install Command", { platform });
+                    const btn = document.querySelector("#install-" + platform + " .copy");
+                    const orig = btn.textContent;
+                    btn.textContent = "copied";
+                    setTimeout(() => (btn.textContent = orig), 1200);
+                });
+            }
+            (function () {
+                const ua = navigator.userAgent;
+                const pl = (navigator.userAgentData?.platform || navigator.platform || "").toLowerCase();
+                if (pl.includes("win") || ua.includes("Windows")) showInstallTab("windows");
+                else if (!pl.includes("mac") && !ua.includes("Mac")) showInstallTab("linux");
+                else showInstallTab("mac");
+            })();
+
+            (function () {
+                function findAnchor(target) {
+                    let el = target;
+                    for (let i = 0; i <= 3 && el; i++, el = el.parentNode) {
+                        if (el.tagName?.toLowerCase() === "a" && el.href) return el;
+                    }
+                    return null;
+                }
+                function handleClick(e) {
+                    if (e.type === "auxclick" && e.button !== 1) return;
+                    const anchor = findAnchor(e.target);
+                    if (anchor && anchor.host && anchor.host !== location.host) {
+                        window.umami?.track("Outbound Link: Click", { url: anchor.href });
+                    }
+                }
+                document.addEventListener("click", handleClick);
+                document.addEventListener("auxclick", handleClick);
+            })();
+
+            showTab("upload");
+        </script>
+    </body>
+</html>

@@ -48,7 +48,8 @@
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
 
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="base.css" />
+		<link rel="stylesheet" href="pages.css" />
 		<script>
 			((window.plausible =
 				window.plausible ||
@@ -64,10 +65,21 @@
 		</script>
 	</head>
 	<body>
-		<div class="faq-wrap">
+		<div class="frame">
+			<header class="head">
+				<a class="brand" href="/">Capsule<span class="caret" aria-hidden="true"></span></a>
+				<div class="head-right">
+					<a href="/faq">faq</a>
+					<a href="https://github.com/withcapsule" target="_blank" rel="noopener">github</a>
+					<div class="theme" role="group" aria-label="Color theme">
+						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
+						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
+						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+					</div>
+				</div>
+			</header>
+			<main class="faq-wrap">
 			<a class="faq-back" href="/">← back to Capsule</a>
-
-			<p class="faq-brand">Capsule</p>
 			<h1 class="faq-title">Security</h1>
 			<p class="faq-intro">
 				Capsule's security model is designed so that the server never needs to
@@ -200,33 +212,21 @@
 					</p>
 				</div>
 			</div>
-
-			<a class="faq-back" href="/">← back to Capsule</a>
-
-			<p class="faq-legal-links">
-				<a href="/why">Why I Built This</a>
-				·
-				<a href="/roadmap">Roadmap</a>
-				·
-				<a href="/faq">How it works &amp; FAQ</a>
-				·
-				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy Policy</a>
-				·
-				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms of Service</a>
-				·
-				<a href="https://uptime.withcapsule.dev/" target="_blank" rel="noopener">Status</a>
-			</p>
+			</main>
+			<footer class="foot">
+				<a href="/why">why capsule</a><span class="sep">·</span>
+				<a href="/security">encryption</a><span class="sep">·</span>
+				<a href="/roadmap">roadmap</a><span class="sep">·</span>
+				<a href="/changelog">changelog</a><span class="sep">·</span>
+				<a href="/faq">how it works</a><span class="sep">·</span>
+				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">privacy</a><span class="sep">·</span>
+				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">terms</a><span class="sep">·</span>
+				<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">github (AGPL-3.0) ↗</a>
+			</footer>
 		</div>
 
 		<script defer src="/s.js"></script>
 		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
-		<script>
-			const stored = localStorage.getItem("theme");
-			if (stored === "dark") {
-				document.documentElement.setAttribute("data-theme", "dark");
-			} else if (stored === "light") {
-				document.documentElement.setAttribute("data-theme", "light");
-			}
-		</script>
+		<script src="theme.js"></script>
 	</body>
 </html>
