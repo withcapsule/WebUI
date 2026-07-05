@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Capsule — Send a file. It vanishes in an hour.</title>
+        <meta name="description" content="Capsule is a free, anonymous file transfer tool. Drop a file, get a short link and QR code back. No accounts. Files auto-delete after 60 minutes." />
+
+        <style>
+            /* ─────────────────────────────────────────────
+               Design tokens. Accent derived from the Capsule
+               favicon green (#15b500). Monospace is reserved
+               strictly for code / IDs; prose is a humanist sans.
+               ───────────────────────────────────────────── */
+            :root {
+                --bg: #fbfbfa;
+                --surface: #ffffff;
+                --fg: #17171a;
+                --muted: #64695f;
+                --faint: #9298a8;
+                --border: #e6e7e2;
+                --border-strong: #d3d6cd;
+
+                --accent: #149400; /* button bg — deep enough for white text */
+                --accent-fg: #ffffff;
+                --accent-bright: #15b500; /* brand green — rings, ticks, links */
+                --accent-soft: #e8f8e1;
+                --accent-ring: rgba(21, 181, 0, 0.26);
+
+                --code-bg: #f2f4f0;
+                --shadow: 0 1px 2px rgba(20, 30, 20, 0.04),
+                    0 8px 28px rgba(20, 30, 20, 0.06);
+
+                --sans: ui-sans-serif, system-ui, -apple-system,
+                    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                --mono: ui-monospace, "SF Mono", "JetBrains Mono",
+                    "Cascadia Code", Menlo, Consolas, monospace;
+            }
+
+            :root[data-theme="dark"] {
+                --bg: #0f110e;
+                --surface: #161a14;
+                --fg: #e9efe7;
+                --muted: #98a094;
+                --faint: #6b7368;
+                --border: #242a22;
+                --border-strong: #333b30;
+
+                --accent: #2fc70f;
+                --accent-fg: #08210a;
+                --accent-bright: #3ad11a;
+                --accent-soft: #16290f;
+                --accent-ring: rgba(47, 199, 15, 0.3);
+
+                --code-bg: #1a1f18;
+                --shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+                    0 10px 30px rgba(0, 0, 0, 0.35);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root:not([data-theme="light"]) {
+                    --bg: #0f110e;
+                    --surface: #161a14;
+                    --fg: #e9efe7;
+                    --muted: #98a094;
+                    --faint: #6b7368;
+                    --border: #242a22;
+                    --border-strong: #333b30;
+                    --accent: #2fc70f;
+                    --accent-fg: #08210a;
+                    --accent-bright: #3ad11a;
+                    --accent-soft: #16290f;
+                    --accent-ring: rgba(47, 199, 15, 0.3);
+                    --code-bg: #1a1f18;
+                    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+                        0 10px 30px rgba(0, 0, 0, 0.35);
+                }
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                -webkit-text-size-adjust: 100%;
+            }
+            body {
+                background: var(--bg);
+                color: var(--fg);
+                font-family: var(--sans);
+                font-size: 16px;
+                line-height: 1.55;
+                -webkit-font-smoothing: antialiased;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            code,
+            kbd,
+            .mono {
+                font-family: var(--mono);
+            }
+            a {
+                color: inherit;
+            }
+
+            /* ── Top bar ── */
+            .topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1.1rem clamp(1rem, 4vw, 2.5rem);
+                max-width: 1120px;
+                margin: 0 auto;
+                width: 100%;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.55rem;
+                font-weight: 650;
+                letter-spacing: -0.01em;
+                font-size: 1.05rem;
+            }
+            .brand .dot {
+                width: 22px;
+                height: 22px;
+                border-radius: 999px;
+                background: linear-gradient(140deg, var(--accent-bright), #6fe04a);
+                box-shadow: 0 0 0 4px var(--accent-soft);
+            }
+            .topbar-right {
+                display: flex;
+                align-items: center;
+                gap: 0.9rem;
+            }
+            .nav-link {
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+            .nav-link:hover {
+                color: var(--fg);
+            }
+
+            /* ── Shortcuts flyout ── */
+            .flyout-wrap {
+                position: relative;
+            }
+            .ghost-btn {
+                border: 1px solid var(--border);
+                background: var(--surface);
+                color: var(--muted);
+                font: inherit;
+                font-size: 0.85rem;
+                padding: 0.32rem 0.7rem;
+                border-radius: 8px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+            }
+            .ghost-btn:hover {
+                color: var(--fg);
+                border-color: var(--border-strong);
+            }
+            .flyout {
+                position: absolute;
+                right: 0;
+                top: calc(100% + 0.5rem);
+                width: 220px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+                padding: 0.5rem;
+                z-index: 30;
+                display: none;
+            }
+            .flyout.open {
+                display: block;
+            }
+            .flyout h4 {
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--faint);
+                padding: 0.25rem 0.5rem 0.4rem;
+            }
+            .flyout .sc {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.3rem 0.5rem;
+                border-radius: 7px;
+                font-size: 0.9rem;
+            }
+            .flyout .sc:hover {
+                background: var(--code-bg);
+            }
+            kbd {
+                display: inline-block;
+                min-width: 1.5em;
+                text-align: center;
+                border: 1px solid var(--border-strong);
+                border-bottom-width: 2px;
+                border-radius: 5px;
+                padding: 0.05rem 0.35rem;
+                font-size: 0.78rem;
+                color: var(--muted);
+                background: var(--bg);
+            }
+            .theme-toggle {
+                display: inline-flex;
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 2px;
+                background: var(--surface);
+            }
+            .theme-btn {
+                border: 0;
+                background: transparent;
+                color: var(--muted);
+                font: inherit;
+                font-size: 0.78rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 999px;
+                cursor: pointer;
+            }
+            .theme-btn[aria-pressed="true"] {
+                background: var(--fg);
+                color: var(--bg);
+            }
+
+            /* ── Two-pane layout ── */
+            .layout {
+                flex: 1;
+                width: 100%;
+                max-width: 1120px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 320px;
+                gap: clamp(1.75rem, 4vw, 3.5rem);
+                padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 4vw, 2.5rem) 3rem;
+                align-items: start;
+            }
+            @media (max-width: 880px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ── Tool pane ── */
+            .lead {
+                font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                font-weight: 700;
+                margin-bottom: 1.25rem;
+            }
+            .lead span {
+                color: var(--muted);
+                font-weight: 500;
+            }
+
+            .card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                box-shadow: var(--shadow);
+                padding: 0.5rem;
+            }
+            .segment {
+                display: flex;
+                gap: 0.25rem;
+                background: var(--code-bg);
+                border-radius: 12px;
+                padding: 0.25rem;
+                margin: 0.25rem;
+            }
+            .segment button {
+                flex: 1;
+                border: 0;
+                background: transparent;
+                color: var(--muted);
+                font: inherit;
+                font-weight: 550;
+                padding: 0.5rem;
+                border-radius: 9px;
+                cursor: pointer;
+            }
+            .segment button[aria-selected="true"] {
+                background: var(--surface);
+                color: var(--fg);
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            }
+            .panel {
+                padding: 0.75rem 1rem 1rem;
+            }
+            .panel[hidden] {
+                display: none;
+            }
+
+            .dropzone {
+                border: 1.5px dashed var(--border-strong);
+                border-radius: 14px;
+                padding: 2.25rem 1.25rem;
+                text-align: center;
+                transition: border-color 0.15s, background 0.15s;
+                cursor: pointer;
+                display: block;
+            }
+            .dropzone:hover,
+            .dropzone.drag {
+                border-color: var(--accent-bright);
+                background: var(--accent-soft);
+            }
+            .dropzone .ico {
+                width: 46px;
+                height: 46px;
+                margin: 0 auto 0.75rem;
+                display: grid;
+                place-items: center;
+                border-radius: 12px;
+                background: var(--accent-soft);
+                color: var(--accent);
+            }
+            .dropzone .big {
+                font-weight: 600;
+                font-size: 1.05rem;
+            }
+            .dropzone .small {
+                color: var(--muted);
+                font-size: 0.9rem;
+                margin-top: 0.2rem;
+            }
+            .dropzone .picked {
+                display: none;
+                font-family: var(--mono);
+                font-size: 0.9rem;
+                margin-top: 0.6rem;
+                word-break: break-all;
+            }
+            .dropzone.has-file .picked {
+                display: block;
+            }
+
+            .btn {
+                border: 0;
+                border-radius: 11px;
+                font: inherit;
+                font-weight: 600;
+                cursor: pointer;
+                padding: 0.7rem 1.15rem;
+                background: var(--accent);
+                color: var(--accent-fg);
+                transition: filter 0.15s, transform 0.05s;
+            }
+            .btn:hover {
+                filter: brightness(1.06);
+            }
+            .btn:active {
+                transform: translateY(1px);
+            }
+            .btn-block {
+                width: 100%;
+                font-size: 1.02rem;
+                padding: 0.8rem;
+                margin-top: 1rem;
+            }
+
+            .encrypt {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.6rem;
+                margin-top: 1rem;
+                padding: 0.7rem 0.85rem;
+                border: 1px solid var(--border);
+                border-radius: 11px;
+                cursor: pointer;
+            }
+            .encrypt input {
+                margin-top: 0.28rem;
+                accent-color: var(--accent);
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+            .encrypt .lbl {
+                font-weight: 550;
+            }
+            .encrypt .hint {
+                display: block;
+                color: var(--muted);
+                font-size: 0.86rem;
+                font-weight: 400;
+            }
+
+            .receive-input {
+                width: 100%;
+                border: 1px solid var(--border-strong);
+                background: var(--surface);
+                color: var(--fg);
+                font-family: var(--mono);
+                font-size: 0.95rem;
+                padding: 0.8rem 0.9rem;
+                border-radius: 11px;
+            }
+            .receive-input:focus {
+                outline: none;
+                border-color: var(--accent-bright);
+                box-shadow: 0 0 0 4px var(--accent-ring);
+            }
+            .receive-tip {
+                color: var(--faint);
+                font-size: 0.85rem;
+                margin-top: 0.55rem;
+            }
+
+            .trust {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-top: 1.5rem;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.83rem;
+                color: var(--muted);
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 0.3rem 0.7rem;
+            }
+            .chip .tick {
+                color: var(--accent-bright);
+                font-weight: 700;
+            }
+
+            /* ── Terminal disclosure ── */
+            .terminal {
+                margin-top: 1.5rem;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                background: var(--surface);
+                overflow: hidden;
+            }
+            .terminal > summary {
+                list-style: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.85rem 1.1rem;
+                font-weight: 550;
+            }
+            .terminal > summary::-webkit-details-marker {
+                display: none;
+            }
+            .terminal > summary .sub {
+                color: var(--muted);
+                font-weight: 400;
+                font-size: 0.88rem;
+            }
+            .terminal > summary .chev {
+                transition: transform 0.2s;
+                color: var(--muted);
+            }
+            .terminal[open] > summary .chev {
+                transform: rotate(180deg);
+            }
+            .terminal-body {
+                padding: 0 1.1rem 1.1rem;
+                border-top: 1px solid var(--border);
+            }
+            .subhead {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--faint);
+                margin: 1.1rem 0 0.5rem;
+            }
+            .cmd {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 0.15rem 0.15rem 0.15rem 0.75rem;
+            }
+            .cmd code {
+                flex: 1;
+                font-size: 0.85rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 0.5rem 0;
+            }
+            .cmd .copy {
+                border: 1px solid var(--border-strong);
+                background: var(--surface);
+                color: var(--muted);
+                font: inherit;
+                font-size: 0.8rem;
+                padding: 0.35rem 0.7rem;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            .cmd .copy:hover {
+                color: var(--fg);
+            }
+            .os-tabs {
+                display: flex;
+                gap: 0.4rem;
+                margin-bottom: 0.5rem;
+            }
+            .os-tabs button {
+                border: 1px solid var(--border);
+                background: var(--surface);
+                color: var(--muted);
+                font: inherit;
+                font-size: 0.82rem;
+                padding: 0.3rem 0.75rem;
+                border-radius: 999px;
+                cursor: pointer;
+            }
+            .os-tabs button[aria-selected="true"] {
+                border-color: var(--accent-bright);
+                color: var(--accent);
+                background: var(--accent-soft);
+            }
+            .os-cmd[hidden] {
+                display: none;
+            }
+            .clients {
+                margin-top: 1rem;
+                font-size: 0.88rem;
+                color: var(--muted);
+            }
+            .clients a {
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 550;
+            }
+            .clients a:hover {
+                text-decoration: underline;
+            }
+
+            /* ── Info pane ── */
+            .info {
+                position: sticky;
+                top: 1.5rem;
+                border-left: 1px solid var(--border);
+                padding-left: clamp(1.25rem, 3vw, 2.25rem);
+            }
+            @media (max-width: 880px) {
+                .info {
+                    position: static;
+                    border-left: 0;
+                    border-top: 1px solid var(--border);
+                    padding-left: 0;
+                    padding-top: 1.75rem;
+                }
+            }
+            .info .tagline {
+                font-size: clamp(1.6rem, 4vw, 2rem);
+                line-height: 1.1;
+                letter-spacing: -0.025em;
+                font-weight: 700;
+            }
+            .info .desc {
+                color: var(--muted);
+                margin-top: 0.75rem;
+                font-size: 0.95rem;
+            }
+            .info .links {
+                margin-top: 1.25rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                font-size: 0.92rem;
+            }
+            .info .links a {
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 550;
+                width: fit-content;
+            }
+            .info .links a:hover {
+                text-decoration: underline;
+            }
+            .info .specs {
+                margin-top: 1.5rem;
+                padding-top: 1.25rem;
+                border-top: 1px solid var(--border);
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+                font-size: 0.85rem;
+                color: var(--muted);
+            }
+            .info .specs .k {
+                color: var(--fg);
+                font-weight: 550;
+            }
+
+            /* ── Footer ── */
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: auto;
+            }
+            .foot-inner {
+                max-width: 1120px;
+                margin: 0 auto;
+                padding: 1.5rem clamp(1rem, 4vw, 2.5rem);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem 1.1rem;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.85rem;
+            }
+            .foot-inner a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+            .foot-inner a:hover {
+                color: var(--fg);
+            }
+            .foot-inner .sep {
+                color: var(--faint);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand"><span class="dot"></span>Capsule</div>
+            <div class="topbar-right">
+                <a class="nav-link" href="/faq">How it works</a>
+                <a class="nav-link" href="https://github.com/withcapsule">GitHub</a>
+
+                <div class="flyout-wrap">
+                    <button
+                        class="ghost-btn"
+                        id="sc-btn"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10" />
+                        </svg>
+                        Shortcuts
+                    </button>
+                    <div class="flyout" id="sc-flyout" role="menu">
+                        <h4>Keyboard shortcuts</h4>
+                        <div class="sc"><span>Send</span><kbd>S</kbd></div>
+                        <div class="sc"><span>Receive</span><kbd>R</kbd></div>
+                        <div class="sc"><span>Encrypt</span><kbd>E</kbd></div>
+                        <div class="sc"><span>Submit</span><kbd>↵</kbd></div>
+                        <div class="sc"><span>Copy ID</span><kbd>C</kbd></div>
+                        <div class="sc"><span>Download</span><kbd>D</kbd></div>
+                    </div>
+                </div>
+
+                <div class="theme-toggle" role="group" aria-label="Color theme">
+                    <button class="theme-btn" data-t="light">Light</button>
+                    <button class="theme-btn" data-t="dark">Dark</button>
+                    <button class="theme-btn" data-t="system" aria-pressed="true">
+                        Auto
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="layout">
+            <!-- Tool pane -->
+            <div class="tool">
+                <h2 class="lead">
+                    Drop a file below.<br /><span
+                        >It's gone in an hour — no accounts, no trace.</span
+                    >
+                </h2>
+
+                <div class="card">
+                    <div class="segment" role="tablist">
+                        <button role="tab" aria-selected="true" data-tab="send">
+                            Send a file
+                        </button>
+                        <button
+                            role="tab"
+                            aria-selected="false"
+                            data-tab="receive"
+                        >
+                            Receive
+                        </button>
+                    </div>
+
+                    <div class="panel" id="panel-send" role="tabpanel">
+                        <label class="dropzone" id="dropzone">
+                            <input type="file" id="file-input" hidden />
+                            <div class="ico" aria-hidden="true">
+                                <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 16V4" />
+                                    <path d="m6 10 6-6 6 6" />
+                                    <path d="M4 20h16" />
+                                </svg>
+                            </div>
+                            <div class="big">Drag &amp; drop, or click to browse</div>
+                            <div class="small">
+                                Any file up to 100 MB · or paste a file / text
+                            </div>
+                            <div class="picked" id="picked"></div>
+                        </label>
+
+                        <label class="encrypt">
+                            <input type="checkbox" id="encrypt" />
+                            <span>
+                                <span class="lbl">Encrypt before sending</span>
+                                <span class="hint"
+                                    >Scrambled in your browser — we never see
+                                    the contents. You get a secret phrase to
+                                    unlock it.</span
+                                >
+                            </span>
+                        </label>
+
+                        <button class="btn btn-block" id="send-btn">
+                            Send file →
+                        </button>
+                    </div>
+
+                    <div class="panel" id="panel-receive" role="tabpanel" hidden>
+                        <input
+                            class="receive-input"
+                            type="text"
+                            placeholder="Paste a file ID or download link"
+                            autocomplete="off"
+                            spellcheck="false"
+                        />
+                        <p class="receive-tip">
+                            Tip: file IDs look like <code>duck-view-time</code> —
+                            three little words.
+                        </p>
+                        <button class="btn btn-block">Look it up</button>
+                    </div>
+                </div>
+
+                <div class="trust">
+                    <span class="chip"><span class="tick">✓</span> No accounts</span>
+                    <span class="chip"
+                        ><span class="tick">✓</span> Auto-deletes in 1 hour</span
+                    >
+                    <span class="chip"
+                        ><span class="tick">✓</span> Optional encryption</span
+                    >
+                    <span class="chip"
+                        ><span class="tick">✓</span> Open source</span
+                    >
+                    <span class="chip"
+                        ><span class="tick">✓</span> Self-hostable</span
+                    >
+                </div>
+
+                <details class="terminal">
+                    <summary>
+                        <span>
+                            Prefer the terminal?
+                            <span class="sub"
+                                >Use curl, the CLI, or the Android app</span
+                            >
+                        </span>
+                        <span class="chev" aria-hidden="true">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="terminal-body">
+                        <p class="subhead">Upload with curl</p>
+                        <div class="cmd">
+                            <code
+                                >curl -F "f=@photo.jpg"
+                                https://send.withcapsule.dev/upload</code
+                            >
+                            <button class="copy">Copy</button>
+                        </div>
+
+                        <p class="subhead">Install the CLI</p>
+                        <div class="os-tabs">
+                            <button data-os="mac" aria-selected="true">macOS</button>
+                            <button data-os="linux" aria-selected="false">Linux</button>
+                            <button data-os="windows" aria-selected="false">Windows</button>
+                        </div>
+                        <div class="cmd os-cmd" data-os-cmd="mac">
+                            <code>curl -fsSL https://withcapsule.dev/install-macos.sh | sh</code>
+                            <button class="copy">Copy</button>
+                        </div>
+                        <div class="cmd os-cmd" data-os-cmd="linux" hidden>
+                            <code>curl -fsSL https://withcapsule.dev/install-linux.sh | sh</code>
+                            <button class="copy">Copy</button>
+                        </div>
+                        <div class="cmd os-cmd" data-os-cmd="windows" hidden>
+                            <code>irm https://withcapsule.dev/install.ps1 | iex</code>
+                            <button class="copy">Copy</button>
+                        </div>
+
+                        <p class="clients">
+                            Also available as a
+                            <a href="https://docs.withcapsule.dev/guides/cli/">command-line tool</a>
+                            and an
+                            <a href="https://github.com/withcapsule/Android/releases">Android app ↗</a>.
+                            See
+                            <a href="https://docs.withcapsule.dev/guides/cli/#installation">package managers</a>.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Info pane -->
+            <aside class="info">
+                <h1 class="tagline">Send files.<br />No accounts.</h1>
+                <p class="desc">
+                    Upload any file via your browser, curl, or the CLI. Get a
+                    short link and QR code back instantly. Files expire
+                    automatically after 1 hour.
+                </p>
+                <div class="links">
+                    <a
+                        href="https://www.byseansingh.com?utm_source=withcapsule.dev&utm_medium=web&utm_campaign=info_pane"
+                        >Made by byseansingh.com ↗</a
+                    >
+                    <a href="https://github.com/withcapsule">View source on GitHub ↗</a>
+                    <a href="/faq">How it works &amp; FAQ →</a>
+                </div>
+                <div class="specs">
+                    <span><span class="k">100 MB</span> max file size</span>
+                    <span><span class="k">60 min</span> expiry</span>
+                    <span><span class="k">2 GB/hr</span> upload limit</span>
+                    <span><span class="k">No accounts</span>, no tracking</span>
+                    <span><span class="k">AGPL-3.0</span> · self-hostable</span>
+                </div>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="foot-inner">
+                <a href="/why">Why Capsule</a>
+                <span class="sep">·</span>
+                <a href="/security">Encryption</a>
+                <span class="sep">·</span>
+                <a href="/roadmap">Roadmap</a>
+                <span class="sep">·</span>
+                <a href="/changelog">Changelog</a>
+                <span class="sep">·</span>
+                <a href="/faq">How it works</a>
+                <span class="sep">·</span>
+                <a href="https://docs.withcapsule.dev/privacy/">Privacy</a>
+                <span class="sep">·</span>
+                <a href="https://docs.withcapsule.dev/terms/">Terms</a>
+                <span class="sep">·</span>
+                <a href="https://github.com/withcapsule/Server">GitHub (AGPL-3.0) ↗</a>
+            </div>
+        </footer>
+
+        <script>
+            // ── Theme ──
+            const root = document.documentElement;
+            const themeBtns = [...document.querySelectorAll(".theme-btn")];
+            function setTheme(t) {
+                if (t === "system") root.removeAttribute("data-theme");
+                else root.setAttribute("data-theme", t);
+                themeBtns.forEach((b) =>
+                    b.setAttribute("aria-pressed", b.dataset.t === t)
+                );
+                try {
+                    localStorage.setItem("capsule-theme", t);
+                } catch (e) {}
+            }
+            themeBtns.forEach((b) =>
+                b.addEventListener("click", () => setTheme(b.dataset.t))
+            );
+            try {
+                setTheme(localStorage.getItem("capsule-theme") || "system");
+            } catch (e) {}
+
+            // ── Shortcuts flyout ──
+            const scBtn = document.getElementById("sc-btn");
+            const scFly = document.getElementById("sc-flyout");
+            scBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const open = scFly.classList.toggle("open");
+                scBtn.setAttribute("aria-expanded", open);
+            });
+            document.addEventListener("click", (e) => {
+                if (!scFly.contains(e.target) && e.target !== scBtn) {
+                    scFly.classList.remove("open");
+                    scBtn.setAttribute("aria-expanded", "false");
+                }
+            });
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    scFly.classList.remove("open");
+                    scBtn.setAttribute("aria-expanded", "false");
+                }
+            });
+
+            // ── Send / Receive tabs ──
+            document.querySelectorAll("[data-tab]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll("[data-tab]")
+                        .forEach((b) =>
+                            b.setAttribute("aria-selected", b === btn)
+                        );
+                    document.getElementById("panel-send").hidden =
+                        btn.dataset.tab !== "send";
+                    document.getElementById("panel-receive").hidden =
+                        btn.dataset.tab !== "receive";
+                });
+            });
+
+            // ── File pick + drag/drop (visual only) ──
+            const dz = document.getElementById("dropzone");
+            const fileInput = document.getElementById("file-input");
+            const picked = document.getElementById("picked");
+            function showFile(name) {
+                picked.textContent = "Selected: " + name;
+                dz.classList.add("has-file");
+            }
+            fileInput.addEventListener("change", () => {
+                if (fileInput.files[0]) showFile(fileInput.files[0].name);
+            });
+            ["dragover", "dragenter"].forEach((ev) =>
+                dz.addEventListener(ev, (e) => {
+                    e.preventDefault();
+                    dz.classList.add("drag");
+                })
+            );
+            ["dragleave", "drop"].forEach((ev) =>
+                dz.addEventListener(ev, () => dz.classList.remove("drag"))
+            );
+            dz.addEventListener("drop", (e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files[0])
+                    showFile(e.dataTransfer.files[0].name);
+            });
+
+            // ── OS install tabs ──
+            document.querySelectorAll("[data-os]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const os = btn.dataset.os;
+                    document
+                        .querySelectorAll("[data-os]")
+                        .forEach((b) =>
+                            b.setAttribute("aria-selected", b === btn)
+                        );
+                    document
+                        .querySelectorAll("[data-os-cmd]")
+                        .forEach((c) => (c.hidden = c.dataset.osCmd !== os));
+                });
+            });
+
+            // ── Copy ──
+            document.querySelectorAll(".copy").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const code = btn.parentElement.querySelector("code");
+                    navigator.clipboard
+                        ?.writeText(code.textContent.trim())
+                        .then(() => {
+                            const old = btn.textContent;
+                            btn.textContent = "Copied";
+                            setTimeout(() => (btn.textContent = old), 1200);
+                        });
+                });
+            });
+        </script>
+    </body>
+</html>

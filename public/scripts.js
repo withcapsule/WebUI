@@ -1,27 +1,25 @@
 const API = "https://send.withcapsule.dev";
 
-function track( name, props ) {
-	plausible( name, props ? { props } : undefined );
-	window.umami?.track( name, props );
+function track(name, props) {
+	try {
+		plausible(name, props ? { props } : undefined);
+	} catch (e) {}
+	window.umami?.track(name, props);
 }
 
-function setTheme( val, doTrack = false ) {
-	if( val === "system" ) {
-		document.documentElement.removeAttribute( "data-theme" );
-	} else {
-		document.documentElement.setAttribute( "data-theme", val );
-	}
-	localStorage.setItem( "theme", val );
-	document.querySelectorAll( ".theme-btn" ).forEach( btn => {
-		btn.classList.toggle( "active", btn.dataset.themeVal === val );
-	} );
-	if( doTrack ) track( "Theme Change", { theme: val } );
+function setTheme(val, doTrack = false) {
+	if (val === "system")
+		document.documentElement.removeAttribute("data-theme");
+	else document.documentElement.setAttribute("data-theme", val);
+	localStorage.setItem("theme", val);
+	document
+		.querySelectorAll(".theme-btn")
+		.forEach((btn) =>
+			btn.classList.toggle("active", btn.dataset.themeVal === val),
+		);
+	if (doTrack) track("Theme Change", { theme: val });
 }
-
-( function () {
-	const saved = localStorage.getItem( "theme" ) || "system";
-	setTheme( saved );
-} )();
+setTheme(localStorage.getItem("theme") || "system");
 
 let currentFileId = "";
 let currentFileName = "";
@@ -29,578 +27,547 @@ let currentIsEncrypted = false;
 let lastUploadAt = 0;
 let lastSearchAt = 0;
 
-const CURL_UPLOAD         = 'curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload';
-const DOWNLOAD_CMD_PREFIX = "curl -OJ https://send.withcapsule.dev/download/";
+const $ = (id) => document.getElementById(id);
 
-
-
-function downloadCmd() {
-	const id = extractId( document.getElementById( "download-input" ).value );
-	return DOWNLOAD_CMD_PREFIX + ( id || "[file_ID]" );
+function showTab(name) {
+	$("section-upload").classList.toggle("visible", name === "upload");
+	$("section-download").classList.toggle("visible", name === "download");
+	$("tab-upload").classList.toggle("active", name === "upload");
+	$("tab-download").classList.toggle("active", name === "download");
+	track("Tab Switch", { tab: name });
 }
+const isUpload = () => $("tab-upload").classList.contains("active");
+const isDownload = () => $("tab-download").classList.contains("active");
 
-
-function updateDownloadCmd() {
-	if( !document.getElementById( "tab-download" ).classList.contains( "active" ) ) return;
-	document.getElementById( "hero-cmd" ).textContent = downloadCmd();
-}
-
-function showTab( name ) {
-	document.getElementById( "section-upload" ).classList.toggle( "visible", name === "upload" );
-	document.getElementById( "section-download" ).classList.toggle( "visible", name === "download" );
-	document.getElementById( "tab-upload" ).classList.toggle( "active", name === "upload" );
-	document.getElementById( "tab-download" ).classList.toggle( "active", name === "download" );
-	document.getElementById( "hero-cmd" ).textContent = name === "upload" ? CURL_UPLOAD : downloadCmd();
-	track( "Tab Switch", { tab: name } );
-}
-
-function extractId( input ) {
-	const i = input.lastIndexOf( "/download/" );
+function extractId(input) {
+	const i = input.lastIndexOf("/download/");
 	let id;
-
-	if( i !== -1 ) {
-		const after = input.slice( i + "/download/".length ).replace( /\/$/, "" );
+	if (i !== -1) {
+		const after = input.slice(i + "/download/".length).replace(/\/$/, "");
 		id = after || input;
 	} else {
 		id = input.trim();
 	}
-
-	return id.replace( /^-+|-+$/g, "" );
+	return id.replace(/^-+|-+$/g, "");
 }
 
-function copyCmd( id, btn ) {
-	const text = document.getElementById( id ).textContent;
-	if( !text ) return;
-	navigator.clipboard.writeText( text ).then( () => {
-		track( "Copy Curl Command" );
+function copyCmd(id, btn) {
+	const text = $(id).textContent;
+	if (!text) return;
+	navigator.clipboard.writeText(text).then(() => {
+		track("Copy Curl Command");
 		const orig = btn.textContent;
 		btn.textContent = "copied";
-		setTimeout( () => {
-			btn.textContent = orig;
-		}, 1200 );
-	} );
+		setTimeout(() => (btn.textContent = orig), 1200);
+	});
 }
-
 function copyFileId() {
-	const id = document.getElementById( "file-id-text" ).textContent;
-	if( !id ) return;
-	navigator.clipboard.writeText( id ).then( () => {
-		track( "Copy File ID" );
-		const btn = document.getElementById( "copy-btn" );
-		const orig = btn.innerHTML;
-		btn.textContent = "Copied";
-		setTimeout( () => {
-			btn.innerHTML = orig;
-		}, 1200 );
-	} );
+	const id = $("file-id-text").textContent;
+	if (!id) return;
+	navigator.clipboard.writeText(id).then(() => {
+		track("Copy File ID");
+		const btn = $("copy-btn");
+		const orig = btn.textContent;
+		btn.textContent = "copied";
+		setTimeout(() => (btn.textContent = orig), 1200);
+	});
+}
+function copyMnemonic() {
+	const text = $("mnemonic-text").textContent;
+	if (!text) return;
+	navigator.clipboard.writeText(text).then(() => {
+		track("Copy Mnemonic");
+		const btn = $("mnemonic-copy");
+		const orig = btn.textContent;
+		btn.textContent = "copied";
+		setTimeout(() => (btn.textContent = orig), 1200);
+	});
 }
 
-
-document.getElementById( "upload-form" ).addEventListener( "submit", async function ( e ) {
+$("upload-form").addEventListener("submit", async function (e) {
 	e.preventDefault();
-
 	const now = Date.now();
-	if( now - lastUploadAt < 1000 ) return;
+	if (now - lastUploadAt < 1000) return;
 	lastUploadAt = now;
 
-	const fileInput = document.getElementById( "file-input" );
-	if( !fileInput.files.length ) return;
-	const file = fileInput.files[ 0 ];
+	const fileInput = $("file-input");
+	if (!fileInput.files.length) return;
+	const file = fileInput.files[0];
 
-	const status = document.getElementById( "upload-status" );
-	const progress = document.getElementById( "upload-progress" );
-	const result = document.getElementById( "upload-result" );
-	const btn = document.getElementById( "upload-btn" );
-	const mnemonicBlock = document.getElementById( "mnemonic-block" );
+	const status = $("upload-status");
+	const prog = $("upload-progress");
+	const fill = $("progress-fill");
+	const result = $("upload-result");
+	const btn = $("upload-btn");
+	const mnemonicBlock = $("mnemonic-block");
 
 	status.textContent = "";
-	status.className = "";
-	result.classList.remove( "visible" );
-	mnemonicBlock.classList.remove( "visible" );
-	document.getElementById( "share-btn" ).classList.remove( "visible" );
-	const qr = document.getElementById( "qr-canvas" );
-	qr.classList.remove( "visible" );
-	progress.value = 0;
+	status.className = "status";
+	result.classList.remove("on");
+	mnemonicBlock.classList.remove("on");
+	$("share-btn").classList.add("hidden");
+	$("qr-canvas").classList.remove("on");
+	fill.style.width = "0%";
 	btn.disabled = true;
 
-	const encrypt = document.getElementById( "encrypt-toggle" ).checked;
-	const fileSizeMB = ( file.size / ( 1024 * 1024 ) ).toFixed( 1 );
-	track( "Upload Started", { size_mb: fileSizeMB, encrypted: encrypt } );
+	const encrypt = $("encrypt-toggle").checked;
+	const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+	track("Upload Started", { size_mb: fileSizeMB, encrypted: encrypt });
 
 	let form;
 	let mnemonic = "";
 
-	if( encrypt ) {
-		if( !window.CapsuleCrypto ) {
-			status.className = "error";
-			status.textContent = "Encryption unavailable. Reload and try again.";
+	if (encrypt) {
+		if (!window.CapsuleCrypto) {
+			status.className = "status error";
+			status.textContent =
+				"Encryption unavailable. Reload and try again.";
 			btn.disabled = false;
 			return;
 		}
 		try {
 			status.textContent = "Encrypting…";
 			mnemonic = CapsuleCrypto.makeMnemonic();
-			const plain = new Uint8Array( await file.arrayBuffer() );
-			const cipher = await CapsuleCrypto.encryptFile( plain, mnemonic );
+			const plain = new Uint8Array(await file.arrayBuffer());
+			const cipher = await CapsuleCrypto.encryptFile(plain, mnemonic);
 			form = new FormData();
-			form.append( "f", new Blob( [ cipher ], { type: "application/octet-stream" } ), file.name );
-		} catch ( err ) {
-			status.className = "error";
+			form.append(
+				"f",
+				new Blob([cipher], { type: "application/octet-stream" }),
+				file.name,
+			);
+		} catch (err) {
+			status.className = "status error";
 			status.textContent = "Encryption failed.";
 			btn.disabled = false;
-			track( "Encrypt Failed" );
+			track("Encrypt Failed");
 			return;
 		}
 	} else {
-		form = new FormData( this );
+		form = new FormData($("upload-form"));
 	}
 
-	progress.classList.add( "visible" );
-
+	prog.classList.add("on");
 	const xhr = new XMLHttpRequest();
 	const startTime = Date.now();
 
-	xhr.upload.onprogress = function ( e ) {
-		if( e.lengthComputable ) {
-			progress.value = Math.round( ( e.loaded / e.total ) * 100 );
+	xhr.upload.onprogress = function (e) {
+		if (e.lengthComputable) {
+			const pct = Math.round((e.loaded / e.total) * 100);
+			fill.style.width = pct + "%";
 			const mbps = (
 				e.loaded /
-				( ( Date.now() - startTime ) / 1000 ) /
-				( 1024 * 1024 )
-			).toFixed( 1 );
-			status.textContent = progress.value + "% — " + mbps + " MB/s";
+				((Date.now() - startTime) / 1000) /
+				(1024 * 1024)
+			).toFixed(1);
+			status.textContent = pct + "% — " + mbps + " MB/s";
 		}
 	};
 
 	xhr.onload = function () {
-		progress.classList.remove( "visible" );
+		prog.classList.remove("on");
 		btn.disabled = false;
-		if( xhr.status === 200 ) {
+		if (xhr.status === 200) {
 			const text = xhr.responseText;
 			const marker = "File ID for downloading is ";
-			const idx = text.indexOf( marker );
-			if( idx !== -1 ) {
-				const after = text.slice( idx + marker.length );
-				currentFileId = after.match( /^[A-Za-z0-9-]+/ )?.[0] ?? "";
+			const idx = text.indexOf(marker);
+			if (idx !== -1) {
+				const after = text.slice(idx + marker.length);
+				currentFileId = after.match(/^[A-Za-z0-9-]+/)?.[0] ?? "";
 			}
-			if( currentFileId ) {
-				document.getElementById( "file-id-text" ).textContent =
-					currentFileId;
-				result.classList.add( "visible" );
-				status.textContent = encrypt ? "Encrypted & uploaded." : "Uploaded.";
-				track( "Upload Success", { size_mb: fileSizeMB, encrypted: encrypt } );
-				const canvas = document.getElementById( "qr-canvas" );
+			if (currentFileId) {
+				$("file-id-text").textContent = currentFileId;
+				$("result-ok").textContent = encrypt
+					? "✓ encrypted & uploaded — share this link:"
+					: "✓ uploaded — share this link:";
+				result.classList.add("on");
+				status.textContent = "";
+				track("Upload Success", {
+					size_mb: fileSizeMB,
+					encrypted: encrypt,
+				});
+
+				const canvas = $("qr-canvas");
 				const downloadUrl = API + "/download/" + currentFileId;
-				QRCode.toCanvas( canvas, downloadUrl, { width: 160, margin: 1 }, function() {
-					canvas.classList.add( "visible" );
-				} );
-				if( encrypt && mnemonic ) {
-					document.getElementById( "mnemonic-text" ).textContent = mnemonic;
-					mnemonicBlock.classList.add( "visible" );
+				QRCode.toCanvas(
+					canvas,
+					downloadUrl,
+					{ width: 168, margin: 1 },
+					function () {
+						canvas.classList.add("on");
+					},
+				);
+
+				if (encrypt && mnemonic) {
+					$("mnemonic-text").textContent = mnemonic;
+					mnemonicBlock.classList.add("on");
 				}
-				const shareBtn = document.getElementById( "share-btn" );
-				if( navigator.share ) {
-					shareBtn.classList.add( "visible" );
-					shareBtn.onclick = function() {
-						navigator.share( { url: downloadUrl } )
-							.then( () => track( "Share Link" ) )
-							.catch( () => {} );
+
+				const shareBtn = $("share-btn");
+				if (navigator.share) {
+					shareBtn.classList.remove("hidden");
+					shareBtn.onclick = function () {
+						navigator
+							.share({ url: downloadUrl })
+							.then(() => track("Share Link"))
+							.catch(() => {});
 					};
 				}
 			} else {
 				status.textContent = text.trim();
 			}
 		} else {
-			status.className = "error";
+			status.className = "status error";
 			status.textContent =
-				xhr.responseText.trim() || "Upload failed ( " + xhr.status + " )";
-			track( "Upload Failed", { status: xhr.status } );
+				xhr.responseText.trim() ||
+				"Upload failed ( " + xhr.status + " )";
+			track("Upload Failed", { status: xhr.status });
 		}
 	};
 
 	xhr.onerror = function () {
-		progress.classList.remove( "visible" );
+		prog.classList.remove("on");
 		btn.disabled = false;
-		status.className = "error";
+		status.className = "status error";
 		status.textContent = "Network error.";
-		track( "Upload Failed", { status: "network_error" } );
+		track("Upload Failed", { status: "network_error" });
 	};
 
-	xhr.open( "POST", API + "/upload?encrypted=" + ( encrypt ? "true" : "false" ) );
-	xhr.send( form );
-} );
+	xhr.open("POST", API + "/upload?encrypted=" + (encrypt ? "true" : "false"));
+	xhr.send(form);
+});
 
-
-function copyMnemonic() {
-	const text = document.getElementById( "mnemonic-text" ).textContent;
-	if( !text ) return;
-	navigator.clipboard.writeText( text ).then( () => {
-		track( "Copy Mnemonic" );
-		const btn = document.getElementById( "mnemonic-copy" );
-		const orig = btn.textContent;
-		btn.textContent = "Copied";
-		setTimeout( () => { btn.textContent = orig; }, 1200 );
-	} );
-}
-
-
-
-
-document.getElementById( "download-input" ).addEventListener( "input", function () {
-	if( this.value.indexOf( " " ) !== -1 ) {
+$("download-input").addEventListener("input", function () {
+	if (this.value.indexOf(" ") !== -1) {
 		const start = this.selectionStart;
 		const end = this.selectionEnd;
-		this.value = this.value.replace( / /g, "-" );
-		this.setSelectionRange( start, end );
+		this.value = this.value.replace(/ /g, "-");
+		this.setSelectionRange(start, end);
 	}
-	updateDownloadCmd();
-} );
+});
 
-document.getElementById( "download-form" ).addEventListener( "submit", function ( e ) {
+$("download-form").addEventListener("submit", function (e) {
 	e.preventDefault();
-
 	const now = Date.now();
-	if( now - lastSearchAt < 1000 ) return;
+	if (now - lastSearchAt < 1000) return;
 	lastSearchAt = now;
 
-	const raw = document.getElementById( "download-input" ).value.trim();
-	document.getElementById( "download-input" ).blur();
-	const id = extractId( raw );
-	const status = document.getElementById( "download-status" );
-	const dlBtn = document.getElementById( "download-btn" );
-	const searchBtn = document.getElementById( "search-btn" );
+	const raw = $("download-input").value.trim();
+	$("download-input").blur();
+	const id = extractId(raw);
+	if (!id) return;
 
-	track( "File Search" );
-	status.textContent = "Searching...";
-	status.className = "";
-	dlBtn.classList.remove( "visible" );
+	const status = $("download-status");
+	const dlBtn = $("download-btn");
+	const searchBtn = $("search-btn");
+
+	track("File Search");
+	status.textContent = "Searching…";
+	status.className = "status";
+	dlBtn.classList.add("hidden");
 	searchBtn.disabled = true;
-
-	setTimeout( () => {
-		searchBtn.disabled = false;
-	}, 1000 );
+	setTimeout(() => (searchBtn.disabled = false), 1000);
 
 	const xhr = new XMLHttpRequest();
-
 	xhr.onload = function () {
-		const decryptBlock = document.getElementById( "decrypt-block" );
-		if( xhr.status === 200 ) {
-			const info = JSON.parse( xhr.responseText );
+		const decryptBlock = $("decrypt-block");
+		if (xhr.status === 200) {
+			const info = JSON.parse(xhr.responseText);
 			currentFileId = id;
 			currentFileName = info.file_name;
 			currentIsEncrypted = !!info.is_encrypted;
-			const mb = info.file_size / ( 1024 * 1024 );
-			const sizeStr = mb >= 1 ? mb.toFixed( 1 ) + " MB" : ( info.file_size / 1024 ).toFixed( 1 ) + " KB";
-			const minLeft = Math.max( 1, Math.ceil( info.time_remaining / 60 ) );
-			status.textContent = info.file_name + " · " + sizeStr + " · " + minLeft + " min left" + ( currentIsEncrypted ? " · encrypted" : "" );
-			decryptBlock.classList.toggle( "visible", currentIsEncrypted );
-			document.getElementById( "mnemonic-input" ).value = "";
-			dlBtn.innerHTML = ( currentIsEncrypted ? "Decrypt &amp; save" : "Receive" ) + ' <kbd class="btn-key" aria-hidden="true">D</kbd>';
-			dlBtn.classList.add( "visible" );
-			track( "File Found", { encrypted: currentIsEncrypted } );
+			const mb = info.file_size / (1024 * 1024);
+			const sizeStr =
+				mb >= 1
+					? mb.toFixed(1) + " MB"
+					: (info.file_size / 1024).toFixed(1) + " KB";
+			const minLeft = Math.max(1, Math.ceil(info.time_remaining / 60));
+			status.textContent =
+				info.file_name +
+				" · " +
+				sizeStr +
+				" · " +
+				minLeft +
+				" min left" +
+				(currentIsEncrypted ? " · encrypted" : "");
+			decryptBlock.classList.toggle("on", currentIsEncrypted);
+			$("mnemonic-input").value = "";
+			dlBtn.innerHTML =
+				(currentIsEncrypted ? "decrypt &amp; save" : "receive") +
+				' <kbd aria-hidden="true">D</kbd>';
+			dlBtn.classList.remove("hidden");
+			track("File Found", { encrypted: currentIsEncrypted });
 		} else {
-			decryptBlock.classList.remove( "visible" );
-			status.className = "error";
+			decryptBlock.classList.remove("on");
+			status.className = "status error";
 			status.textContent =
 				xhr.responseText.trim() || "Not found ( " + xhr.status + " )";
-			dlBtn.classList.remove( "visible" );
-			track( "File Not Found" );
+			dlBtn.classList.add("hidden");
+			track("File Not Found");
 		}
 	};
-
 	xhr.onerror = function () {
-		status.className = "error";
+		status.className = "status error";
 		status.textContent = "Network error.";
 	};
-
-	xhr.open( "GET", API + "/status/" + id );
+	xhr.open("GET", API + "/status/" + id);
 	xhr.send();
-} );
+});
 
+$("download-btn").addEventListener("click", async function () {
+	if (!currentFileId) return;
+	const status = $("download-status");
 
-document.getElementById( "download-btn" ).addEventListener( "click", async function () {
-	if( !currentFileId ) return;
-	const status = document.getElementById( "download-status" );
-
-	if( !currentIsEncrypted ) {
-		track( "File Downloaded", { encrypted: false } );
+	if (!currentIsEncrypted) {
+		track("File Downloaded", { encrypted: false });
 		window.location.href = API + "/download/" + currentFileId;
 		return;
 	}
-
-	if( !window.CapsuleCrypto ) {
-		status.className = "error";
+	if (!window.CapsuleCrypto) {
+		status.className = "status error";
 		status.textContent = "Decryption unavailable. Reload and try again.";
 		return;
 	}
-
-	const phrase = document.getElementById( "mnemonic-input" ).value;
-	if( !phrase.trim() ) {
-		status.className = "error";
+	const phrase = $("mnemonic-input").value;
+	if (!phrase.trim()) {
+		status.className = "status error";
 		status.textContent = "Enter the phrase to decrypt.";
 		return;
 	}
 
 	const dlBtn = this;
 	dlBtn.disabled = true;
-	status.className = "";
+	status.className = "status";
 	status.textContent = "Downloading…";
 
 	try {
-		const resp = await fetch( API + "/download/" + currentFileId );
-		if( !resp.ok ) {
-			status.className = "error";
+		const resp = await fetch(API + "/download/" + currentFileId);
+		if (!resp.ok) {
+			status.className = "status error";
 			status.textContent = "Download failed ( " + resp.status + " )";
 			return;
 		}
-		const cipher = new Uint8Array( await resp.arrayBuffer() );
+		const cipher = new Uint8Array(await resp.arrayBuffer());
 		status.textContent = "Decrypting…";
 		let plain;
 		try {
-			plain = await CapsuleCrypto.decryptFile( cipher, phrase );
-		} catch ( err ) {
-			status.className = "error";
+			plain = await CapsuleCrypto.decryptFile(cipher, phrase);
+		} catch (err) {
+			status.className = "status error";
 			status.textContent = "Incorrect phrase or corrupted file.";
-			track( "Decrypt Failed" );
+			track("Decrypt Failed");
 			return;
 		}
-		saveBlob( plain, currentFileName || "download" );
-		status.className = "";
+		saveBlob(plain, currentFileName || "download");
+		status.className = "status";
 		status.textContent = "Decrypted & saved.";
-		track( "File Downloaded", { encrypted: true } );
-	} catch ( err ) {
-		status.className = "error";
+		track("File Downloaded", { encrypted: true });
+	} catch (err) {
+		status.className = "status error";
 		status.textContent = "Network error.";
 	} finally {
 		dlBtn.disabled = false;
 	}
-} );
+});
 
-function saveBlob( bytes, name ) {
-	const blob = new Blob( [ bytes ], { type: "application/octet-stream" } );
-	const url = URL.createObjectURL( blob );
-	const a = document.createElement( "a" );
+function saveBlob(bytes, name) {
+	const blob = new Blob([bytes], { type: "application/octet-stream" });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement("a");
 	a.href = url;
 	a.download = name;
-	document.body.appendChild( a );
+	document.body.appendChild(a);
 	a.click();
 	a.remove();
-	URL.revokeObjectURL( url );
+	URL.revokeObjectURL(url);
 }
 
+function setUploadFile(file) {
+	showTab("upload");
+	const dt = new DataTransfer();
+	dt.items.add(file);
+	$("file-input").files = dt.files;
+	$("picked").textContent = "› " + file.name;
+	$("slot").classList.add("has-file");
+}
+$("file-input").addEventListener("change", function () {
+	if (this.files[0]) {
+		$("picked").textContent = "› " + this.files[0].name;
+		$("slot").classList.add("has-file");
+	}
+});
 
-( function () {
-	const dropZone = document.querySelector( ".pane-tool" );
+(function () {
 	let dragCounter = 0;
-
-	dropZone.addEventListener( "dragenter", function ( e ) {
-		if( !e.dataTransfer.types.includes( "Files" ) ) return;
+	document.addEventListener("dragenter", function (e) {
+		if (!e.dataTransfer?.types.includes("Files")) return;
 		e.preventDefault();
 		dragCounter++;
-		dropZone.classList.add( "drag-active" );
-	} );
-
-	dropZone.addEventListener( "dragleave", function () {
-		if( --dragCounter === 0 ) dropZone.classList.remove( "drag-active" );
-	} );
-
-	dropZone.addEventListener( "dragover", function ( e ) {
+		document.body.classList.add("drag");
+	});
+	document.addEventListener("dragleave", function () {
+		if (--dragCounter <= 0) {
+			dragCounter = 0;
+			document.body.classList.remove("drag");
+		}
+	});
+	document.addEventListener("dragover", function (e) {
+		if (!e.dataTransfer?.types.includes("Files")) return;
 		e.preventDefault();
 		e.dataTransfer.dropEffect = "copy";
-	} );
-
-	dropZone.addEventListener( "drop", function ( e ) {
+	});
+	document.addEventListener("drop", function (e) {
+		if (!e.dataTransfer?.files.length) return;
 		e.preventDefault();
 		dragCounter = 0;
-		dropZone.classList.remove( "drag-active" );
+		document.body.classList.remove("drag");
+		setUploadFile(e.dataTransfer.files[0]);
+	});
+})();
 
-		const files = e.dataTransfer.files;
-		if( !files.length ) return;
-
-		setUploadFile( files[ 0 ] );
-	} );
-} )();
-
-
-
-function setUploadFile( file ) {
-	showTab( "upload" );
-	const dt = new DataTransfer();
-	dt.items.add( file );
-	document.getElementById( "file-input" ).files = dt.files;
-}
-
-document.addEventListener( "paste", function ( e ) {
+document.addEventListener("paste", function (e) {
 	const el = document.activeElement;
-	const inField = el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable );
+	const inField =
+		el &&
+		(el.tagName === "INPUT" ||
+			el.tagName === "TEXTAREA" ||
+			el.isContentEditable);
 
-	if( document.getElementById( "tab-download" ).classList.contains( "active" ) ) {
-		if( inField ) return;
-		const text = e.clipboardData?.getData( "text/plain" );
-		if( !text ) return;
-		const input = document.getElementById( "download-input" );
+	if (isDownload()) {
+		if (inField) return;
+		const text = e.clipboardData?.getData("text/plain");
+		if (!text) return;
+		const input = $("download-input");
 		input.focus();
 		input.value = text.trim();
-		input.dispatchEvent( new Event( "input", { bubbles: true } ) );
+		input.dispatchEvent(new Event("input", { bubbles: true }));
 		return;
 	}
-
 	const files = e.clipboardData?.files;
-	if( files?.length ) {
-		setUploadFile( files[ 0 ] );
+	if (files?.length) {
+		setUploadFile(files[0]);
 		return;
 	}
+	if (inField) return;
+	const text = e.clipboardData?.getData("text/plain");
+	if (!text) return;
+	setUploadFile(new File([text], "pasted.txt", { type: "text/plain" }));
+});
 
-	if( inField ) return;
-
-	const text = e.clipboardData?.getData( "text/plain" );
-	if( !text ) return;
-
-	setUploadFile( new File( [ text ], "pasted.txt", { type: "text/plain" } ) );
-} );
-
-
-document.addEventListener( "keydown", function ( e ) {
-	if( e.ctrlKey || e.metaKey || e.altKey ) return;
-
+document.addEventListener("keydown", function (e) {
+	if (e.ctrlKey || e.metaKey || e.altKey) return;
 	const el = document.activeElement;
-	if( el && ( el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable ) ) return;
-
+	if (
+		el &&
+		(el.tagName === "INPUT" ||
+			el.tagName === "TEXTAREA" ||
+			el.tagName === "SELECT" ||
+			el.isContentEditable)
+	)
+		return;
 	const key = e.key.toLowerCase();
 
-	if( key === "enter" ) {
-		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
-		const fileInput = document.getElementById( "file-input" );
-		const btn = document.getElementById( "upload-btn" );
-		if( !fileInput.files.length || btn.disabled ) return;
-		document.getElementById( "upload-form" ).requestSubmit();
+	if (key === "enter") {
+		if (!isUpload()) return;
+		const fileInput = $("file-input");
+		const btn = $("upload-btn");
+		if (!fileInput.files.length || btn.disabled) return;
+		$("upload-form").requestSubmit();
 		return;
 	}
-
-	if( key === "e" ) {
-		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
-		document.getElementById( "encrypt-toggle" ).click();
+	if (key === "e") {
+		if (!isUpload()) return;
+		$("encrypt-toggle").click();
 		return;
 	}
-
-	if( key === "d" ) {
-		if( !document.getElementById( "tab-download" ).classList.contains( "active" ) ) return;
-		const dlBtn = document.getElementById( "download-btn" );
-		if( !dlBtn.classList.contains( "visible" ) || dlBtn.disabled ) return;
+	if (key === "d") {
+		if (!isDownload()) return;
+		const dlBtn = $("download-btn");
+		if (dlBtn.classList.contains("hidden") || dlBtn.disabled) return;
 		dlBtn.click();
 		return;
 	}
-
-	if( key === "c" ) {
-		if( !document.getElementById( "tab-upload" ).classList.contains( "active" ) ) return;
-		if( !document.getElementById( "upload-result" ).classList.contains( "visible" ) ) return;
+	if (key === "c") {
+		if (!isUpload()) return;
+		if (!$("upload-result").classList.contains("on")) return;
 		copyFileId();
 		return;
 	}
-
 	const target = key === "s" ? "upload" : key === "r" ? "download" : null;
-	if( !target ) return;
-
+	if (!target) return;
 	const tabId = target === "upload" ? "tab-upload" : "tab-download";
-	if( document.getElementById( tabId ).classList.contains( "active" ) ) return;
+	if ($(tabId).classList.contains("active")) return;
+	showTab(target);
+});
 
-	showTab( target );
-} );
+(function () {
+	const scBtn = $("sc-btn");
+	const scFly = $("sc-flyout");
+	scBtn.addEventListener("click", (e) => {
+		e.stopPropagation();
+		const open = scFly.classList.toggle("open");
+		scBtn.setAttribute("aria-expanded", open);
+	});
+	document.addEventListener("click", (e) => {
+		if (!scFly.contains(e.target) && e.target !== scBtn) {
+			scFly.classList.remove("open");
+			scBtn.setAttribute("aria-expanded", "false");
+		}
+	});
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			scFly.classList.remove("open");
+			scBtn.setAttribute("aria-expanded", "false");
+		}
+	});
+})();
 
-
-showTab( "upload" );
-
-function showInstallTab( platform ) {
-	if( !document.getElementById( 'install-mac' ) ) return;
-	[ 'mac', 'linux', 'windows' ].forEach( p => {
-		document.getElementById( 'install-' + p ).classList.toggle( 'visible', p === platform );
-		document.getElementById( 'itab-' + p ).classList.toggle( 'active', p === platform );
-	} );
+function showInstallTab(platform) {
+	["mac", "linux", "windows"].forEach((p) => {
+		$("install-" + p).classList.toggle("visible", p === platform);
+		$("itab-" + p).classList.toggle("active", p === platform);
+	});
 }
-
-function copyInstall( platform ) {
-	const text = document.getElementById( 'install-cmd-' + platform ).textContent;
-	navigator.clipboard.writeText( text ).then( () => {
-		track( 'Copy Install Command', { platform } );
-		const btn = document.querySelector( '#install-' + platform + ' .cmd-copy' );
+function copyInstall(platform) {
+	const text = $("install-cmd-" + platform).textContent;
+	navigator.clipboard.writeText(text).then(() => {
+		track("Copy Install Command", { platform });
+		const btn = document.querySelector("#install-" + platform + " .copy");
 		const orig = btn.textContent;
-		btn.textContent = 'copied';
-		setTimeout( () => { btn.textContent = orig; }, 1200 );
-	} );
+		btn.textContent = "copied";
+		setTimeout(() => (btn.textContent = orig), 1200);
+	});
 }
-
-( function () {
+(function () {
 	const ua = navigator.userAgent;
-	const pl = ( navigator.userAgentData?.platform || navigator.platform || '' ).toLowerCase();
-	if( pl.includes( 'win' ) || ua.includes( 'Windows' ) ) {
-		showInstallTab( 'windows' );
-	} else if( !pl.includes( 'mac' ) && !ua.includes( 'Mac' ) ) {
-		showInstallTab( 'linux' );
-	} else {
-		showInstallTab( 'mac' );
-	}
-} )();
+	const pl = (
+		navigator.userAgentData?.platform ||
+		navigator.platform ||
+		""
+	).toLowerCase();
+	if (pl.includes("win") || ua.includes("Windows")) showInstallTab("windows");
+	else if (!pl.includes("mac") && !ua.includes("Mac"))
+		showInstallTab("linux");
+	else showInstallTab("mac");
+})();
 
-( function () {
-	function findAnchor( target ) {
+(function () {
+	function findAnchor(target) {
 		let el = target;
-		for( let i = 0; i <= 3 && el; i++, el = el.parentNode ) {
-			if( el.tagName?.toLowerCase() === "a" && el.href ) return el;
+		for (let i = 0; i <= 3 && el; i++, el = el.parentNode) {
+			if (el.tagName?.toLowerCase() === "a" && el.href) return el;
 		}
 		return null;
 	}
-
-	function handleClick( e ) {
-		if( e.type === "auxclick" && e.button !== 1 ) return;
-		const anchor = findAnchor( e.target );
-		if( anchor && anchor.host && anchor.host !== location.host ) {
-			window.umami?.track( "Outbound Link: Click", { url: anchor.href } );
+	function handleClick(e) {
+		if (e.type === "auxclick" && e.button !== 1) return;
+		const anchor = findAnchor(e.target);
+		if (anchor && anchor.host && anchor.host !== location.host) {
+			window.umami?.track("Outbound Link: Click", { url: anchor.href });
 		}
 	}
-	document.addEventListener( "click", handleClick );
-	document.addEventListener( "auxclick", handleClick );
+	document.addEventListener("click", handleClick);
+	document.addEventListener("auxclick", handleClick);
+})();
 
-	function pageHeight() {
-		const b = document.body || {}, d = document.documentElement || {};
-		return Math.max(
-			b.scrollHeight || 0, b.offsetHeight || 0,
-			d.scrollHeight || 0, d.offsetHeight || 0, d.clientHeight || 0,
-		);
-	}
-
-	let totalH = pageHeight();
-	let maxScroll = ( window.scrollY || 0 ) + ( window.innerHeight || document.documentElement?.clientHeight || 0 );
-	let activeStart = document.hasFocus() ? Date.now() : 0;
-	let activeMs = 0;
-	let sent = false;
-
-	document.addEventListener( "scroll", () => {
-		totalH = pageHeight();
-		const reached = ( window.scrollY || 0 ) + ( window.innerHeight || document.documentElement?.clientHeight || 0 );
-		if( reached > maxScroll ) maxScroll = reached;
-	} );
-
-	window.addEventListener( "load", () => { totalH = pageHeight(); } );
-
-	function onFocusChange() {
-		if( document.hasFocus() && document.visibilityState === "visible" ) {
-			if( !activeStart ) activeStart = Date.now();
-		} else {
-			if( activeStart ) { activeMs += Date.now() - activeStart; activeStart = 0; }
-			flush();
-		}
-	}
-	document.addEventListener( "visibilitychange", onFocusChange );
-	window.addEventListener( "blur", onFocusChange );
-	window.addEventListener( "focus", onFocusChange );
-
-	function flush() {
-		if( sent ) return;
-		const vp = window.innerHeight || document.documentElement?.clientHeight || 0;
-		const sd = totalH <= vp ? 100 : Math.round( ( maxScroll / totalH ) * 100 );
-		const elapsed = activeStart ? activeMs + ( Date.now() - activeStart ) : activeMs;
-		if( elapsed < 0 ) return;
-		sent = true;
-		window.umami?.track( "engagement", { sd, e: elapsed } );
-	}
-} )();
+showTab("upload");
