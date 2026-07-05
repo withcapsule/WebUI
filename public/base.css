@@ -1,240 +1,240 @@
-/* base.css — shared design system for every Capsule page
-   (tokens, reset, frame chrome, header, footer, theme toggle). */
-
 :root {
-    --bg: #f6f6f3;
-    --panel: #ffffff;
-    --fg: #14140f;
-    --muted: #6a6a5f;
-    --faint: #9a9a8d;
-    --rule: #17170f;
-    --rule-soft: #dcdcd3;
-    --accent: #0f8a00;
-    --accent-bright: #15b500;
-    --accent-ink: #0c7a00;
-    --accent-soft: #e7f7df;
-    --code-bg: #f0f1ea;
-    --error: #c02626;
-    --go-fg: #ffffff;
+	--bg: #f6f6f3;
+	--panel: #ffffff;
+	--fg: #14140f;
+	--muted: #6a6a5f;
+	--faint: #9a9a8d;
+	--rule: #17170f;
+	--rule-soft: #dcdcd3;
+	--accent: #0f8a00;
+	--accent-bright: #15b500;
+	--accent-ink: #0c7a00;
+	--accent-soft: #e7f7df;
+	--code-bg: #f0f1ea;
+	--error: #c02626;
+	--go-fg: #ffffff;
 
-    --mono: ui-monospace, "SF Mono", "JetBrains Mono",
-        "Cascadia Code", Menlo, Consolas, monospace;
-    --sans: ui-sans-serif, system-ui, -apple-system,
-        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	--mono:
+		ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo,
+		Consolas, monospace;
+	--sans:
+		ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif;
 }
 
 :root[data-theme="dark"] {
-    --bg: #0c0d0a;
-    --panel: #121410;
-    --fg: #e8ebe2;
-    --muted: #9aa090;
-    --faint: #666c5e;
-    --rule: #e8ebe2;
-    --rule-soft: #262a20;
-    --accent: #3ad11a;
-    --accent-bright: #3ad11a;
-    --accent-ink: #52dd33;
-    --accent-soft: #14260d;
-    --code-bg: #181b14;
-    --error: #ff6b6b;
-    --go-fg: #08210a;
+	--bg: #0c0d0a;
+	--panel: #121410;
+	--fg: #e8ebe2;
+	--muted: #9aa090;
+	--faint: #666c5e;
+	--rule: #e8ebe2;
+	--rule-soft: #262a20;
+	--accent: #3ad11a;
+	--accent-bright: #3ad11a;
+	--accent-ink: #52dd33;
+	--accent-soft: #14260d;
+	--code-bg: #181b14;
+	--error: #ff6b6b;
+	--go-fg: #08210a;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-        --bg: #0c0d0a;
-        --panel: #121410;
-        --fg: #e8ebe2;
-        --muted: #9aa090;
-        --faint: #666c5e;
-        --rule: #e8ebe2;
-        --rule-soft: #262a20;
-        --accent: #3ad11a;
-        --accent-bright: #3ad11a;
-        --accent-ink: #52dd33;
-        --accent-soft: #14260d;
-        --code-bg: #181b14;
-        --error: #ff6b6b;
-        --go-fg: #08210a;
-    }
+	:root:not([data-theme="light"]) {
+		--bg: #0c0d0a;
+		--panel: #121410;
+		--fg: #e8ebe2;
+		--muted: #9aa090;
+		--faint: #666c5e;
+		--rule: #e8ebe2;
+		--rule-soft: #262a20;
+		--accent: #3ad11a;
+		--accent-bright: #3ad11a;
+		--accent-ink: #52dd33;
+		--accent-soft: #14260d;
+		--code-bg: #181b14;
+		--error: #ff6b6b;
+		--go-fg: #08210a;
+	}
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 html {
-    -webkit-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
 }
 body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--mono);
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    padding: clamp(0.75rem, 2.5vw, 2.75rem);
+	background: var(--bg);
+	color: var(--fg);
+	font-family: var(--mono);
+	font-size: 16px;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	padding: clamp(0.75rem, 2.5vw, 2.75rem);
 }
 .sans {
-    font-family: var(--sans);
+	font-family: var(--sans);
 }
 a {
-    color: inherit;
+	color: inherit;
 }
 
-/* ── Frame ── */
 .frame {
-    max-width: 1300px;
-    margin: 0 auto;
-    background: var(--panel);
-    border: 1px solid var(--rule);
+	max-width: 1300px;
+	margin: 0 auto;
+	background: var(--panel);
+	border: 1px solid var(--rule);
 }
 
-/* ── Header ── */
 .head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
-    border-bottom: 1px solid var(--rule);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
+	border-bottom: 1px solid var(--rule);
 }
 .brand {
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: -0.01em;
-    display: inline-flex;
-    align-items: baseline;
-    text-decoration: none;
-    color: var(--fg);
+	font-weight: 700;
+	font-size: 1.1rem;
+	letter-spacing: -0.01em;
+	display: inline-flex;
+	align-items: baseline;
+	text-decoration: none;
+	color: var(--fg);
+}
+.brand .brand-path {
+	color: var(--muted);
+	font-weight: 400;
 }
 .brand .caret {
-    display: inline-block;
-    width: 0.6em;
-    height: 1em;
-    margin-left: 0.15em;
-    background: var(--accent-bright);
-    transform: translateY(0.12em);
-    animation: blink 1.1s steps(1) infinite;
+	display: inline-block;
+	width: 0.6em;
+	height: 1em;
+	margin-left: 0.15em;
+	background: var(--accent-bright);
+	transform: translateY(0.12em);
+	animation: blink 1.1s steps(1) infinite;
 }
 @keyframes blink {
-    50% {
-        opacity: 0;
-    }
+	50% {
+		opacity: 0;
+	}
 }
 .head-right {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    font-size: 0.85rem;
+	display: flex;
+	align-items: center;
+	gap: 1.1rem;
+	font-size: 0.85rem;
 }
 .head-right a {
-    color: var(--muted);
-    text-decoration: none;
+	color: var(--muted);
+	text-decoration: none;
 }
 .head-right a:hover {
-    color: var(--fg);
+	color: var(--fg);
 }
 .flyout-wrap {
-    position: relative;
+	position: relative;
 }
 .ghost-btn {
-    border: 1px solid var(--rule);
-    background: transparent;
-    color: var(--fg);
-    font: inherit;
-    font-size: 0.82rem;
-    padding: 0.22rem 0.6rem;
-    cursor: pointer;
+	border: 1px solid var(--rule);
+	background: transparent;
+	color: var(--fg);
+	font: inherit;
+	font-size: 0.82rem;
+	padding: 0.22rem 0.6rem;
+	cursor: pointer;
 }
 .ghost-btn:hover {
-    background: var(--fg);
-    color: var(--panel);
+	background: var(--fg);
+	color: var(--panel);
 }
 .flyout {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 0.45rem);
-    width: 214px;
-    background: var(--panel);
-    border: 1px solid var(--rule);
-    padding: 0.4rem;
-    z-index: 30;
-    display: none;
+	position: absolute;
+	right: 0;
+	top: calc(100% + 0.45rem);
+	width: 214px;
+	background: var(--panel);
+	border: 1px solid var(--rule);
+	padding: 0.4rem;
+	z-index: 30;
+	display: none;
 }
 .flyout.open {
-    display: block;
+	display: block;
 }
 .flyout h4 {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--faint);
-    padding: 0.3rem 0.4rem 0.45rem;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--faint);
+	padding: 0.3rem 0.4rem 0.45rem;
 }
 .flyout .sc {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.3rem 0.4rem;
-    font-size: 0.86rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.3rem 0.4rem;
+	font-size: 0.86rem;
 }
 .flyout .sc:hover {
-    background: var(--code-bg);
+	background: var(--code-bg);
 }
 kbd {
-    font-family: var(--mono);
-    display: inline-block;
-    min-width: 1.4em;
-    text-align: center;
-    border: 1px solid currentColor;
-    padding: 0 0.28rem;
-    font-size: 0.74rem;
-    line-height: 1.35;
-    opacity: 0.85;
+	font-family: var(--mono);
+	display: inline-block;
+	min-width: 1.4em;
+	text-align: center;
+	border: 1px solid currentColor;
+	padding: 0 0.28rem;
+	font-size: 0.74rem;
+	line-height: 1.35;
+	opacity: 0.85;
 }
 .theme {
-    display: inline-flex;
-    gap: 0.6rem;
+	display: inline-flex;
+	gap: 0.6rem;
 }
 .theme button {
-    border: 0;
-    background: transparent;
-    color: var(--faint);
-    font: inherit;
-    font-size: 0.82rem;
-    cursor: pointer;
-    padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--faint);
+	font: inherit;
+	font-size: 0.82rem;
+	cursor: pointer;
+	padding: 0;
 }
 .theme button:hover {
-    color: var(--fg);
+	color: var(--fg);
 }
 .theme button.active {
-    color: var(--accent-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+	color: var(--accent-ink);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 
-/* ── Footer ── */
 .foot {
-    border-top: 1px solid var(--rule);
-    padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem 0.85rem;
-    font-size: 0.82rem;
-    color: var(--muted);
+	border-top: 1px solid var(--rule);
+	padding: 1rem clamp(1.15rem, 2.5vw, 1.75rem);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem 0.85rem;
+	font-size: 0.82rem;
+	color: var(--muted);
 }
 .foot a {
-    color: var(--muted);
-    text-decoration: none;
+	color: var(--muted);
+	text-decoration: none;
 }
 .foot a:hover {
-    color: var(--fg);
+	color: var(--fg);
 }
 .foot .sep {
-    color: var(--faint);
+	color: var(--faint);
 }

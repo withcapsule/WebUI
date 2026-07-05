@@ -21,18 +21,23 @@
     font-size: 0.85rem;
     color: var(--muted);
     text-decoration: none;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
 }
+
 .faq-back::before {
-    content: "← ";
+    /*content: "← ";*/
+    /*<kbd><</kbd>*/
+    /*content: "<kbd><</kbd>";*/
     color: var(--accent-ink);
 }
+
 .faq-back:hover {
     color: var(--fg);
 }
+
 .faq-back:last-of-type {
     margin-top: 2.5rem;
-    margin-bottom: 0;
+    margin-bottom: 1.25rem;
 }
 
 
