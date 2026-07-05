@@ -467,6 +467,12 @@ document.addEventListener("keydown", function (e) {
 		return;
 	const key = e.key.toLowerCase();
 
+	if (key === "/") {
+		e.preventDefault();
+		$( "sc-btn" ).click();
+		return;
+	}
+
 	if (key === "enter") {
 		if (!isUpload()) return;
 		const fileInput = $("file-input");
