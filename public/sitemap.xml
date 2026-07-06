@@ -16,12 +16,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://withcapsule.dev/security</loc>
+    <loc>https://withcapsule.dev/encryption</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://withcapsule.dev/roadmap</loc>
+    <loc>https://withcapsule.dev/todo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
