@@ -152,145 +152,136 @@
 				</p>
 
 				<div class="faq-section">
-					<p class="faq-section-title">2025</p>
-
+					<p class="faq-section-title">July 2026</p>
 					<div class="faq-q">
-						<h3>Android app</h3>
+						<h3>Keyboard shortcuts and a redesigned web UI</h3>
 						<p>
-							Full-featured Android client with upload, download,
-							and client-side encryption. Available via
-							<a
-								class="site-link"
-								href="https://github.com/withcapsule/Android/releases"
-								target="_blank"
-								rel="noopener"
-								>GitHub releases ↗</a
-							>. Feature parity with the web UI including the full
-							encryption workflow.
-						</p>
-					</div>
-
-					<div class="faq-q">
-						<h3>Open source server (AGPL-3.0)</h3>
-						<p>
-							The Capsule server source code was published on
-							<a
-								class="site-link"
-								href="https://github.com/withcapsule/Server"
-								target="_blank"
-								rel="noopener"
-								>GitHub ↗</a
-							>
-							under the AGPL-3.0 license. Every line that handles
-							your uploads is auditable.
-						</p>
-					</div>
-
-					<div class="faq-q">
-						<h3>Self-hosting support</h3>
-						<p>
-							Single-binary deployment with SQLite and no external
-							dependencies. Point the CLI at any Capsule server
-							instance. See the
-							<a
-								class="site-link"
-								href="https://docs.withcapsule.dev/self-hosting/setup/"
-								target="_blank"
-								rel="noopener"
-								>self-hosting guide ↗</a
-							>.
-						</p>
-					</div>
-
-					<div class="faq-q">
-						<h3>CLI tool for Mac, Linux, and Windows</h3>
-						<p>
-							Distributable via Homebrew, Cargo, COPR (Fedora),
-							and a shell installer. Supports encrypted transfers,
-							local transfer history, and pointing at a
-							self-hosted server. All server operations available
-							from the terminal.
-						</p>
-					</div>
-
-					<div class="faq-q">
-						<h3>Cross-client encryption interoperability</h3>
-						<p>
-							Files encrypted on the web can be decrypted in the
-							CLI, and vice versa. The web UI, CLI, and Android
-							app all produce compatible age v1 ciphertext. No
-							proprietary format, no vendor lock-in.
+							The web UI was rebuilt around the keyboard. Toggle between
+							Send and Receive, switch encryption on or off, copy a file
+							ID, and start a download without touching the mouse. A
+							refreshed monospace layout and an on-page shortcuts
+							reference came along with it.
 						</p>
 					</div>
 				</div>
 
 				<div class="faq-section">
-					<p class="faq-section-title">2024</p>
-
+					<p class="faq-section-title">June 2026</p>
+					<div class="faq-q">
+						<h3>Open source server (AGPL-3.0)</h3>
+						<p>
+							The Capsule server source code was published on
+							<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>
+							under the AGPL-3.0 license. Every line that handles your
+							uploads is auditable.
+						</p>
+					</div>
+					<div class="faq-q">
+						<h3>Cross-client encryption interoperability</h3>
+						<p>
+							Files encrypted on the web can be decrypted in the CLI, and
+							vice versa. The web UI, CLI, and Android app all produce
+							compatible age v1 ciphertext. No proprietary format, no
+							vendor lock-in.
+						</p>
+					</div>
 					<div class="faq-q">
 						<h3>Client-side encryption</h3>
 						<p>
-							The web UI gained an Encrypt checkbox. Files are
-							encrypted entirely in the browser using the age v1
-							format before upload. The server receives only
-							ciphertext. A 12-word BIP39 mnemonic passphrase is
-							generated locally and never transmitted. The CLI
-							gained an
-							<code>upload-encrypted</code> subcommand with the
-							same standard.
+							First shipped in the CLI, then brought to the web UI as an
+							Encrypt checkbox. Files are encrypted entirely on your
+							device using the age v1 format before upload, so the server
+							only ever receives ciphertext. A 12-word BIP39 mnemonic
+							passphrase is generated locally and never transmitted. On
+							the CLI it is the <code>upload-encrypted</code> subcommand.
 						</p>
 					</div>
-
 					<div class="faq-q">
 						<h3>Human-readable three-word file IDs</h3>
 						<p>
-							File IDs changed from random hashes to three
+							File IDs changed from random alphanumeric strings to three
 							lowercase words joined by hyphens, like
-							<code>made-by-sean</code>. Easier to read aloud,
-							type, and remember. The Receive tab gained
-							spacebar-to-hyphen so you can type IDs without
-							reaching for the hyphen key.
+							<code>made-by-sean</code>. Easier to read aloud, type, and
+							remember. The Receive tab gained spacebar-to-hyphen so you
+							can type IDs without reaching for the hyphen key.
 						</p>
 					</div>
-
+					<div class="faq-q">
+						<h3>Bandwidth limiting</h3>
+						<p>
+							A 2 GB per hour per-uploader cap was added to keep the
+							service free and fair for everyone. Enforced at the server,
+							not the edge.
+						</p>
+					</div>
+					<div class="faq-q">
+						<h3>Drag-and-drop and paste to upload</h3>
+						<p>
+							The web uploader gained drag-and-drop and clipboard paste.
+							Drop a file anywhere on the page, or paste one straight from
+							your clipboard, to start an upload.
+						</p>
+					</div>
+					<div class="faq-q">
+						<h3>Self-hosting support</h3>
+						<p>
+							Single-binary deployment with SQLite and no external
+							dependencies. Point the CLI at any Capsule server instance.
+							See the
+							<a class="site-link" href="https://docs.withcapsule.dev/self-hosting/setup/" target="_blank" rel="noopener">self-hosting guide ↗</a>.
+						</p>
+					</div>
+					<div class="faq-q">
+						<h3>CLI tool for Mac, Linux, and Windows</h3>
+						<p>
+							Distributable via Homebrew, Cargo, COPR (Fedora), Scoop
+							(Windows), and a shell installer. Supports encrypted
+							transfers, local transfer history, and pointing at a
+							self-hosted server. All server operations available from the
+							terminal.
+						</p>
+					</div>
 					<div class="faq-q">
 						<h3>QR code on upload</h3>
 						<p>
-							Every successful upload now generates a QR code
-							alongside the file ID. Scan it directly from the
-							screen to open the download link on a phone.
+							Every successful upload now generates a QR code alongside
+							the file ID. Scan it directly from the screen to open the
+							download link on a phone.
 						</p>
 					</div>
-
 					<div class="faq-q">
-						<h3>Web upload &amp; download</h3>
+						<h3>Android app</h3>
 						<p>
-							Initial launch. Upload any file from the browser,
-							get a short link and QR code back instantly. No
-							login, no account. Files auto-delete after 60
-							minutes.
+							A full-featured Android client with upload, download, and
+							client-side encryption, available via
+							<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>.
+							Feature parity with the web UI, including the full
+							encryption workflow.
 						</p>
 					</div>
+				</div>
 
+				<div class="faq-section">
+					<p class="faq-section-title">May 2026</p>
+					<div class="faq-q">
+						<h3>Web upload and download</h3>
+						<p>
+							The very first version of Capsule. Upload any file from the
+							browser and get a short download link back instantly. No
+							login, no account. Files auto-delete after 60 minutes.
+						</p>
+					</div>
 					<div class="faq-q">
 						<h3>curl upload</h3>
 						<p>
-							The API was designed curl-first from the start. One
-							command, one link.
+							The API was designed curl-first from the start. One command,
+							one link.
 						</p>
 						<pre>
 curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
 					</div>
-
-					<div class="faq-q">
-						<h3>Bandwidth limiting</h3>
-						<p>
-							2 GB per hour per uploader to keep the service free
-							and fair for everyone. Enforced at the server, not
-							the edge.
-						</p>
-					</div>
 				</div>
+
 			</main>
 			<footer class="foot">
 				<a href="/why">Why Capsule?</a><span class="sep">·</span>
