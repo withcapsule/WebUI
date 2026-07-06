@@ -187,39 +187,36 @@
 					Transfer files from Linux to any device
 				</h1>
 				<p class="faq-intro">
-					AirDrop is Apple-only. Quick Share barely reaches Linux. USB
-					cables require physical proximity. Here is what actually
-					works: one curl command, one link, opens anywhere.
+					AirDrop is Apple-only, and Google's Quick Share has no
+					Linux client at all. USB cables require physical proximity.
+					Here is what actually works: one curl command, one link,
+					opens anywhere.
 				</p>
 
 				<div class="faq-section">
 					<p class="faq-section-title">The problem</p>
 
 					<div class="faq-q">
-						<h3>Linux doesn't have AirDrop</h3>
+						<h3>Linux has no AirDrop or Quick Share</h3>
 						<p>
-							AirDrop is macOS and iOS only. Google's Quick Share
-							recently shipped a Linux client via snap, but it
-							still requires both devices to be on the same
-							network and in proximity, and in practice it's
-							unreliable outside of Android-to-Android transfers.
-							USB cables work but require you to have the cable,
-							be physically next to the other device, and know
-							which mount point to look in. Email and cloud
-							storage work but require accounts, and you're
-							uploading a file just to download it again a minute
-							later.
+							AirDrop is macOS and iOS only, and Google's Quick Share
+							has no official Linux client, despite what many guides
+							claim. USB cables work but require you to have the cable,
+							be physically next to the other device, and know which
+							mount point to look in. Email and cloud storage work but
+							require accounts, and you're uploading a file just to
+							download it again a minute later.
 						</p>
 					</div>
 
 					<div class="faq-q">
-						<h3>curl works on every Linux system already</h3>
+						<h3>curl is available on every Linux system</h3>
 						<p>
-							curl is installed by default on virtually every
-							Linux distribution. No new packages, no app stores,
-							no proximity requirement. The recipient doesn't need
-							Linux. They just need a browser, which everyone
-							has.
+							curl ships in the default install on most distributions,
+							and where it doesn't, it's a one-line install from your
+							package manager. No app stores, no proximity requirement.
+							The recipient doesn't need Linux either. They just need a
+							browser, which everyone has.
 						</p>
 					</div>
 				</div>
@@ -286,9 +283,9 @@ curl -fsSL https://withcapsule.dev/install-linux.sh | sh</pre>
 					<div class="faq-q">
 						<h3>iPhone or iPad</h3>
 						<p>
-							Open the download link in Safari. The file downloads
-							directly to Files. No app install, no Apple ID
-							required on the sender's side.
+							Scan the QR code with the Camera app, or open the download
+							link in Safari. The file downloads directly to Files. No app
+							install, no Apple ID required on the sender's side.
 						</p>
 					</div>
 
@@ -305,9 +302,9 @@ curl -OJ https://send.withcapsule.dev/download/[file-id]</pre>
 					<div class="faq-q">
 						<h3>Android</h3>
 						<p>
-							Open the link in Chrome or any Android browser. The
-							file downloads to your Downloads folder. No app
-							required on the receiving end.
+							Scan the QR code, or open the link in any browser. The file
+							downloads to your Downloads folder. No app required on the
+							receiving end.
 						</p>
 					</div>
 
