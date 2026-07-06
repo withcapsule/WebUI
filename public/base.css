@@ -186,6 +186,12 @@ a {
 	color: var(--faint);
 	padding: 0.18rem 0.4rem;
 }
+.tree-menu code {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	font-size: inherit;
+}
 .tree-menu a {
 	display: block;
 	text-decoration: none;
