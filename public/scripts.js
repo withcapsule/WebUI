@@ -29,12 +29,12 @@ let lastSearchAt = 0;
 
 const $ = (id) => document.getElementById(id);
 
-function showTab(name) {
+function showTab(name, doTrack) {
 	$("section-upload").classList.toggle("visible", name === "upload");
 	$("section-download").classList.toggle("visible", name === "download");
 	$("tab-upload").classList.toggle("active", name === "upload");
 	$("tab-download").classList.toggle("active", name === "download");
-	track("Tab Switch", { tab: name });
+	if (doTrack) track("Tab Switch", { tab: name });
 }
 const isUpload = () => $("tab-upload").classList.contains("active");
 const isDownload = () => $("tab-download").classList.contains("active");
@@ -397,6 +397,10 @@ $("file-input").addEventListener("change", function () {
 	}
 });
 
+$("encrypt-toggle").addEventListener("change", function () {
+	track("Encryption Toggled", { enabled: this.checked });
+});
+
 (function () {
 	let dragCounter = 0;
 	document.addEventListener("dragenter", function (e) {
@@ -503,7 +507,7 @@ document.addEventListener("keydown", function (e) {
 	if (!target) return;
 	const tabId = target === "upload" ? "tab-upload" : "tab-download";
 	if ($(tabId).classList.contains("active")) return;
-	showTab(target);
+	showTab(target, true);
 });
 
 (function () {
@@ -513,6 +517,7 @@ document.addEventListener("keydown", function (e) {
 		e.stopPropagation();
 		const open = scFly.classList.toggle("open");
 		scBtn.setAttribute("aria-expanded", open);
+		if (open) track("Shortcuts Opened");
 	});
 	document.addEventListener("click", (e) => {
 		if (!scFly.contains(e.target) && e.target !== scBtn) {
@@ -528,11 +533,12 @@ document.addEventListener("keydown", function (e) {
 	});
 })();
 
-function showInstallTab(platform) {
+function showInstallTab(platform, doTrack) {
 	["mac", "linux", "windows"].forEach((p) => {
 		$("install-" + p).classList.toggle("visible", p === platform);
 		$("itab-" + p).classList.toggle("active", p === platform);
 	});
+	if (doTrack) track("Install Tab Viewed", { platform });
 }
 function copyInstall(platform) {
 	const text = $("install-cmd-" + platform).textContent;

@@ -228,7 +228,7 @@
 							id="tab-upload"
 							class="tab"
 							role="tab"
-							onclick="showTab('upload')"
+							onclick="showTab('upload', true)"
 						>
 							send <kbd aria-hidden="true">S</kbd>
 						</button>
@@ -236,7 +236,7 @@
 							id="tab-download"
 							class="tab"
 							role="tab"
-							onclick="showTab('download')"
+							onclick="showTab('download', true)"
 						>
 							receive <kbd aria-hidden="true">R</kbd>
 						</button>
@@ -409,19 +409,19 @@
 							<div class="os-tabs">
 								<button
 									id="itab-mac"
-									onclick="showInstallTab('mac')"
+									onclick="showInstallTab('mac', true)"
 								>
 									mac
 								</button>
 								<button
 									id="itab-linux"
-									onclick="showInstallTab('linux')"
+									onclick="showInstallTab('linux', true)"
 								>
 									linux
 								</button>
 								<button
 									id="itab-windows"
-									onclick="showInstallTab('windows')"
+									onclick="showInstallTab('windows', true)"
 								>
 									windows
 								</button>

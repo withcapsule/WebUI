@@ -6,6 +6,7 @@
 	function open() {
 		menu.hidden = false;
 		toggle.setAttribute("aria-expanded", "true");
+		if (typeof track === "function") track("Nav Menu Opened");
 	}
 	function close() {
 		menu.hidden = true;

@@ -11,13 +11,15 @@
 		}
 	}
 
-	window.setTheme = function (val) {
+	window.setTheme = function (val, doTrack) {
 		if (val === "system") root.removeAttribute("data-theme");
 		else root.setAttribute("data-theme", val);
 		try {
 			localStorage.setItem("theme", val);
 		} catch (e) {}
 		paint(val);
+		if (doTrack && typeof track === "function")
+			track("Theme Change", { theme: val });
 	};
 
 	setTheme(localStorage.getItem("theme") || "system");
