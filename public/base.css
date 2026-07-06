@@ -341,3 +341,42 @@ kbd {
 .foot .sep {
 	color: var(--faint);
 }
+
+@media (max-width: 600px) {
+	.head {
+		flex-wrap: wrap;
+		row-gap: 0.55rem;
+	}
+	.head-right {
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		margin-left: auto;
+		gap: 0.45rem 0.9rem;
+		font-size: 0.8rem;
+	}
+	.brand {
+		font-size: 1rem;
+	}
+	.brand .brand-path {
+		display: none;
+	}
+	.flyout-wrap {
+		display: none;
+	}
+}
+
+@media (max-width: 450px) {
+	.theme {
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.15rem;
+	}
+}
+
+@media (max-width: 350px) {
+	.head-right {
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.25rem;
+	}
+}
