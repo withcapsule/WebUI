@@ -140,22 +140,39 @@ a {
 
 .tree-toggle {
 	align-self: center;
+	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	border: 0;
 	background: transparent;
 	color: var(--muted);
 	font: inherit;
-	font-size: 1.5rem;
 	line-height: 0;
 	cursor: pointer;
-	padding: 0.15rem;
+	padding: 0;
 	transition:
 		transform 0.15s ease,
 		color 0.15s ease;
 }
+.tree-toggle kbd {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	min-width: 0;
+	padding: 0;
+	font-size: 0.8rem;
+	line-height: 1;
+}
 
 .tree-toggle:hover {
 	color: var(--fg);
+}
+.tree-toggle:focus-visible {
+	outline: 1.5px solid var(--accent-ink);
+	outline-offset: 2px;
+	border-radius: 3px;
 }
 
 .tree-toggle[aria-expanded="true"] {
