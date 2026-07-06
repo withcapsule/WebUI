@@ -4,48 +4,70 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Security | Capsule</title>
-		<meta name="description" content="How Capsule's security model works: client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server." />
+		<meta
+			name="description"
+			content="How Capsule's security model works: client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server."
+		/>
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
-		<meta name="keywords" content="capsule security, age encryption file transfer, client side encryption file sharing, zero knowledge file transfer, BIP39 mnemonic file encryption, ChaCha20 Poly1305 file transfer, open source file transfer security, end to end encrypted file sharing" />
+		<meta
+			name="keywords"
+			content="capsule security, age encryption file transfer, client side encryption file sharing, zero knowledge file transfer, BIP39 mnemonic file encryption, ChaCha20 Poly1305 file transfer, open source file transfer security, end to end encrypted file sharing"
+		/>
 		<link rel="canonical" href="https://withcapsule.dev/security" />
 
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="Capsule" />
 		<meta property="og:title" content="Security | Capsule" />
-		<meta property="og:description" content="Client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server." />
+		<meta
+			property="og:description"
+			content="Client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server."
+		/>
 		<meta property="og:url" content="https://withcapsule.dev/security" />
 		<meta property="og:locale" content="en_US" />
-		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			property="og:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Security | Capsule" />
-		<meta name="twitter:description" content="Client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server." />
-		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			name="twitter:description"
+			content="Client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source AGPL-3.0 server."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "Article",
-			"headline": "Security",
-			"description": "How Capsule's security model works: client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source server.",
-			"url": "https://withcapsule.dev/security",
-			"author": {
-				"@type": "Person",
-				"name": "Sean Singh",
-				"url": "https://www.byseansingh.com"
-			},
-			"publisher": {
-				"@type": "Organization",
-				"name": "Capsule",
-				"url": "https://withcapsule.dev"
+			{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"headline": "Security",
+				"description": "How Capsule's security model works: client-side age encryption, BIP39 mnemonic key, ChaCha20-Poly1305, Cloudflare TLS, 60-minute auto-delete, and an open-source server.",
+				"url": "https://withcapsule.dev/security",
+				"author": {
+					"@type": "Person",
+					"name": "Sean Singh",
+					"url": "https://www.byseansingh.com"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Capsule",
+					"url": "https://withcapsule.dev"
+				}
 			}
-		}
 		</script>
 
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
 		<link rel="manifest" href="/site.webmanifest" />
 
 		<link rel="stylesheet" href="base.css" />
@@ -67,151 +89,256 @@
 	<body>
 		<div class="frame">
 			<header class="head">
-				<a class="brand" href="/">Capsule<span class="brand-path">&nbsp;/&nbsp;security.html</span><span class="caret" aria-hidden="true"></span></a>
+				<div class="brand-wrap">
+					<button
+						class="tree-toggle"
+						type="button"
+						aria-label="Switch page"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						<kbd>></kbd>
+					</button>
+					<a class="brand" href="/"
+						>Capsule<span class="brand-path"
+							>&nbsp;/&nbsp;security.html</span
+						><span class="caret" aria-hidden="true"></span
+					></a>
+					<nav class="tree-menu" aria-label="Pages" hidden>
+						<div class="tree-root"><code>$ tree</code></div>
+						<div class="tree-root"><code>capsule/</code></div>
+						<a href="/404.html"
+							><span class="tw">├── </span>404.html</a
+						>
+						<a href="/android-to-mac"
+							><span class="tw">├── </span>android-to-mac.html</a
+						>
+						<a href="/changelog"
+							><span class="tw">├── </span>changelog.html</a
+						>
+						<a href="/faq"><span class="tw">├── </span>faq.html</a>
+						<a href="/"><span class="tw">├── </span>index.html</a>
+						<a href="/linux-file-transfer"
+							><span class="tw">├── </span
+							>linux-file-transfer.html</a
+						>
+						<a href="/roadmap"
+							><span class="tw">├── </span>roadmap.html</a
+						>
+						<a href="/security" class="current" aria-current="page"
+							><span class="tw">├── </span>security.html</a
+						>
+						<a href="/why"><span class="tw">└── </span>why.html</a>
+					</nav>
+				</div>
 				<div class="head-right">
 					<a href="/faq">FAQ</a>
-					<a href="https://github.com/withcapsule" target="_blank" rel="noopener">GitHub</a>
+					<a
+						href="https://github.com/withcapsule"
+						target="_blank"
+						rel="noopener"
+						>GitHub</a
+					>
 					<div class="theme" role="group" aria-label="Color theme">
-						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
-						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
-						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+						<button
+							class="theme-btn"
+							data-theme-val="light"
+							onclick="setTheme('light')"
+						>
+							light
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="dark"
+							onclick="setTheme('dark')"
+						>
+							dark
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="system"
+							onclick="setTheme('system')"
+						>
+							system
+						</button>
 					</div>
 				</div>
 			</header>
 			<main class="faq-wrap">
-			<a class="faq-back" href="/"><kbd><</kbd>&nbsp;back to Capsule</a>
-			<h1 class="faq-title">Security</h1>
-			<p class="faq-intro">
-				Capsule's security model is designed so that the server never needs to
-				be trusted. Encryption happens on your device before upload. The server
-				receives only ciphertext. Your key and your plaintext never reach it.
-			</p>
+				<a class="faq-back" href="/"
+					><kbd><</kbd>&nbsp;back to Capsule</a
+				>
+				<h1 class="faq-title">Security</h1>
+				<p class="faq-intro">
+					Capsule's security model is designed so that the server
+					never needs to be trusted. Encryption happens on your device
+					before upload. The server receives only ciphertext. Your key
+					and your plaintext never reach it.
+				</p>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Client-side encryption</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Client-side encryption</p>
 
-				<div class="faq-q">
-					<h3>Zero-knowledge encryption model</h3>
-					<p>
-						Encryption runs entirely on your device before anything leaves it.
-						Whether you use the <strong>Encrypt</strong> checkbox in the web UI,
-						the CLI's <code>upload-encrypted</code> subcommand, or the Android
-						app, the process completes locally. The server receives only the
-						resulting ciphertext plus an <code>encrypted=true</code> query
-						parameter. Your key and your plaintext never touch the server.
-					</p>
+					<div class="faq-q">
+						<h3>Zero-knowledge encryption model</h3>
+						<p>
+							Encryption runs entirely on your device before
+							anything leaves it. Whether you use the
+							<strong>Encrypt</strong> checkbox in the web UI, the
+							CLI's <code>upload-encrypted</code> subcommand, or
+							the Android app, the process completes locally. The
+							server receives only the resulting ciphertext plus
+							an <code>encrypted=true</code> query parameter. Your
+							key and your plaintext never touch the server.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>The encryption standard</h3>
+						<p>
+							Capsule uses the <strong>age v1</strong> binary
+							format with a scrypt passphrase recipient. The
+							cipher is
+							<strong>ChaCha20-Poly1305</strong> (authenticated
+							encryption). The key is derived with scrypt from a
+							<strong>12-word English BIP39 mnemonic</strong>
+							generated from 128 bits of entropy. The mnemonic is
+							generated locally on your device and never
+							transmitted.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Works across all clients</h3>
+						<p>
+							A file encrypted on the web can be decrypted by the
+							CLI, and vice versa. The web UI (<code
+								>age-encryption</code
+							>
+							+ <code>@scure/bip39</code>), CLI (<code>age</code>
+							crate + <code>bip39</code> crate), and Android app
+							all produce compatible age v1 ciphertext with no
+							proprietary format. If you lose access to one
+							client, any other can still decrypt.
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>The encryption standard</h3>
-					<p>
-						Capsule uses the <strong>age v1</strong> binary format with a scrypt
-						passphrase recipient. The cipher is
-						<strong>ChaCha20-Poly1305</strong> (authenticated encryption). The
-						key is derived with scrypt from a
-						<strong>12-word English BIP39 mnemonic</strong> generated from 128
-						bits of entropy. The mnemonic is generated locally on your device
-						and never transmitted.
-					</p>
+				<div class="faq-section">
+					<p class="faq-section-title">What the server sees</p>
+
+					<div class="faq-q">
+						<h3>What the server stores</h3>
+						<p>
+							The server stores the encrypted file bytes at a
+							temporary path and a boolean flag
+							<code>IsEncrypted</code>. On download, it returns an
+							<code>X-Encrypted: true</code> response header so
+							clients know whether to prompt for a mnemonic. That
+							is all. No key material, no metadata about the
+							original file beyond its name and size.
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>Works across all clients</h3>
-					<p>
-						A file encrypted on the web can be decrypted by the CLI, and vice
-						versa. The web UI (<code>age-encryption</code> +
-						<code>@scure/bip39</code>), CLI (<code>age</code> crate +
-						<code>bip39</code> crate), and Android app all produce compatible
-						age v1 ciphertext with no proprietary format. If you lose access to
-						one client, any other can still decrypt.
+				<div class="faq-section">
+					<p class="faq-section-title">
+						Transport &amp; infrastructure
 					</p>
-				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">What the server sees</p>
+					<div class="faq-q">
+						<h3>Transport security</h3>
+						<p>
+							All connections go through Cloudflare Tunnels. TLS
+							is terminated at Cloudflare's edge. Cloudflare also
+							enforces the 100 MB file size limit at the edge
+							before traffic reaches the origin server.
+						</p>
+					</div>
 
-				<div class="faq-q">
-					<h3>What the server stores</h3>
-					<p>
-						The server stores the encrypted file bytes at a temporary path and a
-						boolean flag <code>IsEncrypted</code>. On download, it returns an
-						<code>X-Encrypted: true</code> response header so clients know
-						whether to prompt for a mnemonic. That is all. No key material, no
-						metadata about the original file beyond its name and size.
-					</p>
-				</div>
-			</div>
-
-			<div class="faq-section">
-				<p class="faq-section-title">Transport &amp; infrastructure</p>
-
-				<div class="faq-q">
-					<h3>Transport security</h3>
-					<p>
-						All connections go through Cloudflare Tunnels. TLS is terminated at
-						Cloudflare's edge. Cloudflare also enforces the 100 MB file size
-						limit at the edge before traffic reaches the origin server.
-					</p>
+					<div class="faq-q">
+						<h3>Automatic deletion</h3>
+						<p>
+							Files are stored in a temporary directory and
+							deleted by the server's cleanup routine after 60
+							minutes. There are no backups of uploaded files.
+							Once the expiry window passes, the file cannot be
+							recovered, even with the mnemonic.
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>Automatic deletion</h3>
-					<p>
-						Files are stored in a temporary directory and deleted by the
-						server's cleanup routine after 60 minutes. There are no backups of
-						uploaded files. Once the expiry window passes, the file cannot be
-						recovered, even with the mnemonic.
-					</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Transparency</p>
+
+					<div class="faq-q">
+						<h3>Open source server</h3>
+						<p>
+							The Capsule server is published under the
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule/Server"
+								target="_blank"
+								rel="noopener"
+								>AGPL-3.0 license on GitHub ↗</a
+							>. You can read every line of code that handles your
+							upload, run your own instance, or propose changes.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>No accounts, no breach surface</h3>
+						<p>
+							Capsule has no user accounts and collects no
+							personal information. There is no database of
+							credentials, no email list, and no login system.
+							There is nothing to steal.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Privacy-friendly analytics</h3>
+						<p>
+							The web interface uses
+							<a
+								class="site-link"
+								href="https://plausible.io"
+								target="_blank"
+								rel="noopener"
+								>Plausible Analytics ↗</a
+							>
+							for aggregate visit counts. No cookies, no personal
+							identifiers, no cross-site tracking.
+						</p>
+					</div>
 				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Transparency</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Contact</p>
 
-				<div class="faq-q">
-					<h3>Open source server</h3>
-					<p>
-						The Capsule server is published under the
-						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">AGPL-3.0 license on GitHub ↗</a>.
-						You can read every line of code that handles your upload, run your
-						own instance, or propose changes.
-					</p>
+					<div class="faq-q">
+						<h3>Report a vulnerability</h3>
+						<p>
+							If you find a security issue, please open an issue
+							on
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule/Server/issues"
+								target="_blank"
+								rel="noopener"
+								>GitHub ↗</a
+							>
+							or contact Sean directly via
+							<a
+								class="site-link"
+								href="https://www.byseansingh.com"
+								target="_blank"
+								rel="noopener"
+								>byseansingh.com ↗</a
+							>.
+						</p>
+					</div>
 				</div>
-
-				<div class="faq-q">
-					<h3>No accounts, no breach surface</h3>
-					<p>
-						Capsule has no user accounts and collects no personal information.
-						There is no database of credentials, no email list, and no login
-						system. There is nothing to steal.
-					</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>Privacy-friendly analytics</h3>
-					<p>
-						The web interface uses
-						<a class="site-link" href="https://plausible.io" target="_blank" rel="noopener">Plausible Analytics ↗</a>
-						for aggregate visit counts. No cookies, no personal identifiers, no
-						cross-site tracking.
-					</p>
-				</div>
-			</div>
-
-			<div class="faq-section">
-				<p class="faq-section-title">Contact</p>
-
-				<div class="faq-q">
-					<h3>Report a vulnerability</h3>
-					<p>
-						If you find a security issue, please open an issue on
-						<a class="site-link" href="https://github.com/withcapsule/Server/issues" target="_blank" rel="noopener">GitHub ↗</a>
-						or contact Sean directly via
-						<a class="site-link" href="https://www.byseansingh.com" target="_blank" rel="noopener">byseansingh.com ↗</a>.
-					</p>
-				</div>
-			</div>
 			</main>
 			<footer class="foot">
 				<a href="/why">Why Capsule?</a><span class="sep">·</span>
@@ -219,14 +346,35 @@
 				<a href="/roadmap">Roadmap</a><span class="sep">·</span>
 				<a href="/changelog">Changelog</a><span class="sep">·</span>
 				<a href="/faq">How it Works</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy ↗</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms ↗</a><span class="sep">·</span>
-				<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>
+				<a
+					href="https://docs.withcapsule.dev/privacy/"
+					target="_blank"
+					rel="noopener"
+					>Privacy ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://docs.withcapsule.dev/terms/"
+					target="_blank"
+					rel="noopener"
+					>Terms ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://github.com/withcapsule/Server"
+					target="_blank"
+					rel="noopener"
+					>GitHub ↗</a
+				>
 			</footer>
 		</div>
 
 		<script defer src="/s.js"></script>
-		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script
+			defer
+			src="/u.js"
+			data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927"
+			data-api="/cdn/u"
+		></script>
 		<script src="theme.js"></script>
+		<script defer src="treenav.js"></script>
 	</body>
 </html>

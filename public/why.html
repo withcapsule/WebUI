@@ -4,48 +4,70 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Why I Built Capsule | Capsule</title>
-		<meta name="description" content="Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
+		<meta
+			name="description"
+			content="Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads."
+		/>
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
-		<meta name="keywords" content="why i built capsule, anonymous file sharing philosophy, zero knowledge file transfer, open source file sharing, self-hosted file transfer, curl file sharing tool, encrypted file transfer open source, wetransfer alternative, dropbox alternative no account" />
+		<meta
+			name="keywords"
+			content="why i built capsule, anonymous file sharing philosophy, zero knowledge file transfer, open source file sharing, self-hosted file transfer, curl file sharing tool, encrypted file transfer open source, wetransfer alternative, dropbox alternative no account"
+		/>
 		<link rel="canonical" href="https://withcapsule.dev/why" />
 
 		<meta property="og:type" content="article" />
 		<meta property="og:site_name" content="Capsule" />
 		<meta property="og:title" content="Why I Built Capsule | Capsule" />
-		<meta property="og:description" content="Ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
+		<meta
+			property="og:description"
+			content="Ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads."
+		/>
 		<meta property="og:url" content="https://withcapsule.dev/why" />
 		<meta property="og:locale" content="en_US" />
-		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			property="og:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Why I Built Capsule | Capsule" />
-		<meta name="twitter:description" content="Ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads." />
-		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			name="twitter:description"
+			content="Ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting. No accounts, no ads."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "Article",
-			"headline": "Why I Built Capsule",
-			"description": "Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting.",
-			"url": "https://withcapsule.dev/why",
-			"author": {
-				"@type": "Person",
-				"name": "Sean Singh",
-				"url": "https://www.byseansingh.com"
-			},
-			"publisher": {
-				"@type": "Organization",
-				"name": "Capsule",
-				"url": "https://withcapsule.dev"
+			{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"headline": "Why I Built Capsule",
+				"description": "Why I built Capsule: ephemeral file sharing, zero-knowledge encryption, a curl-first developer API, and full open-source self-hosting.",
+				"url": "https://withcapsule.dev/why",
+				"author": {
+					"@type": "Person",
+					"name": "Sean Singh",
+					"url": "https://www.byseansingh.com"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Capsule",
+					"url": "https://withcapsule.dev"
+				}
 			}
-		}
 		</script>
 
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
 		<link rel="manifest" href="/site.webmanifest" />
 
 		<link rel="stylesheet" href="base.css" />
@@ -67,185 +89,348 @@
 	<body>
 		<div class="frame">
 			<header class="head">
-				<a class="brand" href="/">Capsule<span class="brand-path">&nbsp;/&nbsp;why.html</span><span class="caret" aria-hidden="true"></span></a>
+				<div class="brand-wrap">
+					<button
+						class="tree-toggle"
+						type="button"
+						aria-label="Switch page"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						<kbd>></kbd>
+					</button>
+					<a class="brand" href="/"
+						>Capsule<span class="brand-path"
+							>&nbsp;/&nbsp;why.html</span
+						><span class="caret" aria-hidden="true"></span
+					></a>
+					<nav class="tree-menu" aria-label="Pages" hidden>
+						<div class="tree-root"><code>$ tree</code></div>
+						<div class="tree-root"><code>capsule/</code></div>
+						<a href="/404.html"
+							><span class="tw">├── </span>404.html</a
+						>
+						<a href="/android-to-mac"
+							><span class="tw">├── </span>android-to-mac.html</a
+						>
+						<a href="/changelog"
+							><span class="tw">├── </span>changelog.html</a
+						>
+						<a href="/faq"><span class="tw">├── </span>faq.html</a>
+						<a href="/"><span class="tw">├── </span>index.html</a>
+						<a href="/linux-file-transfer"
+							><span class="tw">├── </span
+							>linux-file-transfer.html</a
+						>
+						<a href="/roadmap"
+							><span class="tw">├── </span>roadmap.html</a
+						>
+						<a href="/security"
+							><span class="tw">├── </span>security.html</a
+						>
+						<a href="/why" class="current" aria-current="page"
+							><span class="tw">└── </span>why.html</a
+						>
+					</nav>
+				</div>
 				<div class="head-right">
 					<a href="/faq">FAQ</a>
-					<a href="https://github.com/withcapsule" target="_blank" rel="noopener">GitHub</a>
+					<a
+						href="https://github.com/withcapsule"
+						target="_blank"
+						rel="noopener"
+						>GitHub</a
+					>
 					<div class="theme" role="group" aria-label="Color theme">
-						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
-						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
-						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+						<button
+							class="theme-btn"
+							data-theme-val="light"
+							onclick="setTheme('light')"
+						>
+							light
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="dark"
+							onclick="setTheme('dark')"
+						>
+							dark
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="system"
+							onclick="setTheme('system')"
+						>
+							system
+						</button>
 					</div>
 				</div>
 			</header>
 			<main class="faq-wrap why-wide">
-			<a class="faq-back" href="/"><kbd><</kbd>&nbsp;back to Capsule</a>
-			<h1 class="faq-title">Why I Built Capsule</h1>
+				<a class="faq-back" href="/"
+					><kbd><</kbd>&nbsp;back to Capsule</a
+				>
+				<h1 class="faq-title">Why I Built Capsule</h1>
 
-			<p class="faq-intro">
-				File sharing should be fast, private, and honest. No accounts, no ads,
-				no files sitting in someone else's cloud indefinitely.
-			</p>
+				<p class="faq-intro">
+					File sharing should be fast, private, and honest. No
+					accounts, no ads, no files sitting in someone else's cloud
+					indefinitely.
+				</p>
 
-			<div class="faq-section">
-				<p class="faq-section-title">The motivation</p>
+				<div class="faq-section">
+					<p class="faq-section-title">The motivation</p>
 
-				<div class="faq-q">
-					<h3>Moving files between devices should not be this hard</h3>
-					<p>
-						I built Capsule because I wanted a fast, simple, private way to move
-						files between platforms. That sounds like it should already exist. It
-						mostly does not. Why is it so hard to move a photo?
-					</p>
-					<br/>
-					<p>
-						Emailing yourself a file to get it from your Android phone to your Mac
-						is embarrassing. Uploading a photo to Google Drive just to download it
-						on another device a minute later is the same. There is no good reason
-						a simple file handoff should require signing into an account, syncing a
-						library, or navigating a cloud storage dashboard.
-					</p>
-					<br/>
-					<p>
-						Quick Share and AirDrop now have cross-platform support, which is
-						progress. But they are still unreliable in practice, require both
-						devices to be on the same network or nearby, and offer exactly zero
-						support for anyone running Linux. A curl command works everywhere,
-						needs nothing installed, and takes about three seconds.
-					</p>
-				</div>
-			</div>
-
-			<div class="faq-section">
-				<p class="faq-section-title">The problem</p>
-
-				<div class="faq-q">
-					<h3>Files shouldn't live forever</h3>
-					<p>
-						Persistent cloud storage is the default, but it's the wrong model for
-						quick transfers. When you send a coworker a config file or drop a
-						script to a server, that file has no business sitting in someone
-						else's cloud indefinitely. Capsule files auto-delete after 60 minutes.
-						The 60-minute limit is a deliberate privacy boundary for ephemeral
-						handoffs, not a storage cost optimization.
-					</p>
+					<div class="faq-q">
+						<h3>
+							Moving files between devices should not be this hard
+						</h3>
+						<p>
+							I built Capsule because I wanted a fast, simple,
+							private way to move files between platforms. That
+							sounds like it should already exist. It mostly does
+							not. Why is it so hard to move a photo?
+						</p>
+						<br />
+						<p>
+							Emailing yourself a file to get it from your Android
+							phone to your Mac is embarrassing. Uploading a photo
+							to Google Drive just to download it on another
+							device a minute later is the same. There is no good
+							reason a simple file handoff should require signing
+							into an account, syncing a library, or navigating a
+							cloud storage dashboard.
+						</p>
+						<br />
+						<p>
+							Quick Share and AirDrop now have cross-platform
+							support, which is progress. But they are still
+							unreliable in practice, require both devices to be
+							on the same network or nearby, and offer exactly
+							zero support for anyone running Linux. A curl
+							command works everywhere, needs nothing installed,
+							and takes about three seconds.
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>Most services require an account, store your data, and serve ads</h3>
-					<p>
-						WeTransfer shows ads next to your files and sends data to tracking
-						companies like Google and Facebook. Dropbox requires your
-						full name, email, and other personal information. Google Drive ties
-						every upload to a Google account. Capsule requires nothing: no email,
-						no name, no account. Upload, share, done.
+				<div class="faq-section">
+					<p class="faq-section-title">The problem</p>
 
-						Or, a service can just be down entirely. Then what? Capsule's entire
-						architecture is fully open source, allowing anyone to run the service themselves.
-					</p>
-					<figure class="why-screenshot">
-						<img src="/wetransfer.png" alt="uBlock Origin on wetransfer.com showing 13 of 18 domains blocked on page load" />
-						<figcaption>Visiting wetransfer.com - 13 of 18 domains blocked by uBlock Origin on a single page load</figcaption>
-					</figure>
+					<div class="faq-q">
+						<h3>Files shouldn't live forever</h3>
+						<p>
+							Persistent cloud storage is the default, but it's
+							the wrong model for quick transfers. When you send a
+							coworker a config file or drop a script to a server,
+							that file has no business sitting in someone else's
+							cloud indefinitely. Capsule files auto-delete after
+							60 minutes. The 60-minute limit is a deliberate
+							privacy boundary for ephemeral handoffs, not a
+							storage cost optimization.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>
+							Most services require an account, store your data,
+							and serve ads
+						</h3>
+						<p>
+							WeTransfer shows ads next to your files and sends
+							data to tracking companies like Google and Facebook.
+							Dropbox requires your full name, email, and other
+							personal information. Google Drive ties every upload
+							to a Google account. Capsule requires nothing: no
+							email, no name, no account. Upload, share, done. Or,
+							a service can just be down entirely. Then what?
+							Capsule's entire architecture is fully open source,
+							allowing anyone to run the service themselves.
+						</p>
+						<figure class="why-screenshot">
+							<img
+								src="/wetransfer.png"
+								alt="uBlock Origin on wetransfer.com showing 13 of 18 domains blocked on page load"
+							/>
+							<figcaption>
+								Visiting wetransfer.com - 13 of 18 domains
+								blocked by uBlock Origin on a single page load
+							</figcaption>
+						</figure>
+					</div>
 				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Encryption</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Encryption</p>
 
-				<div class="faq-q">
-					<h3>Zero-knowledge encryption, not a promise</h3>
-					<p>
-						When you choose to encrypt, the file is transformed on your device
-						before it ever touches the network. This happens in the browser, the
-						CLI, and the Android app alike. Capsule uses the age v1 format with a 12-word
-						BIP39 mnemonic passphrase. The mnemonic is generated locally, stays
-						on your device, and is never transmitted. The server receives
-						ciphertext and nothing else. If you lose the key, nothing can save that file.
-					 	This is architecture, not a policy commitment.
-					</p>
+					<div class="faq-q">
+						<h3>Zero-knowledge encryption, not a promise</h3>
+						<p>
+							When you choose to encrypt, the file is transformed
+							on your device before it ever touches the network.
+							This happens in the browser, the CLI, and the
+							Android app alike. Capsule uses the age v1 format
+							with a 12-word BIP39 mnemonic passphrase. The
+							mnemonic is generated locally, stays on your device,
+							and is never transmitted. The server receives
+							ciphertext and nothing else. If you lose the key,
+							nothing can save that file. This is architecture,
+							not a policy commitment.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Works across all clients</h3>
+						<p>
+							A file encrypted on the web can be decrypted in the
+							CLI, and vice versa. The web UI, CLI, and Android
+							app all produce compatible age ciphertext with no
+							proprietary format. If you encrypt with one client,
+							any other can decrypt. Read more about the
+							<a class="site-link" href="/security"
+								>technical security design →</a
+							>
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>Works across all clients</h3>
-					<p>
-						A file encrypted on the web can be decrypted in the CLI, and vice
-						versa. The web UI, CLI, and Android app all produce compatible age
-						ciphertext with no proprietary format. If you encrypt with one client,
-						any other can decrypt. Read more about the
-						<a class="site-link" href="/security">technical security design →</a>
-					</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Developer experience</p>
+
+					<div class="faq-q">
+						<h3>People deserve better tools</h3>
+						<p>
+							Most file-sharing services assume you have a browser
+							open. Or come with other sorts of issues. Capsule is
+							curl-native: one command, one link, done. Designed
+							to be simple with a "just works" philosophy.
+						</p>
+						<pre>
+curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</pre>
+						<br />
+						<p>
+							The CLI adds encrypted transfers, local transfer
+							history, and self-hosting. The same API the web
+							interface uses is what your scripts use. There is no
+							hidden layer or separate tier. See the
+							<a
+								class="site-link"
+								href="https://docs.withcapsule.dev/api/reference/"
+								target="_blank"
+								rel="noopener"
+								>API reference ↗</a
+							>
+							for direct integration.
+						</p>
+					</div>
 				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Developer experience</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Data sovereignty</p>
 
-				<div class="faq-q">
-					<h3>People deserve better tools</h3>
-					<p>
-						Most file-sharing services assume you have a browser open. Or come with other sorts of issues.
-						Capsule is curl-native: one command, one link, done. Designed to be simple with a "just works" philosophy.
-					</p>
-					<pre>curl -F "f=@photo.jpg" https://send.withcapsule.dev/upload</pre>
-					<br/>
-					<p>
-						The CLI adds encrypted transfers, local transfer history, and
-						self-hosting. The same API the web interface uses is what your
-						scripts use. There is no hidden layer or separate tier.
-						See the
-						<a class="site-link" href="https://docs.withcapsule.dev/api/reference/" target="_blank" rel="noopener">API reference ↗</a>
-						for direct integration.
-					</p>
+					<div class="faq-q">
+						<h3>Self-hostable, fully open source</h3>
+						<p>
+							The Capsule server is published under
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule/Server"
+								target="_blank"
+								rel="noopener"
+								>AGPL-3.0 on GitHub ↗</a
+							>. You can audit every line of code that handles
+							your upload, run your own instance, and point the
+							CLI at it. Nothing about using Capsule requires
+							trusting Capsule specifically.
+						</p>
+					</div>
 				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">Data sovereignty</p>
+				<div class="faq-section">
+					<p class="faq-section-title">vs. the alternatives</p>
 
-				<div class="faq-q">
-					<h3>Self-hostable, fully open source</h3>
-					<p>
-						The Capsule server is published under
-						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">AGPL-3.0 on GitHub ↗</a>.
-						You can audit every line of code that handles your upload, run your
-						own instance, and point the CLI at it. Nothing about using Capsule
-						requires trusting Capsule specifically.
-					</p>
+					<div class="faq-q">
+						<h3>How Capsule compares</h3>
+						<ol>
+							<li>
+								<p>
+									No account required. WeTransfer requires one
+									for large files; Google Drive and Dropbox
+									always do.
+								</p>
+							</li>
+							<li>
+								<p>No ads and no upsell tiers. Free to use.</p>
+							</li>
+							<li>
+								<p>
+									Files deleted in 60 minutes, not
+									"eventually" or "when storage is full".
+								</p>
+							</li>
+							<li>
+								<p>
+									Server is
+									<a
+										class="site-link"
+										href="https://github.com/withcapsule/Server"
+										target="_blank"
+										rel="noopener"
+										>fully open source (AGPL-3.0) ↗</a
+									>. Google's and Dropbox's servers are
+									proprietary; WeTransfer is closed source.
+								</p>
+							</li>
+							<li>
+								<p>
+									Self-hostable. None of the above support
+									running your own instance.
+								</p>
+							</li>
+							<li>
+								<p>
+									curl compatibility. Browser-only
+									alternatives offer no scriptable API without
+									a paid plan or unofficial hacks.
+								</p>
+							</li>
+						</ol>
+					</div>
 				</div>
-			</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">vs. the alternatives</p>
+				<div class="faq-section">
+					<p class="faq-section-title">Who built this</p>
 
-				<div class="faq-q">
-					<h3>How Capsule compares</h3>
-					<ol>
-						<li><p>No account required. WeTransfer requires one for large files; Google Drive and Dropbox always do.</p></li>
-						<li><p>No ads and no upsell tiers. Free to use.</p></li>
-						<li><p>Files deleted in 60 minutes, not "eventually" or "when storage is full".</p></li>
-						<li><p>Server is <a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">fully open source (AGPL-3.0) ↗</a>. Google's and Dropbox's servers are proprietary; WeTransfer is closed source.</p></li>
-						<li><p>Self-hostable. None of the above support running your own instance.</p></li>
-						<li><p>curl compatibility. Browser-only alternatives offer no scriptable API without a paid plan or unofficial hacks.</p></li>
-					</ol>
+					<div class="faq-q">
+						<h3>Sean Singh</h3>
+						<p>
+							Capsule was built by
+							<a
+								class="site-link"
+								href="https://www.byseansingh.com?utm_source=withcapsule.dev&utm_medium=why&utm_campaign=why_page"
+								target="_blank"
+								rel="noopener"
+								>Sean Singh ↗</a
+							>. Read about the motivation and design decisions on
+							the
+							<a
+								class="site-link"
+								href="https://blog.byseansingh.com"
+								target="_blank"
+								rel="noopener"
+								>blog ↗</a
+							>. Contributions are welcome. The server and CLI are
+							both on
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule"
+								target="_blank"
+								rel="noopener"
+								>GitHub ↗</a
+							>.
+						</p>
+					</div>
 				</div>
-			</div>
-
-			<div class="faq-section">
-				<p class="faq-section-title">Who built this</p>
-
-				<div class="faq-q">
-					<h3>Sean Singh</h3>
-					<p>
-						Capsule was built by
-						<a class="site-link" href="https://www.byseansingh.com?utm_source=withcapsule.dev&utm_medium=why&utm_campaign=why_page" target="_blank" rel="noopener">Sean Singh ↗</a>.
-						Read about the motivation and design decisions on the
-						<a class="site-link" href="https://blog.byseansingh.com" target="_blank" rel="noopener">blog ↗</a>.
-						Contributions are welcome. The server and CLI are both on
-						<a class="site-link" href="https://github.com/withcapsule" target="_blank" rel="noopener">GitHub ↗</a>.
-					</p>
-				</div>
-			</div>
 			</main>
 			<footer class="foot">
 				<a href="/why">Why Capsule?</a><span class="sep">·</span>
@@ -253,14 +438,35 @@
 				<a href="/roadmap">Roadmap</a><span class="sep">·</span>
 				<a href="/changelog">Changelog</a><span class="sep">·</span>
 				<a href="/faq">How it Works</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy ↗</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms ↗</a><span class="sep">·</span>
-				<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>
+				<a
+					href="https://docs.withcapsule.dev/privacy/"
+					target="_blank"
+					rel="noopener"
+					>Privacy ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://docs.withcapsule.dev/terms/"
+					target="_blank"
+					rel="noopener"
+					>Terms ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://github.com/withcapsule/Server"
+					target="_blank"
+					rel="noopener"
+					>GitHub ↗</a
+				>
 			</footer>
 		</div>
 
 		<script defer src="/s.js"></script>
-		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script
+			defer
+			src="/u.js"
+			data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927"
+			data-api="/cdn/u"
+		></script>
 		<script src="theme.js"></script>
+		<script defer src="treenav.js"></script>
 	</body>
 </html>

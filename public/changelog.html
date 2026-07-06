@@ -4,7 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Changelog | Capsule</title>
-		<meta name="description" content="A record of what's been shipped in Capsule: web upload, CLI, client-side encryption, Android app, QR codes, human-readable file IDs, and self-hosting." />
+		<meta
+			name="description"
+			content="A record of what's been shipped in Capsule: web upload, CLI, client-side encryption, Android app, QR codes, human-readable file IDs, and self-hosting."
+		/>
 		<meta name="author" content="Sean Singh" />
 		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href="https://withcapsule.dev/changelog" />
@@ -12,19 +15,35 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Capsule" />
 		<meta property="og:title" content="Changelog | Capsule" />
-		<meta property="og:description" content="A record of what's been shipped in Capsule: web upload, CLI, encryption, Android app, QR codes, self-hosting, and more." />
+		<meta
+			property="og:description"
+			content="A record of what's been shipped in Capsule: web upload, CLI, encryption, Android app, QR codes, self-hosting, and more."
+		/>
 		<meta property="og:url" content="https://withcapsule.dev/changelog" />
 		<meta property="og:locale" content="en_US" />
-		<meta property="og:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			property="og:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="Changelog | Capsule" />
-		<meta name="twitter:description" content="A record of what's been shipped in Capsule." />
-		<meta name="twitter:image" content="https://withcapsule.dev/Capsule_banner.png" />
+		<meta
+			name="twitter:description"
+			content="A record of what's been shipped in Capsule."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://withcapsule.dev/Capsule_banner.png"
+		/>
 
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
 		<link rel="manifest" href="/site.webmanifest" />
 
 		<link rel="stylesheet" href="base.css" />
@@ -46,133 +65,232 @@
 	<body>
 		<div class="frame">
 			<header class="head">
-				<a class="brand" href="/">Capsule<span class="brand-path">&nbsp;/&nbsp;changelog.html</span><span class="caret" aria-hidden="true"></span></a>
+				<div class="brand-wrap">
+					<button
+						class="tree-toggle"
+						type="button"
+						aria-label="Switch page"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						<kbd>></kbd>
+					</button>
+					<a class="brand" href="/"
+						>Capsule<span class="brand-path"
+							>&nbsp;/&nbsp;changelog.html</span
+						><span class="caret" aria-hidden="true"></span
+					></a>
+					<nav class="tree-menu" aria-label="Pages" hidden>
+						<div class="tree-root"><code>$ tree</code></div>
+						<div class="tree-root"><code>capsule/</code></div>
+						<a href="/404.html"
+							><span class="tw">├── </span>404.html</a
+						>
+						<a href="/android-to-mac"
+							><span class="tw">├── </span>android-to-mac.html</a
+						>
+						<a href="/changelog" class="current" aria-current="page"
+							><span class="tw">├── </span>changelog.html</a
+						>
+						<a href="/faq"><span class="tw">├── </span>faq.html</a>
+						<a href="/"><span class="tw">├── </span>index.html</a>
+						<a href="/linux-file-transfer"
+							><span class="tw">├── </span
+							>linux-file-transfer.html</a
+						>
+						<a href="/roadmap"
+							><span class="tw">├── </span>roadmap.html</a
+						>
+						<a href="/security"
+							><span class="tw">├── </span>security.html</a
+						>
+						<a href="/why"><span class="tw">└── </span>why.html</a>
+					</nav>
+				</div>
 				<div class="head-right">
 					<a href="/faq">FAQ</a>
-					<a href="https://github.com/withcapsule" target="_blank" rel="noopener">GitHub</a>
+					<a
+						href="https://github.com/withcapsule"
+						target="_blank"
+						rel="noopener"
+						>GitHub</a
+					>
 					<div class="theme" role="group" aria-label="Color theme">
-						<button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">light</button>
-						<button class="theme-btn" data-theme-val="dark" onclick="setTheme('dark')">dark</button>
-						<button class="theme-btn" data-theme-val="system" onclick="setTheme('system')">system</button>
+						<button
+							class="theme-btn"
+							data-theme-val="light"
+							onclick="setTheme('light')"
+						>
+							light
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="dark"
+							onclick="setTheme('dark')"
+						>
+							dark
+						</button>
+						<button
+							class="theme-btn"
+							data-theme-val="system"
+							onclick="setTheme('system')"
+						>
+							system
+						</button>
 					</div>
 				</div>
 			</header>
 			<main class="faq-wrap">
-			<a class="faq-back" href="/"><kbd><</kbd>&nbsp;back to Capsule</a>
-			<h1 class="faq-title">Changelog</h1>
-			<p class="faq-intro">
-				A record of what's been shipped. For what's coming next, see the
-				<a class="site-link" href="/roadmap">roadmap →</a>
-			</p>
+				<a class="faq-back" href="/"
+					><kbd><</kbd>&nbsp;back to Capsule</a
+				>
+				<h1 class="faq-title">Changelog</h1>
+				<p class="faq-intro">
+					A record of what's been shipped. For what's coming next, see
+					the
+					<a class="site-link" href="/roadmap">roadmap →</a>
+				</p>
 
-			<div class="faq-section">
-				<p class="faq-section-title">2025</p>
+				<div class="faq-section">
+					<p class="faq-section-title">2025</p>
 
-				<div class="faq-q">
-					<h3>Android app</h3>
-					<p>
-						Full-featured Android client with upload, download, and client-side
-						encryption. Available via
-						<a class="site-link" href="https://github.com/withcapsule/Android/releases" target="_blank" rel="noopener">GitHub releases ↗</a>.
-						Feature parity with the web UI including the full encryption workflow.
-					</p>
+					<div class="faq-q">
+						<h3>Android app</h3>
+						<p>
+							Full-featured Android client with upload, download,
+							and client-side encryption. Available via
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule/Android/releases"
+								target="_blank"
+								rel="noopener"
+								>GitHub releases ↗</a
+							>. Feature parity with the web UI including the full
+							encryption workflow.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Open source server (AGPL-3.0)</h3>
+						<p>
+							The Capsule server source code was published on
+							<a
+								class="site-link"
+								href="https://github.com/withcapsule/Server"
+								target="_blank"
+								rel="noopener"
+								>GitHub ↗</a
+							>
+							under the AGPL-3.0 license. Every line that handles
+							your uploads is auditable.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Self-hosting support</h3>
+						<p>
+							Single-binary deployment with SQLite and no external
+							dependencies. Point the CLI at any Capsule server
+							instance. See the
+							<a
+								class="site-link"
+								href="https://docs.withcapsule.dev/self-hosting/setup/"
+								target="_blank"
+								rel="noopener"
+								>self-hosting guide ↗</a
+							>.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>CLI tool — Mac, Linux, Windows</h3>
+						<p>
+							Distributable via Homebrew, Cargo, COPR (Fedora),
+							and a shell installer. Supports encrypted transfers,
+							local transfer history, and pointing at a
+							self-hosted server. All server operations available
+							from the terminal.
+						</p>
+					</div>
+
+					<div class="faq-q">
+						<h3>Cross-client encryption interoperability</h3>
+						<p>
+							Files encrypted on the web can be decrypted in the
+							CLI, and vice versa. The web UI, CLI, and Android
+							app all produce compatible age v1 ciphertext. No
+							proprietary format, no vendor lock-in.
+						</p>
+					</div>
 				</div>
 
-				<div class="faq-q">
-					<h3>Open source server (AGPL-3.0)</h3>
-					<p>
-						The Capsule server source code was published on
-						<a class="site-link" href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>
-						under the AGPL-3.0 license. Every line that handles your uploads is auditable.
-					</p>
-				</div>
+				<div class="faq-section">
+					<p class="faq-section-title">2024</p>
 
-				<div class="faq-q">
-					<h3>Self-hosting support</h3>
-					<p>
-						Single-binary deployment with SQLite and no external dependencies.
-						Point the CLI at any Capsule server instance.
-						See the <a class="site-link" href="https://docs.withcapsule.dev/self-hosting/setup/" target="_blank" rel="noopener">self-hosting guide ↗</a>.
-					</p>
-				</div>
+					<div class="faq-q">
+						<h3>Client-side encryption</h3>
+						<p>
+							The web UI gained an Encrypt checkbox. Files are
+							encrypted entirely in the browser using the age v1
+							format before upload. The server receives only
+							ciphertext. A 12-word BIP39 mnemonic passphrase is
+							generated locally and never transmitted. The CLI
+							gained an
+							<code>upload-encrypted</code> subcommand with the
+							same standard.
+						</p>
+					</div>
 
-				<div class="faq-q">
-					<h3>CLI tool — Mac, Linux, Windows</h3>
-					<p>
-						Distributable via Homebrew, Cargo, COPR (Fedora), and a shell installer.
-						Supports encrypted transfers, local transfer history, and
-						pointing at a self-hosted server. All server operations available from
-						the terminal.
-					</p>
-				</div>
+					<div class="faq-q">
+						<h3>Human-readable three-word file IDs</h3>
+						<p>
+							File IDs changed from random hashes to three
+							lowercase words joined by hyphens, like
+							<code>made-by-sean</code>. Easier to read aloud,
+							type, and remember. The Receive tab gained
+							spacebar-to-hyphen so you can type IDs without
+							reaching for the hyphen key.
+						</p>
+					</div>
 
-				<div class="faq-q">
-					<h3>Cross-client encryption interoperability</h3>
-					<p>
-						Files encrypted on the web can be decrypted in the CLI, and vice versa.
-						The web UI, CLI, and Android app all produce compatible age v1 ciphertext.
-						No proprietary format, no vendor lock-in.
-					</p>
-				</div>
-			</div>
+					<div class="faq-q">
+						<h3>QR code on upload</h3>
+						<p>
+							Every successful upload now generates a QR code
+							alongside the file ID. Scan it directly from the
+							screen to open the download link on a phone.
+						</p>
+					</div>
 
-			<div class="faq-section">
-				<p class="faq-section-title">2024</p>
+					<div class="faq-q">
+						<h3>Web upload &amp; download</h3>
+						<p>
+							Initial launch. Upload any file from the browser,
+							get a short link and QR code back instantly. No
+							login, no account. Files auto-delete after 60
+							minutes.
+						</p>
+					</div>
 
-				<div class="faq-q">
-					<h3>Client-side encryption</h3>
-					<p>
-						The web UI gained an Encrypt checkbox. Files are encrypted entirely
-						in the browser using the age v1 format before upload. The server
-						receives only ciphertext. A 12-word BIP39 mnemonic passphrase is
-						generated locally and never transmitted. The CLI gained an
-						<code>upload-encrypted</code> subcommand with the same standard.
-					</p>
-				</div>
+					<div class="faq-q">
+						<h3>curl upload</h3>
+						<p>
+							The API was designed curl-first from the start. One
+							command, one link.
+						</p>
+						<pre>
+curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
+					</div>
 
-				<div class="faq-q">
-					<h3>Human-readable three-word file IDs</h3>
-					<p>
-						File IDs changed from random hashes to three lowercase words joined by
-						hyphens, like <code>made-by-sean</code>. Easier to read aloud, type,
-						and remember. The Receive tab gained spacebar-to-hyphen so you can
-						type IDs without reaching for the hyphen key.
-					</p>
+					<div class="faq-q">
+						<h3>Bandwidth limiting</h3>
+						<p>
+							2 GB per hour per uploader to keep the service free
+							and fair for everyone. Enforced at the server, not
+							the edge.
+						</p>
+					</div>
 				</div>
-
-				<div class="faq-q">
-					<h3>QR code on upload</h3>
-					<p>
-						Every successful upload now generates a QR code alongside the file ID.
-						Scan it directly from the screen to open the download link on a phone.
-					</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>Web upload &amp; download</h3>
-					<p>
-						Initial launch. Upload any file from the browser, get a short link and
-						QR code back instantly. No login, no account. Files auto-delete after
-						60 minutes.
-					</p>
-				</div>
-
-				<div class="faq-q">
-					<h3>curl upload</h3>
-					<p>
-						The API was designed curl-first from the start. One command, one link.
-					</p>
-					<pre>curl -F "f=@file.txt" https://send.withcapsule.dev/upload</pre>
-				</div>
-
-				<div class="faq-q">
-					<h3>Bandwidth limiting</h3>
-					<p>
-						2 GB per hour per uploader to keep the service free and fair for
-						everyone. Enforced at the server, not the edge.
-					</p>
-				</div>
-			</div>
 			</main>
 			<footer class="foot">
 				<a href="/why">Why Capsule?</a><span class="sep">·</span>
@@ -180,14 +298,35 @@
 				<a href="/roadmap">Roadmap</a><span class="sep">·</span>
 				<a href="/changelog">Changelog</a><span class="sep">·</span>
 				<a href="/faq">How it Works</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/privacy/" target="_blank" rel="noopener">Privacy ↗</a><span class="sep">·</span>
-				<a href="https://docs.withcapsule.dev/terms/" target="_blank" rel="noopener">Terms ↗</a><span class="sep">·</span>
-				<a href="https://github.com/withcapsule/Server" target="_blank" rel="noopener">GitHub ↗</a>
+				<a
+					href="https://docs.withcapsule.dev/privacy/"
+					target="_blank"
+					rel="noopener"
+					>Privacy ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://docs.withcapsule.dev/terms/"
+					target="_blank"
+					rel="noopener"
+					>Terms ↗</a
+				><span class="sep">·</span>
+				<a
+					href="https://github.com/withcapsule/Server"
+					target="_blank"
+					rel="noopener"
+					>GitHub ↗</a
+				>
 			</footer>
 		</div>
 
 		<script defer src="/s.js"></script>
-		<script defer src="/u.js" data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927" data-api="/cdn/u"></script>
+		<script
+			defer
+			src="/u.js"
+			data-website-id="158c7952-5b69-41d4-8c12-9ad3f4a13927"
+			data-api="/cdn/u"
+		></script>
 		<script src="theme.js"></script>
+		<script defer src="treenav.js"></script>
 	</body>
 </html>
