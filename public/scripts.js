@@ -160,7 +160,7 @@ $("upload-form").addEventListener("submit", async function (e) {
 				((Date.now() - startTime) / 1000) /
 				(1024 * 1024)
 			).toFixed(1);
-			status.textContent = pct + "% — " + mbps + " MB/s";
+			status.textContent = pct + "% · " + mbps + " MB/s";
 		}
 	};
 
@@ -178,8 +178,8 @@ $("upload-form").addEventListener("submit", async function (e) {
 			if (currentFileId) {
 				$("file-id-text").textContent = currentFileId;
 				$("result-ok").textContent = encrypt
-					? "✓ encrypted & uploaded — share this link:"
-					: "✓ uploaded — share this link:";
+					? "✓ encrypted & uploaded. Share this link:"
+					: "✓ uploaded. Share this link:";
 				result.classList.add("on");
 				status.textContent = "";
 				track("Upload Success", {
