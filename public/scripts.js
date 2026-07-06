@@ -65,7 +65,7 @@ function copyFileId() {
 	const id = $("file-id-text").textContent;
 	if (!id) return;
 	navigator.clipboard.writeText(id).then(() => {
-		track("Copy File ID");
+		track("Copy Link");
 		const btn = $("copy-btn");
 		const orig = btn.textContent;
 		btn.textContent = "copied";
@@ -176,7 +176,8 @@ $("upload-form").addEventListener("submit", async function (e) {
 				currentFileId = after.match(/^[A-Za-z0-9-]+/)?.[0] ?? "";
 			}
 			if (currentFileId) {
-				$("file-id-text").textContent = currentFileId;
+				const downloadUrl = API + "/download/" + currentFileId;
+				$("file-id-text").textContent = downloadUrl;
 				$("result-ok").textContent = encrypt
 					? "✓ encrypted & uploaded. Share this link:"
 					: "✓ uploaded. Share this link:";
@@ -188,7 +189,6 @@ $("upload-form").addEventListener("submit", async function (e) {
 				});
 
 				const canvas = $("qr-canvas");
-				const downloadUrl = API + "/download/" + currentFileId;
 				QRCode.toCanvas(
 					canvas,
 					downloadUrl,
