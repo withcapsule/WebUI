@@ -72,6 +72,22 @@ function copyFileId() {
 		setTimeout(() => (btn.textContent = orig), 1200);
 	});
 }
+function toggleMnemonicQr() {
+	const canvas = $("mnemonic-qr-canvas");
+	const btn = $("mnemonic-qr-btn");
+	if (canvas.classList.contains("on")) {
+		canvas.classList.remove("on");
+		btn.textContent = "show QR";
+		return;
+	}
+	const text = $("mnemonic-text").textContent;
+	if (!text) return;
+	QRCode.toCanvas(canvas, text, { width: 168, margin: 1 }, function () {
+		canvas.classList.add("on");
+		btn.textContent = "hide QR";
+		track("Mnemonic QR Shown");
+	});
+}
 function copyMnemonic() {
 	const text = $("mnemonic-text").textContent;
 	if (!text) return;
@@ -107,6 +123,8 @@ $("upload-form").addEventListener("submit", async function (e) {
 	mnemonicBlock.classList.remove("on");
 	$("share-btn").classList.add("hidden");
 	$("qr-canvas").classList.remove("on");
+	$("mnemonic-qr-canvas").classList.remove("on");
+	$("mnemonic-qr-btn").textContent = "show QR";
 	fill.style.width = "0%";
 	btn.disabled = true;
 
